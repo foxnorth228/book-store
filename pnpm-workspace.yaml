@@ -1,6 +1,6 @@
 packages:
-- 'packages/*'
-- 'apps/*'
+  - 'packages/*'
+  - 'apps/*'
 allowBuilds:
   argon2: true
   cypress: true
@@ -17,6 +17,8 @@ catalog:
   "@fastify/autoload": "^6.0.3"
   fastify-plugin: "^5.0.1"
   argon2: "^0.44.0"
+  zod: "^4.4.3"
+  dotenv: ^17.4.2
 injectWorkspacePackages: true
 syncInjectedDepsAfterScripts:
-- build
+  - build

@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "infra:postgres": "bash infrastructure/postgres/run.sh",
+    "infra:up": "docker compose -f infrastructure/docker-compose/docker-compose.yml up",
+    "infra:down": "docker compose -f infrastructure/docker-compose/docker-compose.yml down"
   },
   "private": true,
   "devDependencies": {
@@ -61,6 +64,7 @@
     "@fastify/autoload": "catalog:",
     "@fastify/sensible": "catalog:",
     "argon2": "catalog:",
+    "dotenv": "catalog:",
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",
     "pino": "catalog:",
@@ -69,6 +73,7 @@
     "react-dom": "^19.0.0",
     "react-is": "^19.0.0",
     "react-router-dom": "6.30.3",
-    "styled-components": "5.3.6"
+    "styled-components": "5.3.6",
+    "zod": "catalog:"
   }
 }
