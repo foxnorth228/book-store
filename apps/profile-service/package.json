@@ -111,17 +111,39 @@
           "prune",
           "generate-pnpm-workspace"
         ]
+      },
+      "prisma-generate": {
+        "command": "prisma generate --schema=apps/profile-service/prisma/schema.prisma"
+      },
+      "prisma-migrate-dev": {
+        "command": "prisma migrate dev --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts"
+      },
+      "prisma-migrate-reset": {
+        "command": "prisma migrate reset --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts --force"
       }
     }
   },
   "scripts": {
-    "install:shared": "cd workspace_modules/@org/shared && pnpm install"
+    "install:shared": "cd workspace_modules/@org/shared && pnpm install",
+    "migrate": "prisma migrate dev --schema=./prisma/schema.prisma --config=./prisma.config.ts",
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "prisma": "catalog:",
+    "@types/pg": "catalog:"
   },
   "dependencies": {
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",
     "@fastify/autoload": "catalog:",
     "@fastify/sensible": "catalog:",
-    "@org/shared": "workspace:*"
+    "@fastify/swagger": "catalog:",
+    "@fastify/swagger-ui": "catalog:",
+    "@prisma/client": "catalog:",
+    "@prisma/adapter-pg": "catalog:",
+    "pg": "catalog:",
+    "zod": "catalog:",
+    "@org/shared": "workspace:*",
+    "@org/contracts": "workspace:*"
   }
 }

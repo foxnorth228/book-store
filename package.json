@@ -5,8 +5,8 @@
   "scripts": {
     "prepare": "husky",
     "infra:postgres": "bash infrastructure/postgres/run.sh",
-    "infra:up": "docker compose -f infrastructure/docker-compose/docker-compose.yml up",
-    "infra:down": "docker compose -f infrastructure/docker-compose/docker-compose.yml down"
+    "infra:up": "docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
+    "infra:down": "docker compose -f infrastructure/docker-compose/docker-compose.yaml down"
   },
   "private": true,
   "devDependencies": {
@@ -29,6 +29,7 @@
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.3.0",
     "@types/node": "20.19.9",
+    "@types/pg": "catalog:",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/react-is": "^19.0.0",
@@ -54,6 +55,7 @@
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "22.7.5",
     "prettier": "^3.8.1",
+    "prisma": "catalog:",
     "tslib": "catalog:",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0",
@@ -63,10 +65,15 @@
   "dependencies": {
     "@fastify/autoload": "catalog:",
     "@fastify/sensible": "catalog:",
+    "@fastify/swagger": "catalog:",
+    "@fastify/swagger-ui": "catalog:",
+    "@prisma/adapter-pg": "catalog:",
+    "@prisma/client": "catalog:",
     "argon2": "catalog:",
     "dotenv": "catalog:",
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",
+    "pg": "catalog:",
     "pino": "catalog:",
     "pino-pretty": "catalog:",
     "react": "^19.0.0",

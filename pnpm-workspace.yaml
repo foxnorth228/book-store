@@ -2,10 +2,12 @@ packages:
   - 'packages/*'
   - 'apps/*'
 allowBuilds:
+  '@prisma/engines': true
   argon2: true
   cypress: true
   esbuild: true
   nx: true
+  prisma: true
   styled-components: true
   unrs-resolver: true
 catalog:
@@ -19,6 +21,13 @@ catalog:
   argon2: "^0.44.0"
   zod: "^4.4.3"
   dotenv: ^17.4.2
+  prisma: "^7.8.0"
+  "@types/pg": "^8.20.0"
+  "@prisma/client": "^7.8.0"
+  "@prisma/adapter-pg": "^7.8.0"
+  "pg": "^8.21.0"
+  '@fastify/swagger-ui': ^5.2.6
+  '@fastify/swagger': ^9.7.0
 injectWorkspacePackages: true
 syncInjectedDepsAfterScripts:
   - build

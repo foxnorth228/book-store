@@ -13,7 +13,7 @@ services:
       - rift_hub_pg:/var/lib/postgresql/data
 
   profile-service:
-    image: profile-service:latest
+    image: apps-profile-service:latest
     env_file:
       - .env
     environment:

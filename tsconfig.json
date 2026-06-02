@@ -10,13 +10,16 @@
       "path": "./apps/profile-service"
     },
     {
+      "path": "./packages/contracts"
+    },
+    {
       "path": "./apps/web-e2e"
     },
     {
       "path": "./apps/web"
     },
     {
-      "path": "./packages/contrants"
+      "path": "./apps/web-e2e"
     }
   ]
 }

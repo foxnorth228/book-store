@@ -19,7 +19,7 @@ export function getDBUrlByConfig(config: ReturnType<typeof loadServerEnv>) {
   return (
     `postgresql://${config.DB_USER}:` +
     `${config.DB_PASSWORD}@` +
-    `${config.DB_HOST ?? "localhost"}:` +
+    `${config.DB_HOST ?? "0.0.0.0"}:` +
     `${config.DB_PORT}/` +
     `${config.DB_NAME}`
   );
