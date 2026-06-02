@@ -10,6 +10,5 @@ WORKDIR /app
 COPY dist .
 
 RUN pnpm ci
-RUN pnpm install:shared
 
 CMD [ "node", "main.js" ]

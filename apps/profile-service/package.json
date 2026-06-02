@@ -76,6 +76,15 @@
         ],
         "executor": "nx:noop"
       },
+      "generate-pnpm-workspace": {
+        "dependsOn": [
+          "prune"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/profile-service/dist"
+        }
+      },
       "serve": {
         "continuous": true,
         "executor": "@nx/js:node",
@@ -99,7 +108,8 @@
       "docker:build": {
         "dependsOn": [
           "build",
-          "prune"
+          "prune",
+          "generate-pnpm-workspace"
         ]
       }
     }
