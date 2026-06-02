@@ -2,6 +2,7 @@ packages:
 - 'packages/*'
 - 'apps/*'
 allowBuilds:
+  argon2: true
   cypress: true
   esbuild: true
   nx: true
@@ -15,3 +16,7 @@ catalog:
   "@fastify/sensible": "^6.0.2"
   "@fastify/autoload": "^6.0.3"
   fastify-plugin: "^5.0.1"
+  argon2: "^0.44.0"
+injectWorkspacePackages: true
+syncInjectedDepsAfterScripts:
+- build

@@ -118,10 +118,10 @@
     "install:shared": "cd workspace_modules/@org/shared && pnpm install"
   },
   "dependencies": {
-    "fastify": "^5.2.1",
-    "fastify-plugin": "^5.0.1",
-    "@fastify/autoload": "^6.0.2",
-    "@fastify/sensible": "^6.0.3",
+    "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
+    "@fastify/autoload": "catalog:",
+    "@fastify/sensible": "catalog:",
     "@org/shared": "workspace:*"
   }
 }

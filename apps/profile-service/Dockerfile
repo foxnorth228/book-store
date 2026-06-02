@@ -9,6 +9,6 @@ WORKDIR /app
 
 COPY dist .
 
-RUN pnpm ci
+RUN pnpm i -r
 
 CMD [ "node", "main.js" ]

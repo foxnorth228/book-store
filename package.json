@@ -60,6 +60,7 @@
   "dependencies": {
     "@fastify/autoload": "catalog:",
     "@fastify/sensible": "catalog:",
+    "argon2": "catalog:",
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",
     "pino": "catalog:",
