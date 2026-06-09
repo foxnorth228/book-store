@@ -7,6 +7,8 @@ const StyledApp = styled.div`
   /* Your style here */
 `;
 
+console.log(import.meta.env);
+
 export function App() {
   return (
     <StyledApp>

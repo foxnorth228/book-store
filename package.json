@@ -5,7 +5,10 @@
   "scripts": {
     "prepare": "husky",
     "infra:postgres": "bash infrastructure/postgres/run.sh",
-    "infra:up": "docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
+    "web:build": "nx build web",
+    "profile-service:prune": "nx prune profile-service",
+    "infra:build": "docker compose -f infrastructure/docker-compose/docker-compose.yaml build",
+    "infra:up": "pnpm web:build && pnpm profile-service:prune && docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
     "infra:down": "docker compose -f infrastructure/docker-compose/docker-compose.yaml down"
   },
   "private": true,

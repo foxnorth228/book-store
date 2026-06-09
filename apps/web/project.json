@@ -1,0 +1,12 @@
+{
+  "targets": {
+    "docker:build": {
+      "command": "docker build apps/web --build-arg WEB_PORT=3001 --tag apps-web",
+      "dependsOn": ["build"]
+    },
+    "docker:run": {
+      "command": "docker run -p 3001:3001 apps-web",
+      "dependsOn": ["docker:build"]
+    }
+  }
+}

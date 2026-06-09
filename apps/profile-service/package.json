@@ -49,8 +49,7 @@
         "cache": true,
         "executor": "@nx/js:prune-lockfile",
         "outputs": [
-          "{workspaceRoot}/apps/profile-service/dist/package.json",
-          "{workspaceRoot}/apps/profile-service/dist/pnpm-lock.yaml"
+          "{workspaceRoot}/apps/profile-service/dist/package.json"
         ],
         "options": {
           "buildTarget": "build"
@@ -69,21 +68,23 @@
           "buildTarget": "build"
         }
       },
-      "prune": {
+      "generate-pnpm-workspace": {
         "dependsOn": [
           "prune-lockfile",
           "copy-workspace-modules"
-        ],
-        "executor": "nx:noop"
-      },
-      "generate-pnpm-workspace": {
-        "dependsOn": [
-          "prune"
         ],
         "executor": "nx:run-commands",
         "options": {
           "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/profile-service/dist"
         }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules",
+          "generate-pnpm-workspace"
+        ],
+        "executor": "nx:noop"
       },
       "serve": {
         "continuous": true,
@@ -106,6 +107,7 @@
         }
       },
       "docker:build": {
+        "command": "docker build apps/profile-service --tag apps-profile-service",
         "dependsOn": [
           "build",
           "prune",
