@@ -3,6 +3,7 @@ packages:
   - 'apps/*'
 allowBuilds:
   '@prisma/engines': true
+  '@swc/core': true
   argon2: true
   cypress: true
   esbuild: true
@@ -28,6 +29,3 @@ catalog:
   "pg": "^8.21.0"
   '@fastify/swagger-ui': ^5.2.6
   '@fastify/swagger': ^9.7.0
-injectWorkspacePackages: true
-syncInjectedDepsAfterScripts:
-  - build

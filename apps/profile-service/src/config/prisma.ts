@@ -1,7 +1,7 @@
 import { getDBUrlByConfig, loadServerEnv } from "@org/shared";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client";
 
+import { PrismaClient } from "../libs/prisma/client/client";
 import { pathToProject } from "./config";
 
 const config = loadServerEnv(pathToProject);

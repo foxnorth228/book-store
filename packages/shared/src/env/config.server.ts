@@ -4,12 +4,12 @@ import path from "path";
 import { envServerSchema } from "./env.server.js";
 
 export function loadServerEnv(servicePath: string) {
-  const infraEnv = path.resolve("infrastructure/postgres/.env");
-  const serviceEnv = path.resolve(servicePath, ".env");
+  const infraEnvPath = path.resolve("infrastructure/postgres/.env");
+  const serviceEnvPath = path.resolve(servicePath, ".env");
 
   if (process.env.NODE_ENV !== "production") {
-    dotenv.config({ path: infraEnv });
-    dotenv.config({ path: serviceEnv });
+    dotenv.config({ path: infraEnvPath });
+    dotenv.config({ path: serviceEnvPath });
   }
 
   return envServerSchema.parse(process.env);

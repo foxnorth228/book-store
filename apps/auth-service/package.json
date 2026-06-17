@@ -1,5 +1,5 @@
 {
-  "name": "@org/profile-service",
+  "name": "@org/auth-service",
   "version": "0.0.1",
   "private": true,
   "nx": {
@@ -12,15 +12,15 @@
         "defaultConfiguration": "production",
         "options": {
           "platform": "node",
-          "outputPath": "apps/profile-service/dist",
+          "outputPath": "apps/auth-service/dist",
           "format": [
             "cjs"
           ],
           "bundle": false,
-          "main": "apps/profile-service/src/main.ts",
-          "tsConfig": "apps/profile-service/tsconfig.app.json",
+          "main": "apps/auth-service/src/main.ts",
+          "tsConfig": "apps/auth-service/tsconfig.app.json",
           "assets": [
-            "apps/profile-service/src/assets"
+            "apps/auth-service/src/assets"
           ],
           "esbuildOptions": {
             "sourcemap": true,
@@ -49,8 +49,8 @@
         "cache": true,
         "executor": "@nx/js:prune-lockfile",
         "outputs": [
-          "{workspaceRoot}/apps/profile-service/dist/package.json",
-          "{workspaceRoot}/apps/profile-service/dist/pnpm-lock.yaml"
+          "{workspaceRoot}/apps/auth-service/dist/package.json",
+          "{workspaceRoot}/apps/auth-service/dist/pnpm-lock.yaml"
         ],
         "options": {
           "buildTarget": "build"
@@ -62,7 +62,7 @@
         ],
         "cache": true,
         "outputs": [
-          "{workspaceRoot}/apps/profile-service/dist/workspace_modules"
+          "{workspaceRoot}/apps/auth-service/dist/workspace_modules"
         ],
         "executor": "@nx/js:copy-workspace-modules",
         "options": {
@@ -76,7 +76,7 @@
         ],
         "executor": "nx:run-commands",
         "options": {
-          "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/profile-service/dist"
+          "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/auth-service/dist"
         }
       },
       "prune": {
@@ -95,34 +95,32 @@
           "build"
         ],
         "options": {
-          "buildTarget": "@org/profile-service:build",
+          "buildTarget": "@org/auth-service:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "@org/profile-service:build:development"
+            "buildTarget": "@org/auth-service:build:development"
           },
           "production": {
-            "buildTarget": "@org/profile-service:build:production"
+            "buildTarget": "@org/auth-service:build:production"
           }
         }
       },
       "docker:build": {
-        "command": "docker build apps/profile-service --tag apps-profile-service",
         "dependsOn": [
           "build",
-          "prune",
-          "generate-pnpm-workspace"
+          "prune"
         ]
       },
       "prisma-generate": {
-        "command": "prisma generate --schema=apps/profile-service/prisma/schema.prisma"
+        "command": "prisma generate --schema=apps/auth-service/prisma/schema.prisma"
       },
       "prisma-migrate-dev": {
-        "command": "prisma migrate dev --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts"
+        "command": "prisma migrate dev --schema=apps/auth-service/prisma/schema.prisma --config=apps/auth-service/prisma.config.ts"
       },
       "prisma-migrate-reset": {
-        "command": "prisma migrate reset --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts --force"
+        "command": "prisma migrate reset --schema=apps/auth-service/prisma/schema.prisma --config=apps/auth-service/prisma.config.ts --force"
       }
     }
   },

@@ -4,12 +4,11 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky",
-    "infra:postgres": "bash infrastructure/postgres/run.sh",
+    "postgres:up": "bash infrastructure/postgres/run.sh",
     "web:build": "nx build web",
-    "profile-service:prune": "nx prune profile-service",
     "infra:build": "docker compose -f infrastructure/docker-compose/docker-compose.yaml build",
-    "infra:up": "pnpm web:build && pnpm profile-service:prune && docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
-    "infra:down": "docker compose -f infrastructure/docker-compose/docker-compose.yaml down"
+    "docker-compose:up": "pnpm web:build && nx prune profile-service && nx prune auth-service && docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
+    "docker-compose:down": "docker compose -f infrastructure/docker-compose/docker-compose.yaml down"
   },
   "private": true,
   "devDependencies": {
@@ -41,7 +40,7 @@
     "@vitest/coverage-v8": "~4.1.0",
     "@vitest/ui": "~4.1.0",
     "babel-plugin-styled-components": "1.10.7",
-    "cypress": "^15.8.0",
+    "cypress": "^15.17.0",
     "esbuild": "^0.27.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
