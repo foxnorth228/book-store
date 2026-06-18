@@ -117,5 +117,6 @@
   },
   "tui": {
     "enabled": false
-  }
+  },
+  "exclude": ["**/prisma/generated/**"]
 }

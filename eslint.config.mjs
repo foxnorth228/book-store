@@ -15,7 +15,7 @@ export default tseslint.config([
     "**/tmp",
     "**/vite.config.*.timestamp*",
     "**/vitest.config.*.timestamp*",
-    "**/libs/prisma/client/**",
+    "**/libs/prisma/**",
   ]),
 
   // NX BASE RULES

@@ -1,6 +1,6 @@
 import { loadServerEnv } from "@org/shared";
 
-const PATH_TO_PROJECT = "apps/profile-service";
+const PATH_TO_PROJECT = "apps/auth-service";
 
 export const globalConfig = {
   pathToProject: PATH_TO_PROJECT,

@@ -10,6 +10,7 @@ const StyledApp = styled.div`
 console.log(import.meta.env);
 
 export function App() {
+  console.log("xd");
   return (
     <StyledApp>
       <NxWelcome title="@org/web" />

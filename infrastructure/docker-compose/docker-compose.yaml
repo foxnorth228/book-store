@@ -37,6 +37,7 @@ services:
       DB_NAME: ${PROFILE_DB_NAME}
       HOST: ${PROFILE_HOST}
       PORT: ${PROFILE_PORT}
+      PATH_PREFIX: ${PROFILE_PATH_PREFIX}
       NODE_ENV: ${NODE_ENV}
       LOG_LEVEL: ${LOG_LEVEL}
     ports:
@@ -52,7 +53,7 @@ services:
           "--quiet",
           "--tries=1",
           "--spider",
-          "http://${PROFILE_HOST}:${PROFILE_PORT}/health",
+          "http://${PROFILE_HOST}:${PROFILE_PORT}/${PROFILE_PATH_PREFIX}/health",
         ]
       interval: 10s
       timeout: 5s
@@ -77,6 +78,7 @@ services:
       DB_NAME: ${AUTH_DB_NAME}
       HOST: ${AUTH_HOST}
       PORT: ${AUTH_PORT}
+      PATH_PREFIX: ${AUTH_PATH_PREFIX}
       NODE_ENV: ${NODE_ENV}
       LOG_LEVEL: ${LOG_LEVEL}
     ports:
@@ -92,14 +94,14 @@ services:
           "--quiet",
           "--tries=1",
           "--spider",
-          "http://${AUTH_HOST}:${AUTH_PORT}/health",
+          "http://${AUTH_HOST}:${AUTH_PORT}/${AUTH_PATH_PREFIX}/health",
         ]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
       - monorepo-network
-    restart: unless-stopped  
+    restart: unless-stopped
 
   web:
     build:
@@ -130,13 +132,15 @@ services:
     environment:
       WEB_PORT: ${WEB_PORT}
       PROFILE_PORT: ${PROFILE_PORT}
+      PROFILE_PATH_PREFIX: ${PROFILE_PATH_PREFIX}
       AUTH_PORT: ${AUTH_PORT}
+      AUTH_PATH_PREFIX: ${AUTH_PATH_PREFIX}
       NGINX_HOST: ${NGINX_HOST}
       NGINX_PORT: ${NGINX_PORT}
     volumes:
       - ./nginx.conf.template:/etc/nginx/conf.d/nginx.conf.template
     command: >
-      /bin/sh -c "envsubst '$$WEB_PORT $$PROFILE_PORT $$AUTH_PORT $$NGINX_PORT $$NGINX_HOST'
+      /bin/sh -c "envsubst '$$WEB_PORT $$PROFILE_PORT $$PROFILE_PATH_PREFIX $$AUTH_PORT $$AUTH_PATH_PREFIX $$NGINX_PORT $$NGINX_HOST'
       < /etc/nginx/conf.d/nginx.conf.template
       > /etc/nginx/conf.d/default.conf
       && nginx -g 'daemon off;'"

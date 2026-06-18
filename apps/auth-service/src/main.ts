@@ -1,24 +1,23 @@
-import { createLogger, loadServerEnv } from "@org/shared";
+import { createLogger } from "@org/shared";
 import Fastify from "fastify";
 
 import { app } from "./app";
-
-const envConfig = loadServerEnv("apps/auth-service");
+import { globalConfig } from "./config/config";
 
 const server = Fastify({
   loggerInstance: createLogger({
-    level: envConfig.LOG_LEVEL,
-    pretty: envConfig.NODE_ENV === "development",
+    level: globalConfig.env.LOG_LEVEL,
+    pretty: globalConfig.env.NODE_ENV === "development",
   }),
 });
 
-server.register(app);
+server.register(app, { prefix: globalConfig.env.PATH_PREFIX });
 
-server.listen({ port: envConfig.PORT, host: envConfig.HOST }, (err) => {
+server.listen({ port: globalConfig.env.PORT, host: globalConfig.env.HOST }, (err) => {
   if (err) {
     server.log.error(err);
     process.exit(1);
   } else {
-    console.log(`[ ready ] http://${envConfig.HOST}:${envConfig.PORT}`);
+    console.log(`[ ready ] http://${globalConfig.env.HOST}:${globalConfig.env.PORT}`);
   }
 });

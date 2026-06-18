@@ -6,6 +6,10 @@
     "targets": {
       "build": {
         "executor": "@nx/esbuild:esbuild",
+        "inputs": [
+          "default",
+          "!{projectRoot}/prisma/**"
+        ],
         "outputs": [
           "{options.outputPath}"
         ],
@@ -115,19 +119,30 @@
           "generate-pnpm-workspace"
         ]
       },
-      "prisma-generate": {
-        "command": "prisma generate --schema=apps/profile-service/prisma/schema.prisma"
+      "global:prisma:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma generate --schema=apps/profile-service/prisma/schema.prisma"
+        }
       },
-      "prisma-migrate-dev": {
-        "command": "prisma migrate dev --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts"
+      "global:prisma:migrate:dev": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma migrate dev --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts"
+        }
       },
-      "prisma-migrate-reset": {
-        "command": "prisma migrate reset --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts --force"
+      "global:prisma:migrate:reset": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma migrate reset --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts --force"
+        }
       }
     }
   },
   "scripts": {
-    "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --config=./prisma.config.ts",
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma"
   },
   "devDependencies": {

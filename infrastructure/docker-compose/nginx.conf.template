@@ -31,8 +31,8 @@ server {
         proxy_set_header Connection "upgrade";
     }
 
-    location /api/auth/ {
-        proxy_pass http://auth_backend/;
+    location /${AUTH_PATH_PREFIX}/ {
+        proxy_pass http://auth_backend/${AUTH_PATH_PREFIX}/;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -47,9 +47,12 @@ server {
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
     }
+    location /docs/auth/ {
+        proxy_pass http://auth_backend/${AUTH_PATH_PREFIX}/docs/;
+    }
 
-    location /api/profile/ {
-        proxy_pass http://profile_backend/;
+    location /${PROFILE_PATH_PREFIX}/ {
+        proxy_pass http://profile_backend/${PROFILE_PATH_PREFIX}/;
         
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -64,8 +67,10 @@ server {
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
     }
+    location /docs/profile/ {
+        proxy_pass http://profile_backend/${PROFILE_PATH_PREFIX}/docs/;
+    }
 
-    # ===== HEALTH CHECK =====
     location /health {
         access_log off;
         return 200 "healthy\n";
