@@ -5,15 +5,22 @@ import path from "path";
 
 import { ServerOptions } from "./server";
 
+declare module "fastify" {
+  interface FastifyInstance {
+    config: ServerOptions["config"];
+  }
+}
+
 export async function buildApp(opts: ServerOptions) {
   const app = Fastify(opts.fastifyOptions);
+
+  await app.register(createConfigPlugin(opts.config));
 
   // plugins
   await app.register(AutoLoad, {
     dir: path.join(__dirname, "plugins"),
     options: { ...opts },
   });
-  await app.register(createConfigPlugin(opts.config));
 
   // modules
   await app.register(AutoLoad, {
@@ -25,10 +32,4 @@ export async function buildApp(opts: ServerOptions) {
   });
 
   return app;
-}
-
-declare module "fastify" {
-  interface FastifyInstance {
-    config: ServerOptions["config"];
-  }
 }

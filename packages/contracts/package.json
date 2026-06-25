@@ -27,7 +27,7 @@
         "executor": "nx:run-commands",
         "options": {
           "cwd": "{workspaceRoot}",
-          "command": "ts-node {projectRoot}/tools/generate-proto-client.ts {projectRoot}"
+          "command": "ts-node {projectRoot}/src/tools/generate-proto-client.ts {projectRoot}"
         }
       },
       "build": {

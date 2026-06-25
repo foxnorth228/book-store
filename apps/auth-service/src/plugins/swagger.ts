@@ -3,8 +3,6 @@ import swaggerUi from "@fastify/swagger-ui";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 
-import { globalConfig } from "../config/config";
-
 export default fp(async function (fastify: FastifyInstance) {
   await fastify.register(swagger, {
     openapi: {
@@ -17,7 +15,7 @@ export default fp(async function (fastify: FastifyInstance) {
   });
 
   await fastify.register(swaggerUi, {
-    indexPrefix: `/${globalConfig.env.PATH_PREFIX}`,
+    indexPrefix: `/${fastify.config.env.PATH_PREFIX}`,
     routePrefix: `/docs`,
   });
 });

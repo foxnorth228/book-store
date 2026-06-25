@@ -1,7 +1,7 @@
 import fp from "fastify-plugin";
 
-export function createConfigPlugin(config: object) {
+export function createConfigPlugin(config: object, decoratorName = "config") {
   return fp(async (app) => {
-    app.decorate("config", config);
+    app.decorate(decoratorName, config);
   });
 }
