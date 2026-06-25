@@ -1,9 +1,14 @@
 import dotenv from "dotenv";
 import path from "path";
 
-import { envServerSchema } from "./env.server.js";
+import { envServerSchema, EnvServerSchemaType } from "./env-schema.server.js";
 
-export function loadServerEnv(servicePath: string) {
+export function loadServerEnv<T extends EnvServerSchemaType | undefined>(
+  baseSchema: T | EnvServerSchemaType = envServerSchema,
+  servicePath: string,
+) {
+  const schema = baseSchema ?? envServerSchema;
+
   const infraEnvPath = path.resolve("infrastructure/postgres/.env");
   const serviceEnvPath = path.resolve(servicePath, ".env");
 
@@ -12,10 +17,12 @@ export function loadServerEnv(servicePath: string) {
     dotenv.config({ path: serviceEnvPath });
   }
 
-  return envServerSchema.parse(process.env);
+  return schema.parse(process.env);
 }
 
-export function getDBUrlByConfig(config: ReturnType<typeof loadServerEnv>) {
+export function getDBUrlByConfig<T extends EnvServerSchemaType>(
+  config: ReturnType<typeof loadServerEnv<T>>,
+) {
   return (
     `postgresql://${config.DB_USER}:` +
     `${config.DB_PASSWORD}@` +

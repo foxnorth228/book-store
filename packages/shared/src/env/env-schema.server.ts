@@ -14,4 +14,5 @@ export const envServerSchema = z.object({
   DB_NAME: z.string(),
 });
 
-export type EnvServerSchema = z.infer<typeof envServerSchema>;
+export type EnvServerSchemaType = typeof envServerSchema;
+export type EnvServerSchema = z.infer<EnvServerSchemaType>;

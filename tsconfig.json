@@ -20,6 +20,9 @@
     },
     {
       "path": "./apps/auth-service"
+    },
+    {
+      "path": "./packages/fastify-plugins"
     }
   ]
 }

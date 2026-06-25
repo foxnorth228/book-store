@@ -27,4 +27,4 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i -r
 
 RUN pnpm prisma:generate
 
-CMD [ "node", "main.js" ]
+CMD [ "node", "server.js" ]

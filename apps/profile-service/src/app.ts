@@ -1,19 +1,34 @@
 import AutoLoad from "@fastify/autoload";
-import { FastifyInstance } from "fastify";
-import * as path from "path";
+import { createConfigPlugin } from "@org/fastify-plugins";
+import Fastify from "fastify";
+import path from "path";
 
-import healthRoutes from "./modules/health/health.routes";
-import profileRoutes from "./modules/profile/profile.routes";
+import { ServerOptions } from "./server";
 
-/* eslint-disable-next-line */
-export interface AppOptions {}
+export async function buildApp(opts: ServerOptions) {
+  const app = Fastify(opts.fastifyOptions);
 
-export async function app(fastify: FastifyInstance, opts: AppOptions) {
-  fastify.register(AutoLoad, {
+  // plugins
+  await app.register(AutoLoad, {
     dir: path.join(__dirname, "plugins"),
     options: { ...opts },
   });
+  await app.register(createConfigPlugin(opts.config));
 
-  fastify.register(healthRoutes);
-  fastify.register(profileRoutes);
+  // modules
+  await app.register(AutoLoad, {
+    dir: path.join(__dirname, "modules"),
+    maxDepth: 1,
+    dirNameRoutePrefix: false,
+    matchFilter: (path) => path.endsWith("module.js") || path.endsWith("module.ts"),
+    options: { prefix: opts.config.env.PATH_PREFIX, ...opts },
+  });
+
+  return app;
+}
+
+declare module "fastify" {
+  interface FastifyInstance {
+    config: ServerOptions["config"];
+  }
 }

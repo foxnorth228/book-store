@@ -10,7 +10,7 @@ export default fp(async function (fastify: FastifyInstance) {
     openapi: {
       info: {
         title: "Profile Service API",
-        description: "League of Legends profile service",
+        description: "Rifthub profile service",
         version: "1.0.0",
       },
     },

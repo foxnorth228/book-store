@@ -6,7 +6,7 @@
     "rootDir": "src",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
   },
-  "include": ["src/**/*.ts", "prisma/generated/**/*.ts"],
+  "include": ["src/**/*.ts", "prisma/generated/**/*.ts", "../auth-service/src/plugins/grpc-server.plugin.ts"],
   "exclude": ["eslint.config.js", "eslint.config.cjs", "eslint.config.mjs"],
   "references": [
     {

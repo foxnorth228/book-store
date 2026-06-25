@@ -1,0 +1,40 @@
+import { Server, ServerCredentials } from "@grpc/grpc-js";
+import { type AuthServiceServer, registerAuthService } from "@org/contracts";
+import fp from "fastify-plugin";
+
+const grpcServerPlugin = fp(
+  async (app) => {
+    const grpcServer = new Server();
+
+    const handlers: AuthServiceServer = {
+      validateToken: async (call, callback) => {
+        callback(null, { valid: true, userId: "123" });
+      },
+    };
+
+    registerAuthService(grpcServer, handlers);
+
+    await new Promise<void>(() => {
+      grpcServer.bindAsync(
+        `${app.config.env.HOST}:${app.config.env.PORT}`,
+        ServerCredentials.createInsecure(),
+        () => grpcServer.start(),
+      );
+    });
+
+    app.decorate("grpcServer", grpcServer);
+
+    app.addHook("onClose", () => {
+      grpcServer.forceShutdown();
+    });
+  },
+  { name: "grpc-client", fastify: "5.x" },
+);
+
+declare module "fastify" {
+  interface FastifyInstance {
+    grpcServer: Server;
+  }
+}
+
+export default grpcServerPlugin;

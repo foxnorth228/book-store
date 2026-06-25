@@ -17,6 +17,25 @@
   },
   "dependencies": {
     "tslib": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@bufbuild/protobuf": "catalog:",
+    "@grpc/grpc-js": "catalog:"
+  },
+  "nx": {
+    "targets": {
+      "grpc:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "ts-node {projectRoot}/tools/generate-proto-client.ts {projectRoot}"
+        }
+      },
+      "build": {
+        "dependsOn": [
+          "^build",
+          "grpc:generate"
+        ]
+      }
+    }
   }
 }

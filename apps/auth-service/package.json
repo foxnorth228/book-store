@@ -155,7 +155,9 @@
     "@prisma/adapter-pg": "catalog:",
     "pg": "catalog:",
     "zod": "catalog:",
+    "pino": "catalog:",
     "@org/shared": "workspace:*",
-    "@org/contracts": "workspace:*"
+    "@org/contracts": "workspace:*",
+    "@org/fastify-plugins": "workspace:*"
   }
 }

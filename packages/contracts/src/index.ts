@@ -1,2 +1,5 @@
+export * from "./auth/grpc/client.js";
+export * from "./auth/grpc/server.js";
+export * from "./auth/grpc-generated/auth.js";
 export * from "./profile/schema.js";
 export * from "./profile/types.js";

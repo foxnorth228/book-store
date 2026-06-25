@@ -9,6 +9,8 @@ allowBuilds:
   esbuild: true
   nx: true
   prisma: true
+  protobufjs: true
+  protolint: true
   styled-components: true
   unrs-resolver: true
 catalog:
@@ -29,3 +31,5 @@ catalog:
   "pg": "^8.21.0"
   '@fastify/swagger-ui': ^5.2.6
   '@fastify/swagger': ^9.7.0
+  '@bufbuild/protobuf': ^2.12.0
+  '@grpc/grpc-js': ^1.14.4
