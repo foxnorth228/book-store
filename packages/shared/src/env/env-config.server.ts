@@ -11,8 +11,8 @@ export function loadServerEnv<T extends EnvServerSchema>(
   const serviceEnvPath = path.resolve(servicePath, ".env");
 
   if (process.env.NODE_ENV !== "production") {
-    dotenv.config({ path: infraEnvPath });
     dotenv.config({ path: serviceEnvPath });
+    dotenv.config({ path: infraEnvPath, override: true });
   }
 
   return schema.parse(process.env);

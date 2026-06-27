@@ -3,12 +3,10 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME/bin:$PATH"
 RUN corepack enable
 
-ARG DB_USER
-ARG DB_PASSWORD
-ARG DB_NAME
-ENV DB_USER=$DB_USER
-ENV DB_PASSWORD=$DB_PASSWORD
-ENV DB_NAME=$DB_NAME
+# needs for config zod-validation
+ENV DB_USER=""
+ENV DB_PASSWORD=""
+ENV DB_NAME=""
 
 RUN pnpm config set fetch-retries 5
 RUN pnpm config set fetch-retry-factor 2

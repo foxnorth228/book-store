@@ -309,6 +309,9 @@ importers:
       '@fastify/swagger-ui':
         specifier: 'catalog:'
         version: 5.2.6
+      '@grpc/grpc-js':
+        specifier: 'catalog:'
+        version: 1.14.4
       '@org/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts

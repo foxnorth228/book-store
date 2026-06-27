@@ -108,10 +108,18 @@
         }
       },
       "docker:build": {
+        "command": "docker build apps/auth-service --tag apps-auth-service",
         "dependsOn": [
           "build",
-          "prune"
+          "prune",
+          "generate-pnpm-workspace"
         ]
+      },
+      "docker:run": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker run --name apps-auth-service -p 3001:3001 --env-file {projectRoot}/.env apps-auth-service"
+        }
       },
       "global:prisma:generate": {
         "executor": "nx:run-commands",
@@ -156,6 +164,7 @@
     "pg": "catalog:",
     "zod": "catalog:",
     "pino": "catalog:",
+    "@grpc/grpc-js": "catalog:",
     "@org/shared": "workspace:*",
     "@org/contracts": "workspace:*",
     "@org/fastify-plugins": "workspace:*"
