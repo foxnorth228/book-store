@@ -1,23 +1,20 @@
 import { FastifyInstance } from "fastify";
 
-export default async function (fastify: FastifyInstance) {
-  fastify.get(
-    "/health",
-    {
-      schema: {
-        tags: ["Health"],
-        response: {
-          200: {
-            type: "object",
-            properties: {
-              ok: { type: "boolean" },
-            },
-          },
-        },
+import { healthConfig } from "./health.config";
+import { HealthController } from "./health.interface";
+
+export default async function HealthRoutes(module: FastifyInstance) {
+  const healthController = module.getDecorator<HealthController>(healthConfig.controllerName);
+
+  module.route({
+    method: "GET",
+    url: "/health",
+    schema: {
+      tags: ["Health"],
+      response: {
+        200: module.getSchema(healthConfig.schemas.healthRes),
       },
     },
-    async () => {
-      return { ok: true };
-    },
-  );
+    handler: healthController.getHealthStatus,
+  });
 }

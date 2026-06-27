@@ -7,6 +7,7 @@ import { PrismaClient } from "../libs/prisma/client";
 
 const prismaPlugin = fp(
   async (app) => {
+    console.log("prisma");
     const adapter = new PrismaPg({
       connectionString: getDBUrlByConfig(app.config.env),
     });

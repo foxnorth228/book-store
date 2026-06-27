@@ -1,11 +1,11 @@
-import { createLogger, EnvServerSchema, loadServerEnv } from "@org/shared";
+import { createLogger, loadServerEnv } from "@org/shared";
 
 import { buildApp } from "./app";
-import { PATH_TO_PROJECT } from "./config/config";
+import { AuthServiceEnvConfig, authServiceEnvSchema, PATH_TO_PROJECT } from "./config/config";
 
 export type ServerOptions = ReturnType<typeof getServerOptions>;
 
-function getServerOptions<T extends EnvServerSchema>(config: T | EnvServerSchema) {
+function getServerOptions(config: AuthServiceEnvConfig) {
   return {
     fastifyOptions: {
       loggerInstance: createLogger({
@@ -20,7 +20,7 @@ function getServerOptions<T extends EnvServerSchema>(config: T | EnvServerSchema
 async function startServer() {
   console.log(`[ start ] starting server`);
 
-  const envConfig = loadServerEnv(undefined, PATH_TO_PROJECT);
+  const envConfig = loadServerEnv(authServiceEnvSchema, PATH_TO_PROJECT);
   const serverOptions = getServerOptions(envConfig);
 
   const app = await buildApp(serverOptions);

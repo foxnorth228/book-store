@@ -14,11 +14,18 @@ const grpcServerPlugin = fp(
 
     registerAuthService(grpcServer, handlers);
 
-    await new Promise<void>(() => {
+    await new Promise<void>((resolve, reject) => {
       grpcServer.bindAsync(
-        `${app.config.env.HOST}:${app.config.env.PORT}`,
+        `${app.config.env.GRPC_SERVER_HOST}:${app.config.env.GRPC_SERVER_PORT}`,
         ServerCredentials.createInsecure(),
-        () => grpcServer.start(),
+        (err) => {
+          if (err) {
+            app.log.error(`Failed to start grpc server: ${err}`);
+            reject(err);
+          }
+
+          resolve();
+        },
       );
     });
 
