@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "tslib": "catalog:",
-    "fastify-plugin": "catalog:"
+    "fastify-plugin": "catalog:",
+    "redis": "catalog:"
   }
 }

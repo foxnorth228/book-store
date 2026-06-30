@@ -6,6 +6,7 @@
     "prepare": "husky",
     "postgres:up": "bash infrastructure/postgres/run.sh",
     "rabbitmq:up": "bash infrastructure/rabbitmq/run.sh",
+    "redis:up": "bash infrastructure/redis/run.sh",
     "web:build": "nx build web",
     "compose:build": "pnpm web:build && nx prune profile-service && nx prune auth-service && docker compose -f infrastructure/docker-compose/docker-compose.yaml build",
     "compose:up": "docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
@@ -71,6 +72,7 @@
   "dependencies": {
     "@bufbuild/protobuf": "catalog:",
     "@fastify/autoload": "catalog:",
+    "@fastify/cookie": "catalog:",
     "@fastify/jwt": "catalog:",
     "@fastify/sensible": "catalog:",
     "@fastify/swagger": "catalog:",
@@ -90,6 +92,7 @@
     "react-dom": "^19.0.0",
     "react-is": "^19.0.0",
     "react-router-dom": "6.30.3",
+    "redis": "catalog:",
     "styled-components": "5.3.6",
     "zod": "catalog:"
   }
