@@ -70,6 +70,7 @@
   "dependencies": {
     "@bufbuild/protobuf": "catalog:",
     "@fastify/autoload": "catalog:",
+    "@fastify/jwt": "catalog:",
     "@fastify/sensible": "catalog:",
     "@fastify/swagger": "catalog:",
     "@fastify/swagger-ui": "catalog:",
