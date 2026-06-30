@@ -5,6 +5,7 @@
   "scripts": {
     "prepare": "husky",
     "postgres:up": "bash infrastructure/postgres/run.sh",
+    "rabbitmq:up": "bash infrastructure/rabbitmq/run.sh",
     "web:build": "nx build web",
     "compose:build": "pnpm web:build && nx prune profile-service && nx prune auth-service && docker compose -f infrastructure/docker-compose/docker-compose.yaml build",
     "compose:up": "docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
@@ -77,6 +78,7 @@
     "@grpc/grpc-js": "catalog:",
     "@prisma/adapter-pg": "catalog:",
     "@prisma/client": "catalog:",
+    "amqplib": "catalog:",
     "argon2": "catalog:",
     "dotenv": "catalog:",
     "fastify": "catalog:",

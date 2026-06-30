@@ -13,6 +13,11 @@ export const envServerSchema = z.object({
   DB_HOST: z.coerce.string().default("0.0.0.0"),
   DB_PORT: z.coerce.number().int().positive().default(5432),
   DB_NAME: z.string(),
+
+  RABBITMQ_HOST: z.string(),
+  RABBITMQ_PORT: z.coerce.number().int().positive().default(5672),
+  RABBITMQ_USER: z.string(),
+  RABBITMQ_PASSWORD: z.string(),
 });
 
 export type EnvServerSchema = typeof envServerSchema;

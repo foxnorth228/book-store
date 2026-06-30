@@ -21,6 +21,22 @@ services:
       - monorepo-network
     restart: unless-stopped
 
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_DEFAULT_VHOST: /
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - monorepo-network
+    restart: unless-stopped  
+
   profile-service:
     build:
       context: ../../apps/profile-service
@@ -159,3 +175,4 @@ networks:
 
 volumes:
   rift_hub_pg:
+  rabbitmq_data:

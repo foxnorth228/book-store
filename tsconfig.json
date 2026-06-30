@@ -23,6 +23,9 @@
     },
     {
       "path": "./packages/fastify-plugins"
+    },
+    {
+      "path": "./packages/rabbitmq"
     }
   ]
 }
