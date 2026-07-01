@@ -5,6 +5,8 @@ import fp from "fastify-plugin";
 const rabbitmqPlugin = fp(async (app) => {
   const rabbitmqUrl = getRabbitmqUrlByConfig(app.config.env);
   const rabbitmqClient = new RabbitMQClient({ url: rabbitmqUrl });
+  await rabbitmqClient.connect();
+  console.log("connect", rabbitmqClient.isReady());
   app.decorate("rabbitmq", rabbitmqClient);
 });
 

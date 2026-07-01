@@ -18,7 +18,12 @@ export function createRedisPlugin({ decoratorName = "redis", client }: CreateRed
         app.log.error(err, "Redis error");
       });
 
-      await client.connect();
+      try {
+        await client.connect();
+      } catch (err) {
+        app.log.error(err, "Redis connection error");
+        return;
+      }
 
       app.decorate(decoratorName, client);
 
@@ -26,12 +31,6 @@ export function createRedisPlugin({ decoratorName = "redis", client }: CreateRed
         client.destroy();
       });
     },
-    { name: "prisma", fastify: "5.x" },
+    { name: "redis", fastify: "5.x" },
   );
-}
-
-declare module "fastify" {
-  interface FastifyInstance {
-    redis: RedisClientType;
-  }
 }

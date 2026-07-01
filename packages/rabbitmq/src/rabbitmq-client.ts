@@ -9,6 +9,7 @@ export type RabbitMessageHandler = (message: ConsumeMessage) => Promise<void> | 
 export class RabbitMQClient {
   private connection?: ChannelModel;
   private channel?: ConfirmChannel;
+  private connected = false;
 
   constructor(private readonly options: RabbitClientOptions) {}
 
@@ -17,8 +18,28 @@ export class RabbitMQClient {
       throw new Error("RabbitClient is already connected.");
     }
 
-    this.connection = await amqplib.connect(this.options.url);
-    this.channel = await this.connection.createConfirmChannel();
+    try {
+      this.connection = await amqplib.connect(this.options.url);
+      this.channel = await this.connection.createConfirmChannel();
+
+      this.connection.on("close", () => {
+        this.connected = false;
+      });
+      this.connection.on("error", () => {
+        this.connected = false;
+      });
+
+      this.connected = true;
+      console.log("[ rabbit ] connected");
+    } catch (err) {
+      this.connected = false;
+
+      console.error("[ rabbit ] failed to connect:", err);
+    }
+  }
+
+  isReady() {
+    return this.connected;
   }
 
   async close(): Promise<void> {
@@ -38,6 +59,10 @@ export class RabbitMQClient {
       durable: true,
       ...options,
     });
+  }
+
+  async checkQueue(queue: string): Promise<Replies.AssertQueue> {
+    return this.getChannel().checkQueue(queue);
   }
 
   async assertQueue(queue: string, options?: Options.AssertQueue): Promise<Replies.AssertQueue> {

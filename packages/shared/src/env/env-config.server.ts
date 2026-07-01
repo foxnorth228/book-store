@@ -10,11 +10,13 @@ export function loadServerEnv<T extends EnvServerSchema>(
   if (process.env.NODE_ENV !== "production") {
     const postgresEnvPath = path.resolve("infrastructure/postgres/.env");
     const rabbitmqEnvPath = path.resolve("infrastructure/rabbitmq/.env");
+    const redisEnvPath = path.resolve("infrastructure/redis/.env");
     const serviceEnvPath = path.resolve(servicePath, ".env");
 
     dotenv.config({ path: serviceEnvPath });
-    dotenv.config({ path: rabbitmqEnvPath, override: true });
     dotenv.config({ path: postgresEnvPath, override: true });
+    dotenv.config({ path: rabbitmqEnvPath, override: true });
+    dotenv.config({ path: redisEnvPath, override: true });
   }
 
   return schema.parse(process.env);
