@@ -18,15 +18,18 @@
     "@fastify/swagger": "catalog:",
     "@fastify/swagger-ui": "catalog:",
     "@fastify/jwt": "catalog:",
+    "@fastify/cookie": "catalog:",
     "@prisma/client": "catalog:",
     "@prisma/adapter-pg": "catalog:",
     "pg": "catalog:",
     "zod": "catalog:",
     "pino": "catalog:",
+    "redis": "catalog:",
     "@grpc/grpc-js": "catalog:",
     "@org/shared": "workspace:*",
     "@org/contracts": "workspace:*",
-    "@org/fastify-plugins": "workspace:*"
+    "@org/fastify-plugins": "workspace:*",
+    "@org/rabbitmq": "workspace:*"
   },
   "nx": {
     "targets": {

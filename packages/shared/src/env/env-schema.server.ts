@@ -18,6 +18,10 @@ export const envServerSchema = z.object({
   RABBITMQ_PORT: z.coerce.number().int().positive().default(5672),
   RABBITMQ_USER: z.string(),
   RABBITMQ_PASSWORD: z.string(),
+
+  REDIS_HOST: z.string(),
+  REDIS_PORT: z.coerce.number().int().positive().default(6379),
+  REDIS_PASSWORD: z.string(),
 });
 
 export type EnvServerSchema = typeof envServerSchema;

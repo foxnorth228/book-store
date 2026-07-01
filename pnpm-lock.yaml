@@ -324,6 +324,9 @@ importers:
       '@fastify/autoload':
         specifier: 'catalog:'
         version: 6.0.3
+      '@fastify/cookie':
+        specifier: 'catalog:'
+        version: 11.0.2
       '@fastify/jwt':
         specifier: 'catalog:'
         version: 10.1.0
@@ -345,6 +348,9 @@ importers:
       '@org/fastify-plugins':
         specifier: workspace:*
         version: link:../../packages/fastify-plugins
+      '@org/rabbitmq':
+        specifier: workspace:*
+        version: link:../../packages/rabbitmq
       '@org/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -366,6 +372,9 @@ importers:
       pino:
         specifier: 'catalog:'
         version: 10.3.1
+      redis:
+        specifier: 'catalog:'
+        version: 6.0.1
       zod:
         specifier: 'catalog:'
         version: 4.4.3
@@ -450,9 +459,6 @@ importers:
 
   packages/fastify-plugins:
     dependencies:
-      '@org/shared':
-        specifier: workspace:*
-        version: link:../shared
       fastify-plugin:
         specifier: 'catalog:'
         version: 6.0.0

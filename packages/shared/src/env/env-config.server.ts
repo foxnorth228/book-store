@@ -23,3 +23,11 @@ export function loadServerEnv<T extends EnvServerSchema>(
 export function getDBUrlByConfig<T extends EnvServerConfig>(config: T) {
   return `postgresql://${config.DB_USER}:${config.DB_PASSWORD}@${config.DB_HOST}:${config.DB_PORT}/${config.DB_NAME}`;
 }
+
+export function getRabbitmqUrlByConfig<T extends EnvServerConfig>(config: T) {
+  return `amqp://${config.RABBITMQ_USER}:${config.RABBITMQ_PASSWORD}@${config.RABBITMQ_HOST}:${config.RABBITMQ_PORT}`;
+}
+
+export function getRedisUrlByConfig<T extends EnvServerConfig>(config: T) {
+  return `redis://:${config.REDIS_PASSWORD}@${config.REDIS_HOST}:${config.REDIS_PORT}`;
+}

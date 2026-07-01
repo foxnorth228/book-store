@@ -25,8 +25,6 @@ async function startServer() {
 
   const app = await buildApp(serverOptions);
 
-  console.log(app.printRoutes());
-
   app.listen({ port: envConfig.PORT, host: envConfig.HOST }, (err) => {
     if (err) {
       app.log.error(err);
