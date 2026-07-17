@@ -3,12 +3,12 @@ import { FastifyInstance } from "fastify";
 import { healthConfig } from "./health.config";
 import { HealthController } from "./health.interface";
 
-export default async function HealthRoutes(module: FastifyInstance) {
+export async function healthRoutes(module: FastifyInstance) {
   const healthController = module.getDecorator<HealthController>(healthConfig.controllerName);
 
   module.route({
     method: "GET",
-    url: "/health",
+    url: healthConfig.urls.health,
     schema: {
       tags: ["Health"],
       response: {

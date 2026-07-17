@@ -459,6 +459,9 @@ importers:
 
   packages/fastify-plugins:
     dependencies:
+      fastify:
+        specifier: 'catalog:'
+        version: 5.8.5
       fastify-plugin:
         specifier: 'catalog:'
         version: 6.0.0

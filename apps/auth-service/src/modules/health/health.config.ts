@@ -4,4 +4,7 @@ export const healthConfig = {
   schemas: {
     healthRes: "healthRes",
   },
+  urls: {
+    health: "/health",
+  },
 };
