@@ -22,44 +22,75 @@ services:
     restart: unless-stopped
 
   rabbitmq:
-    image: rabbitmq:3.13-management
+    image: rabbitmq:4.3.2-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "${RABBITMQ_PORT}:5672"
+      - "${RABBITMQ_UI_PORT}:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
       RABBITMQ_DEFAULT_VHOST: /
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - monorepo-network
-    restart: unless-stopped  
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    command: >
+      redis-server
+      --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped
 
   profile-service:
     build:
       context: ../../apps/profile-service
       dockerfile: Dockerfile
-      args:
-        DB_USER: ${DB_USER}
-        DB_PASSWORD: ${DB_PASSWORD}
-        DB_NAME: ${PROFILE_DB_NAME}
     environment:
+      NODE_ENV: ${NODE_ENV}
+      LOG_LEVEL: ${LOG_LEVEL}
+      HOST: ${PROFILE_HOST}
+      PORT: ${PROFILE_PORT}
+      PATH_PREFIX: ${PROFILE_PATH_PREFIX}
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${PROFILE_DB_NAME}
-      HOST: ${PROFILE_HOST}
-      PORT: ${PROFILE_PORT}
-      PATH_PREFIX: ${PROFILE_PATH_PREFIX}
-      NODE_ENV: ${NODE_ENV}
-      LOG_LEVEL: ${LOG_LEVEL}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      RABBITMQ_PORT: ${RABBITMQ_PORT}
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     ports:
       - "${PROFILE_PORT}:${PROFILE_PORT}"
     depends_on:
       postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     healthcheck:
       test:
@@ -82,25 +113,32 @@ services:
     build:
       context: ../../apps/auth-service
       dockerfile: Dockerfile
-      args:
-        DB_USER: ${DB_USER}
-        DB_PASSWORD: ${DB_PASSWORD}
-        DB_NAME: ${AUTH_DB_NAME}
     environment:
+      NODE_ENV: ${NODE_ENV}
+      LOG_LEVEL: ${LOG_LEVEL}
+      HOST: ${AUTH_HOST}
+      PORT: ${AUTH_PORT}
+      PATH_PREFIX: ${AUTH_PATH_PREFIX}
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${AUTH_DB_NAME}
-      HOST: ${AUTH_HOST}
-      PORT: ${AUTH_PORT}
-      PATH_PREFIX: ${AUTH_PATH_PREFIX}
-      NODE_ENV: ${NODE_ENV}
-      LOG_LEVEL: ${LOG_LEVEL}
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      RABBITMQ_PORT: ${RABBITMQ_PORT}
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     ports:
       - "${AUTH_PORT}:${AUTH_PORT}"
     depends_on:
       postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     healthcheck:
       test:
@@ -176,3 +214,4 @@ networks:
 volumes:
   rift_hub_pg:
   rabbitmq_data:
+  redis_data:
