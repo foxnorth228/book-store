@@ -8,12 +8,13 @@ import { ServerOptions } from "./server";
 export async function buildApp(opts: ServerOptions) {
   const app = Fastify(opts.fastifyOptions);
 
+  await app.register(createConfigPlugin(opts.config));
+
   // plugins
   await app.register(AutoLoad, {
     dir: path.join(__dirname, "plugins"),
     options: { ...opts },
   });
-  await app.register(createConfigPlugin(opts.config));
 
   // modules
   await app.register(AutoLoad, {

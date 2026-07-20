@@ -5,12 +5,6 @@ import path from "path";
 
 import { ServerOptions } from "./server";
 
-declare module "fastify" {
-  interface FastifyInstance {
-    config: ServerOptions["config"];
-  }
-}
-
 export async function buildApp(opts: ServerOptions) {
   const app = Fastify(opts.fastifyOptions);
 
@@ -32,4 +26,10 @@ export async function buildApp(opts: ServerOptions) {
   });
 
   return app;
+}
+
+declare module "fastify" {
+  interface FastifyInstance {
+    config: ServerOptions["config"];
+  }
 }

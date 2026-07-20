@@ -1,26 +1,28 @@
-import { prismaClient } from "../../config/prisma";
+import { FastifyInstance } from "fastify";
 
 export class ProfileRepository {
+  constructor(private module: FastifyInstance) {}
+
   findById(id: string) {
-    return prismaClient.profile.findUnique({
+    return this.module.prisma.profile.findUnique({
       where: { id },
     });
   }
 
   findByEmail(email: string) {
-    return prismaClient.profile.findUnique({
+    return this.module.prisma.profile.findUnique({
       where: { email },
     });
   }
 
   create(data: { email?: string; passwordHash?: string; region: string }) {
-    return prismaClient.profile.create({
+    return this.module.prisma.profile.create({
       data,
     });
   }
 
   update(id: string, data: Partial<{ email: string }>) {
-    return prismaClient.profile.update({
+    return this.module.prisma.profile.update({
       where: { id },
       data,
     });

@@ -406,6 +406,9 @@ importers:
       '@org/fastify-plugins':
         specifier: workspace:*
         version: link:../../packages/fastify-plugins
+      '@org/rabbitmq':
+        specifier: workspace:*
+        version: link:../../packages/rabbitmq
       '@org/shared':
         specifier: workspace:*
         version: link:../../packages/shared

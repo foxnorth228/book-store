@@ -21,7 +21,7 @@
             "cjs"
           ],
           "bundle": false,
-          "main": "apps/profile-service/src/main.ts",
+          "main": "apps/profile-service/src/server.ts",
           "tsConfig": "apps/profile-service/tsconfig.app.json",
           "assets": [
             "apps/profile-service/src/assets"
@@ -163,6 +163,7 @@
     "pino": "catalog:",
     "@org/shared": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
-    "@org/contracts": "workspace:*"
+    "@org/contracts": "workspace:*",
+    "@org/rabbitmq": "workspace:*"
   }
 }
