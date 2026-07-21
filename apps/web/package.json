@@ -1,5 +1,23 @@
 {
   "name": "@org/web",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "i18next": "catalog:",
+    "react-i18next": "catalog:",
+    "i18next-browser-languagedetector": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-router-dom": "catalog:",
+    "react-is": "catalog:",
+    "styled-components": "catalog:"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/react-is": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
 }

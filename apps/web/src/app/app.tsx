@@ -7,10 +7,7 @@ const StyledApp = styled.div`
   /* Your style here */
 `;
 
-console.log(import.meta.env);
-
 export function App() {
-  console.log("xd");
   return (
     <StyledApp>
       <NxWelcome title="@org/web" />
