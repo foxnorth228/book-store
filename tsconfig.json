@@ -26,6 +26,12 @@
     },
     {
       "path": "./packages/rabbitmq"
+    },
+    {
+      "path": "./packages/errors"
+    },
+    {
+      "path": "./packages/http"
     }
   ]
 }

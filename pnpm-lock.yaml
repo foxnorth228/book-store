@@ -497,12 +497,21 @@ importers:
 
   apps/web:
     dependencies:
+      i18next:
+        specifier: 'catalog:'
+        version: 26.3.6(typescript@5.9.3)
+      i18next-browser-languagedetector:
+        specifier: 'catalog:'
+        version: 8.2.1
       react:
         specifier: 'catalog:'
         version: 19.2.6
       react-dom:
         specifier: 'catalog:'
         version: 19.2.6(react@19.2.6)
+      react-i18next:
+        specifier: 'catalog:'
+        version: 17.0.10(i18next@26.3.6(typescript@5.9.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.9.3)
       react-is:
         specifier: 'catalog:'
         version: 19.2.6
@@ -549,8 +558,17 @@ importers:
         specifier: 'catalog:'
         version: 4.4.3
 
+  packages/errors:
+    dependencies:
+      tslib:
+        specifier: ^2.3.0
+        version: 2.8.1
+
   packages/fastify-plugins:
     dependencies:
+      '@org/errors':
+        specifier: workspace:*
+        version: link:../errors
       fastify:
         specifier: 'catalog:'
         version: 5.8.5
@@ -562,6 +580,12 @@ importers:
         version: 6.0.1
       tslib:
         specifier: 'catalog:'
+        version: 2.8.1
+
+  packages/http:
+    dependencies:
+      tslib:
+        specifier: ^2.3.0
         version: 2.8.1
 
   packages/rabbitmq:

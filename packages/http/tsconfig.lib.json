@@ -8,11 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "../errors/src/error-code.ts",
-    "../errors/src/errors.ts",
-    "../errors/src/error.type.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "references": []
 }

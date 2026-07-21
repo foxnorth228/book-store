@@ -1,9 +1,6 @@
+import { AppError, ErrorCode, ErrorResponse, NotFoundError } from "@org/errors";
 import { FastifyError, FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
-
-import { ErrorResponse } from "./error.type.js";
-import { ErrorCode } from "./error-code.js";
-import { AppError, NotFoundError } from "./errors.js";
 
 export const errorHandlerPlugin = fp(
   async (app: FastifyInstance) => {

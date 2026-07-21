@@ -1,17 +1,5 @@
+import { AppError } from "./AppError.js";
 import { ErrorCode } from "./error-code.js";
-
-export class AppError extends Error {
-  constructor(
-    public readonly statusCode: number,
-    public readonly code: ErrorCode,
-    message: string,
-    public readonly details?: unknown,
-  ) {
-    super(message);
-
-    this.name = this.constructor.name;
-  }
-}
 
 export class NotFoundError extends AppError {
   constructor(message: string, code: ErrorCode = ErrorCode.NOT_FOUND, details?: unknown) {
