@@ -3,10 +3,18 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME/bin:$PATH"
 RUN corepack enable
 
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
 # needs for config zod-validation
 ENV DB_USER=""
 ENV DB_PASSWORD=""
 ENV DB_NAME=""
+ENV RABBITMQ_HOST=""
+ENV RABBITMQ_USER=""
+ENV RABBITMQ_PASSWORD=""
+ENV REDIS_HOST=""
+ENV REDIS_PASSWORD=""
 
 RUN pnpm config set fetch-retries 5
 RUN pnpm config set fetch-retry-factor 2
@@ -25,4 +33,4 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i -r
 
 RUN pnpm prisma:generate
 
-CMD [ "node", "server.js" ]
+CMD ["sh", "-c", "pnpm run prisma:deploy && node server.js"]

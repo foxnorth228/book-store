@@ -15,7 +15,6 @@ export default fp(async function (fastify: FastifyInstance) {
   });
 
   await fastify.register(swaggerUi, {
-    indexPrefix: `/${fastify.config.env.PATH_PREFIX}`,
     routePrefix: "docs",
   });
 });

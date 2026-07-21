@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --config=./prisma.config.ts",
-    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma"
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "prisma:deploy": "prisma migrate deploy"
   },
   "devDependencies": {
     "prisma": "catalog:",

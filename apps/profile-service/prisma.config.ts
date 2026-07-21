@@ -1,7 +1,7 @@
 import { getDBUrlByConfig, loadServerEnv } from "@org/shared";
 import { defineConfig } from "prisma/config";
 
-const config = loadServerEnv("apps/profile-service");
+const config = loadServerEnv(undefined, "apps/profile-service");
 
 export default defineConfig({
   schema: "prisma/schema.prisma",

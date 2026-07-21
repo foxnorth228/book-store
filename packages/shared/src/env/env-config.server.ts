@@ -3,6 +3,7 @@ import path from "path";
 
 import { EnvServerConfig, EnvServerSchema, envServerSchema } from "./env-schema.server.js";
 
+// TODO fix split schema into multiple instances with different settings
 export function loadServerEnv<T extends EnvServerSchema>(
   schema: T = envServerSchema as T,
   servicePath: string,

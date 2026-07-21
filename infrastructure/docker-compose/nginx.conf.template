@@ -48,7 +48,7 @@ server {
         proxy_read_timeout 60s;
     }
     location /docs/auth/ {
-        proxy_pass http://auth_backend/${AUTH_PATH_PREFIX}/docs/;
+        proxy_pass http://auth_backend/docs/;
     }
 
     location /${PROFILE_PATH_PREFIX}/ {
@@ -68,7 +68,7 @@ server {
         proxy_read_timeout 60s;
     }
     location /docs/profile/ {
-        proxy_pass http://profile_backend/${PROFILE_PATH_PREFIX}/docs/;
+        proxy_pass http://profile_backend/docs/;
     }
 
     location /health {

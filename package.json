@@ -9,7 +9,8 @@
     "redis:up": "bash infrastructure/redis/run.sh",
     "infra:up": "pnpm postgres:up && pnpm rabbitmq:up && pnpm redis:up",
     "web:build": "nx build web",
-    "compose:build": "pnpm web:build && nx prune profile-service && nx prune auth-service && docker compose -f infrastructure/docker-compose/docker-compose.yaml build",
+    "pgadmin:build": "bash infrastructure/pgadmin/entrypoint.sh",
+    "compose:build": "pnpm pgadmin:build && pnpm web:build && nx prune profile-service && nx prune auth-service && docker compose -f infrastructure/docker-compose/docker-compose.yaml build --no-cache",
     "compose:up": "docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
     "compose:down": "docker compose -f infrastructure/docker-compose/docker-compose.yaml down"
   },

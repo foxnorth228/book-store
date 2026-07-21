@@ -2,6 +2,32 @@
   "name": "@org/profile-service",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "prisma:deploy": "prisma migrate deploy"
+  },
+  "devDependencies": {
+    "prisma": "catalog:",
+    "@types/pg": "catalog:"
+  },
+  "dependencies": {
+    "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
+    "@fastify/autoload": "catalog:",
+    "@fastify/sensible": "catalog:",
+    "@fastify/swagger": "catalog:",
+    "@fastify/swagger-ui": "catalog:",
+    "@prisma/client": "catalog:",
+    "@prisma/adapter-pg": "catalog:",
+    "pg": "catalog:",
+    "zod": "catalog:",
+    "pino": "catalog:",
+    "@grpc/grpc-js": "catalog:",
+    "@org/shared": "workspace:*",
+    "@org/fastify-plugins": "workspace:*",
+    "@org/contracts": "workspace:*",
+    "@org/rabbitmq": "workspace:*"
+  },
   "nx": {
     "targets": {
       "build": {
@@ -141,29 +167,5 @@
         }
       }
     }
-  },
-  "scripts": {
-    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma"
-  },
-  "devDependencies": {
-    "prisma": "catalog:",
-    "@types/pg": "catalog:"
-  },
-  "dependencies": {
-    "fastify": "catalog:",
-    "fastify-plugin": "catalog:",
-    "@fastify/autoload": "catalog:",
-    "@fastify/sensible": "catalog:",
-    "@fastify/swagger": "catalog:",
-    "@fastify/swagger-ui": "catalog:",
-    "@prisma/client": "catalog:",
-    "@prisma/adapter-pg": "catalog:",
-    "pg": "catalog:",
-    "zod": "catalog:",
-    "pino": "catalog:",
-    "@org/shared": "workspace:*",
-    "@org/fastify-plugins": "workspace:*",
-    "@org/contracts": "workspace:*",
-    "@org/rabbitmq": "workspace:*"
   }
 }
