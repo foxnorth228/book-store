@@ -1,39 +1,66 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
+import { loadLocalDevClientEnv } from "@org/shared";
 
-export default defineConfig(() => ({
-  root: import.meta.dirname,
-  cacheDir: "../../node_modules/.vite/apps/web",
-  server: {
-    port: 4200,
-    host: "localhost",
-  },
-  preview: {
-    port: 4200,
-    host: "localhost",
-  },
-  plugins: [react()],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //  plugins: [],
-  // },
-  build: {
-    emptyOutDir: true,
-    transformMixedEsModules: true,
-    outDir: "./dist",
-    reportCompressedSize: true,
-    commonjsOptions: { transformMixedEsModules: true },
-  },
-  test: {
-    name: "@org/web",
-    watch: false,
-    globals: true,
-    environment: "jsdom",
-    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    reporters: ["default"],
-    coverage: {
-      reportsDirectory: "./test-output/vitest/coverage",
-      provider: "v8" as const,
+export default defineConfig(() => {
+  const env = loadLocalDevClientEnv(__dirname);
+
+  return {
+    root: import.meta.dirname,
+    cacheDir: "../../node_modules/.vite/apps/web",
+    server: {
+      port: 4200,
+      host: "localhost",
+      proxy: {
+        "/api/auth": {
+          target: `http://localhost:${env.AUTH_PORT}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/auth/, ""),
+        },
+
+        "/api/profile": {
+          target: `http://localhost:${env.PROFILE_PORT}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/profile/, ""),
+        },
+      },
     },
-  },
-}));
+    preview: {
+      port: 4200,
+      host: "localhost",
+    },
+    plugins: [react()],
+    // Uncomment this if you are using workers.
+    // worker: {
+    //  plugins: [],
+    // },
+    resolve: {
+      alias: {
+        "@app": path.resolve(__dirname, "./src/app"),
+        "@modules": path.resolve(__dirname, "./src/modules"),
+        "@pages": path.resolve(__dirname, "./src/pages"),
+        "@shared": path.resolve(__dirname, "./src/shared"),
+      },
+    },
+    build: {
+      emptyOutDir: true,
+      transformMixedEsModules: true,
+      outDir: "./dist",
+      reportCompressedSize: true,
+      commonjsOptions: { transformMixedEsModules: true },
+    },
+    test: {
+      name: "@org/web",
+      watch: false,
+      globals: true,
+      environment: "jsdom",
+      include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+      reporters: ["default"],
+      coverage: {
+        reportsDirectory: "./test-output/vitest/coverage",
+        provider: "v8" as const,
+      },
+    },
+  };
+});

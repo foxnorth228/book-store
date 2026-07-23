@@ -14,5 +14,9 @@
     "../errors/src/errors.ts",
     "../errors/src/error.type.ts"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "../errors/tsconfig.lib.json"
+    }
+  ]
 }
