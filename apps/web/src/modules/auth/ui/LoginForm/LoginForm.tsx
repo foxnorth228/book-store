@@ -1,45 +1,55 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthApi } from "@modules/auth/api/auth.api";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { RHFFormField } from "@shared/lib";
+import { Input } from "@shared/ui";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { LoginFormData, loginSchema } from "../../model/auth.schema";
-import { Button, ErrorText, Form, Input, Title } from "./LoginForm.styles";
+import { Button, Description, Form, Title } from "./LoginForm.styles";
 
 export function LoginForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
+  const formProps = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
+    mode: "onSubmit",
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    console.log(data);
+  const { handleSubmit } = formProps;
 
-    // позже:
-    // await authApi.login(data)
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      const response = await AuthApi.login(data);
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  useEffect(() => {
-    console.log("n");
-    AuthApi.login({});
-  }, []);
-
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Title>Вход</Title>
+    <FormProvider {...formProps}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Title>Вход</Title>
 
-      <Input placeholder="Email" {...register("email")} />
+        <Description>Введите данные своего аккаунта</Description>
 
-      {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
+        <RHFFormField<LoginFormData>
+          name="email"
+          label="Email"
+          render={({ field, meta }) => (
+            <Input {...field} type="email" placeholder="example@mail.com" status={meta.status} />
+          )}
+        />
 
-      <Input type="password" placeholder="Пароль" {...register("password")} />
+        <RHFFormField<LoginFormData>
+          name="password"
+          label="Пароль"
+          render={({ field, meta }) => (
+            <Input {...field} type="password" placeholder="Введите пароль" status={meta.status} />
+          )}
+        />
 
-      {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
-
-      <Button type="submit">Войти</Button>
-    </Form>
+        <Button type="submit">Войти</Button>
+      </Form>
+    </FormProvider>
   );
 }
