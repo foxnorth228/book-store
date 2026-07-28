@@ -32,6 +32,9 @@
     },
     {
       "path": "./packages/http"
+    },
+    {
+      "path": "./apps/notification-service"
     }
   ]
 }
