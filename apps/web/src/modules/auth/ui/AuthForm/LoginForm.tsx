@@ -5,7 +5,7 @@ import { Input } from "@shared/ui";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { LoginFormData, loginSchema } from "../../model/auth.schema";
-import { Button, Description, Form, Title } from "./LoginForm.styles";
+import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm.styles";
 
 export function LoginForm() {
   const formProps = useForm<LoginFormData>({
@@ -48,7 +48,15 @@ export function LoginForm() {
           )}
         />
 
-        <Button type="submit">Войти</Button>
+        <FooterLink to="/forgot-password">Забыли пароль?</FooterLink>
+
+        <SubmitButton type="submit">Войти</SubmitButton>
+
+        <Footer>
+          <span>Нет аккаунта?</span>
+
+          <FooterLink to="/register">Создать аккаунт</FooterLink>
+        </Footer>
       </Form>
     </FormProvider>
   );

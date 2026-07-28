@@ -1,2 +1,3 @@
-export { LoginForm } from "./ui/LoginForm/LoginForm";
-export { RegisterForm } from "./ui/RegisterForm/RegisterForm";
+export { ForgotPasswordForm } from "./ui/AuthForm/ForgotPasswordForm";
+export { LoginForm } from "./ui/AuthForm/LoginForm";
+export { RegisterForm } from "./ui/AuthForm/RegisterForm";

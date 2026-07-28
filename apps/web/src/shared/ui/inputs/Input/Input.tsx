@@ -1,9 +1,11 @@
-import { forwardRef, InputHTMLAttributes } from "react";
+import { FC, InputHTMLAttributes } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+import { StyledInput } from "./Input.styles";
+
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   status?: "default" | "error";
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(function Input({ ...props }, ref) {
-  return <input ref={ref} {...props} />;
-});
+export const Input: FC<InputProps> = ({ ...props }) => {
+  return <StyledInput {...props} />;
+};

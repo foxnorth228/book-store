@@ -24,5 +24,10 @@
     "@types/react-is": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
