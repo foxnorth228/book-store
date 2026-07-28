@@ -7,6 +7,7 @@
     "postgres:up": "bash infrastructure/postgres/run.sh",
     "rabbitmq:up": "bash infrastructure/rabbitmq/run.sh",
     "redis:up": "bash infrastructure/redis/run.sh",
+    "mailpit:up": "bash infrastructure/mailpit/run.sh",
     "infra:up": "pnpm postgres:up && pnpm rabbitmq:up && pnpm redis:up",
     "web:build": "nx build web",
     "pgadmin:build": "bash infrastructure/pgadmin/entrypoint.sh",
