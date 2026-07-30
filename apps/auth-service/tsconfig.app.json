@@ -16,6 +16,12 @@
       "path": "../../packages/fastify-plugins/tsconfig.lib.json"
     },
     {
+      "path": "../../packages/fastify/tsconfig.lib.json"
+    },
+    {
+      "path": "../../packages/errors/tsconfig.lib.json"
+    },
+    {
       "path": "../../packages/contracts/tsconfig.lib.json"
     },
     {

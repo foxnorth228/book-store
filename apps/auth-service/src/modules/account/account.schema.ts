@@ -1,12 +1,15 @@
+import { authContracts, zodToJsonSchema } from "@org/contracts";
+
 import { accountConfig } from "./account.config";
 
-export const accountUserReqSchema = {
-  $id: accountConfig.schemas.accountUserReq,
-  type: "object",
-  required: ["email", "password"],
-  additionalProperties: false,
-  properties: {
-    email: { type: "string", format: "email" },
-    password: { type: "string" },
-  },
+export const accountLoginReq = {
+  $id: accountConfig.schemas.loginReq,
+  ...zodToJsonSchema(authContracts.login.body),
 };
+
+export const accountLoginRes = {
+  $id: accountConfig.schemas.loginRes,
+  ...zodToJsonSchema(authContracts.login.response),
+};
+
+export const accountSchemas = [accountLoginReq, accountLoginRes];

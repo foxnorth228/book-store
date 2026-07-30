@@ -11,7 +11,7 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
+model Account {
   id           String   @id @default(cuid())
 
   email        String   @unique

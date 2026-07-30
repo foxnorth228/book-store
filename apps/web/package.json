@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@org/contracts": "workspace:*",
     "@org/http": "workspace:*",
     "@org/shared": "workspace:*",
     "@hookform/resolvers": "catalog:",

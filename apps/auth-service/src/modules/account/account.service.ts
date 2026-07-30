@@ -1,26 +1,29 @@
-import { hashPassword } from "@org/shared";
-import { FastifyInstance } from "fastify";
+import { BaseService } from "@org/fastify";
+import { verifyPassword } from "@org/shared";
 
-export const accountService = {
-  async createAccount(
-    module: FastifyInstance,
-    { email, password }: { email: string; password: string },
-  ) {
-    const isUserExists = await module.prisma.user.findUnique({
-      where: { email },
-    });
+import { accountConfig } from "./account.config";
+import { InvalidCredentialsError } from "./account.errors";
+import { AccountRepository } from "./account.repository";
 
-    if (isUserExists) {
-      throw new Error("User already exists");
+export class AccountService extends BaseService<AccountRepository> {
+  protected readonly repositoryKey = accountConfig.repositoryName;
+
+  async login(email: string, password: string) {
+    const account = await this.repository.findByEmail(email);
+
+    if (!account) {
+      throw new InvalidCredentialsError("Invalid email or password");
     }
 
-    const user = await module.prisma.user.create({
-      data: {
-        email,
-        passwordHash: await hashPassword(password),
-      },
-    });
+    const isPasswordMatch = await verifyPassword(account.passwordHash, password);
 
-    return user;
-  },
-};
+    if (!isPasswordMatch) {
+      throw new InvalidCredentialsError("Invalid email or password");
+    }
+
+    return {
+      id: account.id,
+      email: account.email,
+    };
+  }
+}

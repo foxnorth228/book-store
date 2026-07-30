@@ -1,11 +1,10 @@
 export const accountConfig = {
-  controllerName: "accountController",
+  repositoryName: "accountRepository",
   serviceName: "accountService",
+  controllerName: "accountController",
   schemas: {
-    accountUserReq: "accountUserReq",
-  },
-  urls: {
-    register: "/register",
+    loginReq: "loginSchemaReq",
+    loginRes: "loginSchemaRes",
   },
   tags: {
     account: "Account",

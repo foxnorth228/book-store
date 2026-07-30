@@ -13,8 +13,8 @@ export class ConflictError extends AppError {
   }
 }
 
-export class BadRequestError extends AppError {
-  constructor(message: string, code: ErrorCode = ErrorCode.BAD_REQUEST, details?: unknown) {
+export class BadRequestError<TCode extends string = ErrorCode> extends AppError<TCode> {
+  constructor(message: string, code: TCode = ErrorCode.BAD_REQUEST as TCode, details?: unknown) {
     super(400, code, message, details);
   }
 }
