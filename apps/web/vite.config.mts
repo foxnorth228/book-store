@@ -16,7 +16,7 @@ export default defineConfig(() => {
         "/api/auth": {
           target: `http://localhost:${env.AUTH_PORT}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/auth/, ""),
+          rewrite: (path) => path.replace(/^\/api\/auth/, "/auth"),
         },
 
         "/api/profile": {

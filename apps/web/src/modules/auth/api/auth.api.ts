@@ -5,7 +5,7 @@ import { ForgotPasswordFormData, ResetPasswordFormData } from "../model/reset-pa
 import { AuthLoginReq } from "../model/types";
 
 export const AuthApi = {
-  httpClient: new HttpClient({ baseUrl: "" }),
+  httpClient: new HttpClient({ baseUrl: "/api" }),
   login(data: AuthLoginReq) {
     return this.httpClient.post(authContracts.login.path, data);
   },

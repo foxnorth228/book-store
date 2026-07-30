@@ -25,6 +25,7 @@
     "@grpc/grpc-js": "catalog:",
     "@org/shared": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
+    "@org/grpc": "workspace:*",
     "@org/contracts": "workspace:*",
     "@org/rabbitmq": "workspace:*"
   },

@@ -31,6 +31,7 @@
     "@org/contracts": "workspace:*",
     "@org/errors": "workspace:*",
     "@org/fastify": "workspace:*",
+    "@org/grpc": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
     "@org/rabbitmq": "workspace:*"
   },
