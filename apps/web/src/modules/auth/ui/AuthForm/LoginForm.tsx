@@ -3,6 +3,7 @@ import { AuthApi } from "@modules/auth/api/auth.api";
 import { RHFFormField } from "@shared/lib";
 import { Input } from "@shared/ui";
 import { FormProvider, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import { LoginFormData, loginSchema } from "../../model/auth.schema";
 import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm.styles";
@@ -21,6 +22,7 @@ export function LoginForm() {
 
       console.log(response);
     } catch (error) {
+      toast.error("error");
       console.error(error);
     }
   };

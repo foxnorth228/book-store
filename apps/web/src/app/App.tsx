@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "styled-components";
 
 import { Router } from "./routing/ui/Router";
@@ -8,6 +9,7 @@ export function App() {
   return (
     <>
       <GlobalStyles />
+      <Toaster />
       <ThemeProvider theme={theme}>
         <Router />
       </ThemeProvider>

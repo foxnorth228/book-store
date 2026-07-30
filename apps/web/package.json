@@ -13,6 +13,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
+    "react-hot-toast": "catalog:",
     "react-router": "catalog:",
     "react-is": "catalog:",
     "styled-components": "catalog:",
