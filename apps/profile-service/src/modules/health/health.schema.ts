@@ -18,7 +18,6 @@ export const healthResSchema = {
     app: { ...healthResFieldSchema },
     database: { ...healthResFieldSchema },
     rabbitmq: { ...healthResFieldSchema },
-    redis: { ...healthResFieldSchema },
   },
 };
 

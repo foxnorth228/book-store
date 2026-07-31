@@ -12,4 +12,19 @@ export const accountLoginRes = {
   ...zodToJsonSchema(authContracts.login.response),
 };
 
-export const accountSchemas = [accountLoginReq, accountLoginRes];
+export const accountRegisterReq = {
+  $id: accountConfig.schemas.registerReq,
+  ...zodToJsonSchema(authContracts.register.body),
+};
+
+export const accountRegisterRes = {
+  $id: accountConfig.schemas.registerRes,
+  ...zodToJsonSchema(authContracts.register.response),
+};
+
+export const accountSchemas = [
+  accountLoginReq,
+  accountLoginRes,
+  accountRegisterReq,
+  accountRegisterRes,
+];

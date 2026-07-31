@@ -1,15 +1,14 @@
-import { authContracts } from "@org/contracts";
+import { authContracts, AuthLoginReq, AuthRegisterReq } from "@org/contracts";
 import { HttpClient } from "@org/http";
 
 import { ForgotPasswordFormData, ResetPasswordFormData } from "../model/reset-password.schema";
-import { AuthLoginReq } from "../model/types";
 
 export const AuthApi = {
   httpClient: new HttpClient({ baseUrl: "/api" }),
   login(data: AuthLoginReq) {
     return this.httpClient.post(authContracts.login.path, data);
   },
-  register(data: RegisterRequest) {
+  register(data: AuthRegisterReq) {
     return this.httpClient.post("/auth/register", data);
   },
   async forgotPassword(data: ForgotPasswordFormData) {

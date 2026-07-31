@@ -1,23 +1,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authContracts, AuthRegisterReq } from "@org/contracts";
 import { RHFFormField } from "@shared/lib";
 import { Input, Link } from "@shared/ui";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { RegisterFormData, registerSchema } from "../../model/auth.schema";
+import { AuthApi } from "../../api/auth.api";
 import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm.styles";
 
 export function RegisterForm() {
-  const formProps = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
+  const formProps = useForm<AuthRegisterReq>({
+    resolver: zodResolver(authContracts.register.body),
     mode: "onSubmit",
   });
 
   const { handleSubmit } = formProps;
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (data: AuthRegisterReq) => {
     console.log(data);
 
-    // await AuthApi.register(data)
+    await AuthApi.register(data);
   };
 
   return (
@@ -27,7 +28,7 @@ export function RegisterForm() {
 
         <Description>Создайте новый аккаунт для работы с Rift Hub</Description>
 
-        <RHFFormField<RegisterFormData>
+        <RHFFormField<AuthRegisterReq>
           name="email"
           label="Email"
           render={({ field, meta }) => (
@@ -35,7 +36,7 @@ export function RegisterForm() {
           )}
         />
 
-        <RHFFormField<RegisterFormData>
+        <RHFFormField<AuthRegisterReq>
           name="password"
           label="Пароль"
           render={({ field, meta }) => (
@@ -43,7 +44,7 @@ export function RegisterForm() {
           )}
         />
 
-        <RHFFormField<RegisterFormData>
+        <RHFFormField<AuthRegisterReq>
           name="confirmPassword"
           label="Подтверждение пароля"
           render={({ field, meta }) => (
@@ -51,12 +52,10 @@ export function RegisterForm() {
           )}
         />
 
-        <RHFFormField<RegisterFormData>
-          name="region"
-          label="Регион"
-          render={({ field, meta }) => (
-            <Input {...field} placeholder="Например, EUW" status={meta.status} />
-          )}
+        <RHFFormField<AuthRegisterReq>
+          name="language"
+          label="Язык"
+          render={({ field }) => <Input {...field} disabled value="en" />}
         />
 
         <SubmitButton type="submit">Создать аккаунт</SubmitButton>

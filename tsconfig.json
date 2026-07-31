@@ -41,6 +41,9 @@
     },
     {
       "path": "./packages/grpc"
+    },
+    {
+      "path": "./packages/localization"
     }
   ]
 }

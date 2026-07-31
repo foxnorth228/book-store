@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 
 import { healthConfig } from "./health.config";
-import { HealthController } from "./health.interface";
+import { HealthController } from "./health.controller";
 
 export async function healthRoutes(module: FastifyInstance) {
   const healthController = module.getDecorator<HealthController>(healthConfig.controllerName);

@@ -1,22 +1,22 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthApi } from "@modules/auth/api/auth.api";
+import { authContracts, AuthLoginReq } from "@org/contracts";
 import { RHFFormField } from "@shared/lib";
 import { Input } from "@shared/ui";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-import { LoginFormData, loginSchema } from "../../model/auth.schema";
 import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm.styles";
 
 export function LoginForm() {
-  const formProps = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  const formProps = useForm<AuthLoginReq>({
+    resolver: zodResolver(authContracts.login.body),
     mode: "onSubmit",
   });
 
   const { handleSubmit } = formProps;
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: AuthLoginReq) => {
     try {
       const response = await AuthApi.login(data);
 
@@ -34,7 +34,7 @@ export function LoginForm() {
 
         <Description>Введите данные своего аккаунта</Description>
 
-        <RHFFormField<LoginFormData>
+        <RHFFormField<AuthLoginReq>
           name="email"
           label="Email"
           render={({ field, meta }) => (
@@ -42,7 +42,7 @@ export function LoginForm() {
           )}
         />
 
-        <RHFFormField<LoginFormData>
+        <RHFFormField<AuthLoginReq>
           name="password"
           label="Пароль"
           render={({ field, meta }) => (

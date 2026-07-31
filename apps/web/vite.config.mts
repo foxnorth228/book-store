@@ -22,7 +22,7 @@ export default defineConfig(() => {
         "/api/profile": {
           target: `http://localhost:${env.PROFILE_PORT}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/profile/, ""),
+          rewrite: (path) => path.replace(/^\/api\/profile/, "/profile"),
         },
       },
     },

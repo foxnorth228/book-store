@@ -1,14 +1,39 @@
+import { languageSchema } from "@org/localization";
 import z from "zod";
+
+export const passwordSchema = z.string().min(6);
 
 export const authSchemas = {
   login: {
     body: z.object({
       email: z.email(),
-      password: z.string().min(6),
+      password: passwordSchema,
     }),
     response: z.object({
-      id: z.string(),
+      id: z.uuid(),
+      email: z.email(),
+    }),
+  },
+  register: {
+    body: z
+      .object({
+        email: z.email(),
+        password: passwordSchema,
+        confirmPassword: passwordSchema,
+        language: languageSchema,
+      })
+      .refine((data) => data.password === data.confirmPassword, {
+        error: "Passwords much match",
+        path: ["confirmPassword"],
+      }),
+    response: z.object({
+      id: z.uuid(),
       email: z.email(),
     }),
   },
 };
+
+export const authAccountRegisteredSchema = z.object({
+  accountId: z.uuid(),
+  language: languageSchema,
+});

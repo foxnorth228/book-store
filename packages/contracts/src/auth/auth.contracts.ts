@@ -8,4 +8,10 @@ export const authContracts = {
     body: authSchemas.login.body,
     response: authSchemas.login.response,
   },
+  register: {
+    method: "POST",
+    path: authRoutes.register,
+    body: authSchemas.register.body,
+    response: authSchemas.register.response,
+  },
 };

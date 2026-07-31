@@ -10,6 +10,9 @@
   "exclude": ["eslint.config.js", "eslint.config.cjs", "eslint.config.mjs"],
   "references": [
     {
+      "path": "../../packages/localization/tsconfig.lib.json"
+    },
+    {
       "path": "../../packages/rabbitmq/tsconfig.lib.json"
     },
     {

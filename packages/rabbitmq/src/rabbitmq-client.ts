@@ -11,6 +11,14 @@ export class RabbitMQClient {
   private channel?: ConfirmChannel;
   private connected = false;
 
+  private getChannel(): ConfirmChannel {
+    if (!this.channel) {
+      throw new Error("RabbitClient is not connected.");
+    }
+
+    return this.channel;
+  }
+
   constructor(private readonly options: RabbitClientOptions) {}
 
   async connect(): Promise<void> {
@@ -100,11 +108,15 @@ export class RabbitMQClient {
 
   async subscribe(
     queue: string,
+    exchange: string,
+    routingKey: string,
     handler: RabbitMessageHandler,
     options?: Options.Consume,
-  ): Promise<Replies.Consume> {
+  ) {
     const channel = this.getChannel();
-
+    await channel.assertExchange(exchange, "topic", { durable: true });
+    await channel.assertQueue(queue, { durable: true });
+    await channel.bindQueue(queue, exchange, routingKey);
     return channel.consume(
       queue,
       async (message) => {
@@ -138,13 +150,5 @@ export class RabbitMQClient {
 
   async deleteExchange(exchange: string): Promise<Replies.Empty> {
     return this.getChannel().deleteExchange(exchange);
-  }
-
-  private getChannel(): ConfirmChannel {
-    if (!this.channel) {
-      throw new Error("RabbitClient is not connected.");
-    }
-
-    return this.channel;
   }
 }

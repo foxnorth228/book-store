@@ -1,5 +1,5 @@
 {
-  "name": "@org/contracts",
+  "name": "@org/localization",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "tslib": "catalog:",
-    "zod": "catalog:",
-    "@org/localization": "workspace:*"
+    "zod": "catalog:"
   }
 }

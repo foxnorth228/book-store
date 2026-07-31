@@ -12,4 +12,13 @@ export class AccountRepository extends BaseRepository<PrismaClient> {
       select: { id: true, email: true, passwordHash: true },
     });
   }
+
+  public create(email: string, passwordHash: string) {
+    return this.db.account.create({
+      data: {
+        email,
+        passwordHash,
+      },
+    });
+  }
 }

@@ -1,30 +1,29 @@
-import { FastifyInstance } from "fastify";
+import { BaseRepository } from "@org/fastify";
+import { Languages } from "@org/localization";
 
-export class ProfileRepository {
-  constructor(private module: FastifyInstance) {}
+import { PrismaClient } from "../../libs/prisma/client";
+
+export class ProfileRepository extends BaseRepository<PrismaClient> {
+  protected readonly databaseKey = "prisma";
 
   findById(id: string) {
-    return this.module.prisma.profile.findUnique({
+    return this.db.profile.findUnique({
       where: { id },
     });
   }
 
-  findByEmail(email: string) {
-    return this.module.prisma.profile.findUnique({
-      where: { email },
+  findByAccountId(accountId: string) {
+    return this.db.profile.findUnique({
+      where: { accountId },
     });
   }
 
-  create(data: { email?: string; passwordHash?: string; region: string }) {
-    return this.module.prisma.profile.create({
-      data,
-    });
-  }
-
-  update(id: string, data: Partial<{ email: string }>) {
-    return this.module.prisma.profile.update({
-      where: { id },
-      data,
+  create(accountId: string, language: Languages) {
+    return this.db.profile.create({
+      data: {
+        accountId,
+        language,
+      },
     });
   }
 }

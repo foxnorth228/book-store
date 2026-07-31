@@ -5,6 +5,8 @@ export const accountConfig = {
   schemas: {
     loginReq: "loginSchemaReq",
     loginRes: "loginSchemaRes",
+    registerReq: "registerSchemaReq",
+    registerRes: "registerSchemaRes",
   },
   tags: {
     account: "Account",

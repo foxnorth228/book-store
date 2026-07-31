@@ -27,7 +27,9 @@
     "@org/fastify-plugins": "workspace:*",
     "@org/grpc": "workspace:*",
     "@org/contracts": "workspace:*",
-    "@org/rabbitmq": "workspace:*"
+    "@org/rabbitmq": "workspace:*",
+    "@org/fastify": "workspace:*",
+    "@org/localization": "workspace:*"
   },
   "nx": {
     "targets": {

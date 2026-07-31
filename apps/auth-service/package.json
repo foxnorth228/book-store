@@ -33,7 +33,8 @@
     "@org/fastify": "workspace:*",
     "@org/grpc": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
-    "@org/rabbitmq": "workspace:*"
+    "@org/rabbitmq": "workspace:*",
+    "@org/localization": "workspace:*"
   },
   "nx": {
     "targets": {

@@ -1,8 +1,11 @@
+import { AuthEvents } from "@org/contracts";
 import { BaseService } from "@org/fastify";
-import { verifyPassword } from "@org/shared";
+import { Languages } from "@org/localization";
+import { hashPassword, verifyPassword } from "@org/shared";
 
+import { Prisma } from "../../libs/prisma/client";
 import { accountConfig } from "./account.config";
-import { InvalidCredentialsError } from "./account.errors";
+import { InvalidCredentialsError, UserAlreadyExistError } from "./account.errors";
 import { AccountRepository } from "./account.repository";
 
 export class AccountService extends BaseService<AccountRepository> {
@@ -25,5 +28,27 @@ export class AccountService extends BaseService<AccountRepository> {
       id: account.id,
       email: account.email,
     };
+  }
+
+  async register(email: string, password: string, language: Languages) {
+    const passwordHash = await hashPassword(password);
+
+    try {
+      const account = await this.repository.create(email, passwordHash);
+
+      await this.app.rabbitmq.publish(AuthEvents.exchange, AuthEvents.Registered, {
+        accountId: account.id,
+        language: language,
+      });
+
+      return { id: account.id, email: account.email };
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2002") {
+        throw new UserAlreadyExistError("User already exist");
+      }
+
+      this.app.log.error(e);
+      throw e;
+    }
   }
 }
