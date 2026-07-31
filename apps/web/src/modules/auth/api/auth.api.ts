@@ -4,12 +4,12 @@ import { HttpClient } from "@org/http";
 import { ForgotPasswordFormData, ResetPasswordFormData } from "../model/reset-password.schema";
 
 export const AuthApi = {
-  httpClient: new HttpClient({ baseUrl: "/api" }),
+  httpClient: new HttpClient({ baseUrl: import.meta.env.VITE_AUTH_SERVICE_PREFIX }),
   login(data: AuthLoginReq) {
     return this.httpClient.post(authContracts.login.path, data);
   },
   register(data: AuthRegisterReq) {
-    return this.httpClient.post("/auth/register", data);
+    return this.httpClient.post(authContracts.register.path, data);
   },
   async forgotPassword(data: ForgotPasswordFormData) {
     return this.httpClient.post("/auth/password/reset-request", data);

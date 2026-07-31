@@ -34,8 +34,6 @@ console.log(`📦 Catalog entries copied: ${Object.keys(catalog).length}`);
 console.log(`🔨 AllowBuilds entries copied: ${Object.keys(allowBuilds).length}`);
 console.log(`📁 Workspace package entries generated: ${packageDirs.length}`);
 
-restoreWorkspaceDependencies(targetDir);
-
 function parseCatalog(content) {
   const catalogMatch = content.match(/^catalog:\s*\n((?:^[ \t].*\n?)+)(?=^[^ \t].*?:|$)/m);
 
@@ -136,47 +134,4 @@ function buildDockerWorkspaceYaml(catalog, allowBuilds, packageDirs) {
   }
 
   return yaml;
-}
-
-function restoreWorkspaceDependencies(dir) {
-  const depTypes = ["dependencies", "devDependencies", "peerDependencies", "optionalDependencies"];
-  let updatedCount = 0;
-
-  function traverse(currentPath) {
-    const packageJsonPath = path.join(currentPath, "package.json");
-
-    if (fs.existsSync(packageJsonPath) && fs.statSync(packageJsonPath).isFile()) {
-      const content = fs.readFileSync(packageJsonPath, "utf-8");
-      const pkg = JSON.parse(content);
-      let changed = false;
-
-      for (const depType of depTypes) {
-        if (!pkg[depType]) continue;
-
-        for (const [pkgName, version] of Object.entries(pkg[depType])) {
-          if (typeof version === "string" && version.startsWith("file:./workspace_modules/")) {
-            pkg[depType][pkgName] = "workspace:*";
-            console.log(`  ✏️  ${packageJsonPath}: ${pkgName} → workspace:*`);
-            changed = true;
-            updatedCount++;
-          }
-        }
-      }
-
-      if (changed) {
-        fs.writeFileSync(packageJsonPath, `${JSON.stringify(pkg, null, 2)}\n`, "utf-8");
-      }
-      return;
-    }
-
-    const entries = fs.readdirSync(currentPath, { withFileTypes: true });
-    for (const entry of entries) {
-      if (entry.isDirectory()) {
-        traverse(path.join(currentPath, entry.name));
-      }
-    }
-  }
-
-  traverse(dir);
-  console.log(`📝 Restored ${updatedCount} workspace:* references`);
 }

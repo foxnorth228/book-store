@@ -205,6 +205,8 @@ services:
         WEB_PORT: ${WEB_PORT}
     environment:
       WEB_PORT: ${WEB_PORT}
+      VITE_AUTH_SERVICE_PREFIX: ${AUTH_PATH_PREFIX}
+      VITE_PROFILE_SERVICE_PREFIX: ${PROFILE_PATH_PREFIX}
     ports:
       - "${WEB_PORT}:${WEB_PORT}"
     depends_on:

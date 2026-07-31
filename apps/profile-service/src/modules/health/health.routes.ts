@@ -15,6 +15,8 @@ export async function healthRoutes(module: FastifyInstance) {
         200: module.getSchema(healthConfig.schemas.healthRes),
       },
     },
-    handler: healthController.getHealthStatus,
+    handler: async () => {
+      return await healthController.getHealthStatus();
+    },
   });
 }

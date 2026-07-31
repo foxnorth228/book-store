@@ -1,4 +1,4 @@
 export const authRoutes = {
-  login: "/auth/login",
-  register: "/auth/register",
+  login: "/login",
+  register: "/register",
 };
