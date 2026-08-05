@@ -3,38 +3,38 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --config=./prisma.config.ts",
+    "prisma:deploy": "prisma migrate deploy",
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
-    "prisma:deploy": "prisma migrate deploy"
-  },
-  "devDependencies": {
-    "prisma": "catalog:",
-    "@types/pg": "catalog:"
+    "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --config=./prisma.config.ts"
   },
   "dependencies": {
-    "fastify": "catalog:",
-    "fastify-plugin": "catalog:",
     "@fastify/autoload": "catalog:",
+    "@fastify/cookie": "catalog:",
+    "@fastify/jwt": "catalog:",
     "@fastify/sensible": "catalog:",
     "@fastify/swagger": "catalog:",
     "@fastify/swagger-ui": "catalog:",
-    "@fastify/jwt": "catalog:",
-    "@fastify/cookie": "catalog:",
-    "@prisma/client": "catalog:",
-    "@prisma/adapter-pg": "catalog:",
-    "pg": "catalog:",
-    "zod": "catalog:",
-    "pino": "catalog:",
-    "redis": "catalog:",
     "@grpc/grpc-js": "catalog:",
-    "@org/shared": "workspace:*",
     "@org/contracts": "workspace:*",
     "@org/errors": "workspace:*",
     "@org/fastify": "workspace:*",
-    "@org/grpc": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
+    "@org/grpc": "workspace:*",
+    "@org/localization": "workspace:*",
     "@org/rabbitmq": "workspace:*",
-    "@org/localization": "workspace:*"
+    "@org/shared": "workspace:*",
+    "@prisma/adapter-pg": "catalog:",
+    "@prisma/client": "catalog:",
+    "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
+    "pg": "catalog:",
+    "pino": "catalog:",
+    "redis": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/pg": "catalog:",
+    "prisma": "catalog:"
   },
   "nx": {
     "targets": {

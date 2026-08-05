@@ -11,7 +11,7 @@ export const authSchemas = {
     }),
     response: z.object({
       id: z.uuid(),
-      email: z.email(),
+      accessToken: z.string(),
     }),
   },
   register: {

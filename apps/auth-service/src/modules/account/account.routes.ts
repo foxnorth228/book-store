@@ -19,8 +19,8 @@ export async function accountRoutes(module: FastifyInstance) {
         400: zodToJsonSchema(errorBodySchema),
       },
     },
-    handler: async (request: FastifyRequest<{ Body: AuthLoginReq }>) => {
-      return accountController.login(request);
+    handler: async (request: FastifyRequest<{ Body: AuthLoginReq }>, reply) => {
+      return accountController.login(request, reply);
     },
   });
 

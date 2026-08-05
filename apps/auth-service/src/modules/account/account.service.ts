@@ -2,6 +2,7 @@ import { AuthEvents } from "@org/contracts";
 import { BaseService } from "@org/fastify";
 import { Languages } from "@org/localization";
 import { hashPassword, verifyPassword } from "@org/shared";
+import crypto from "crypto";
 
 import { Prisma } from "../../libs/prisma/client";
 import { accountConfig } from "./account.config";
@@ -24,9 +25,11 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new InvalidCredentialsError("Invalid email or password");
     }
 
+    const tokens = await this.generateTokens(account.id, account.email);
+
     return {
       id: account.id,
-      email: account.email,
+      ...tokens,
     };
   }
 
@@ -50,5 +53,20 @@ export class AccountService extends BaseService<AccountRepository> {
       this.app.log.error(e);
       throw e;
     }
+  }
+
+  async generateTokens(id: string, email: string) {
+    const accessToken = this.app.jwt.sign({
+      sub: id,
+      email: email,
+    });
+
+    const refreshToken = crypto.randomBytes(64).toString("hex");
+
+    await this.app.redis.set(`refresh:${refreshToken}`, id, {
+      EX: Number.parseInt(this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN) ?? 0,
+    });
+
+    return { accessToken, refreshToken };
   }
 }

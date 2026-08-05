@@ -18,3 +18,9 @@ export class BadRequestError<TCode extends string = ErrorCode> extends AppError<
     super(400, code, message, details);
   }
 }
+
+export class UnauthorizedError extends AppError {
+  constructor(message: string, code: ErrorCode = ErrorCode.UNAUTHORIZED, details?: unknown) {
+    super(401, code, message, details);
+  }
+}
