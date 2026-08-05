@@ -32,6 +32,18 @@
     },
     {
       "path": "./packages/http"
+    },
+    {
+      "path": "./apps/notification-service"
+    },
+    {
+      "path": "./packages/fastify"
+    },
+    {
+      "path": "./packages/grpc"
+    },
+    {
+      "path": "./packages/localization"
     }
   ]
 }

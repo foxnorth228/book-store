@@ -1,0 +1,40 @@
+{
+  "name": "@org/grpc",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@org/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "tslib": "catalog:",
+    "@bufbuild/protobuf": "catalog:",
+    "@grpc/grpc-js": "catalog:"
+  },
+  "nx": {
+    "targets": {
+      "grpc:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "ts-node {projectRoot}/src/tools/generate-proto-client.ts {projectRoot}"
+        }
+      },
+      "build": {
+        "dependsOn": [
+          "^build",
+          "grpc:generate"
+        ]
+      }
+    }
+  }
+}

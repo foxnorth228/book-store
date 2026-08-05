@@ -9,7 +9,7 @@ export const errorHandlerPlugin = fp(
       request,
       reply,
     ): Promise<ErrorResponse> {
-      app.log.error({ error });
+      app.log.error(error);
 
       if (error instanceof AppError) {
         reply.code(error.statusCode);

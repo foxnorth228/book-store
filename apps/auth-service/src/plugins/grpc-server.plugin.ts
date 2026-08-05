@@ -1,5 +1,5 @@
 import { Server, ServerCredentials } from "@grpc/grpc-js";
-import { type AuthServiceServer, registerAuthService } from "@org/contracts";
+import { type AuthServiceServer, registerAuthService } from "@org/grpc";
 import fp from "fastify-plugin";
 
 const grpcServerPlugin = fp(

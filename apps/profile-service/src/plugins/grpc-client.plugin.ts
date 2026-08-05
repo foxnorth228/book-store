@@ -1,5 +1,5 @@
 import { credentials } from "@grpc/grpc-js";
-import { AuthServiceClient } from "@org/contracts";
+import { AuthServiceClient } from "@org/grpc";
 import fp from "fastify-plugin";
 
 const grpcClientPlugin = fp(

@@ -1,14 +1,14 @@
 import { FastifyInstance } from "fastify";
 
 import { healthConfig } from "./health.config.js";
-import { createHealthController } from "./health.controller.js";
+import { HealthController } from "./health.controller.js";
 import { healthRoutes } from "./health.routes.js";
 import { healthSchemas } from "./health.schema.js";
-import { healthService } from "./health.service.js";
+import { HealthService } from "./health.service.js";
 
 async function HealthModule(app: FastifyInstance) {
-  app.decorate(healthConfig.serviceName, healthService);
-  app.decorate(healthConfig.controllerName, createHealthController(app));
+  app.decorate(healthConfig.serviceName, new HealthService(app));
+  app.decorate(healthConfig.controllerName, new HealthController(app));
 
   for (const schema of healthSchemas) {
     app.addSchema(schema);

@@ -1,27 +1,14 @@
-import { hashPassword } from "@org/shared";
-import { FastifyInstance } from "fastify";
+import { BaseService } from "@org/fastify";
+import { Languages } from "@org/localization";
 
 import { profileConfig } from "./profile.config";
 import { ProfileRepository } from "./profile.repository";
 
-export class ProfileService {
-  constructor(private module: FastifyInstance) {}
-
-  private getRepository() {
-    const profileRepository = this.module.getDecorator<ProfileRepository>(
-      profileConfig.repositoryName,
-    );
-
-    if (!(profileRepository instanceof ProfileRepository)) {
-      throw new Error("wrong type");
-    }
-
-    return profileRepository;
-  }
+export class ProfileService extends BaseService<ProfileRepository> {
+  protected override readonly repositoryKey = profileConfig.repositoryName;
 
   async getProfile(id: string) {
-    const repository = this.getRepository();
-    const profile = await repository.findById(id);
+    const profile = await this.repository.findById(id);
 
     if (!profile) {
       throw new Error("Profile not found");
@@ -30,35 +17,9 @@ export class ProfileService {
     return profile;
   }
 
-  async createProfile(dto: { email: string; password: string; region: string }) {
-    const repository = this.getRepository();
+  async createProfile(accountId: string, language: Languages) {
+    const profile = this.repository.create(accountId, language);
 
-    if (dto.email) {
-      const existing = await repository.findByEmail(dto.email);
-
-      if (existing) {
-        throw new Error("Email already exists");
-      }
-    }
-
-    const passwordHash = await hashPassword(dto.password);
-
-    return repository.create({
-      email: dto.email,
-      passwordHash,
-      region: dto.region,
-    });
-  }
-
-  async updateEmail(id: string, email: string) {
-    const repository = this.getRepository();
-
-    const existing = await repository.findByEmail(email);
-
-    if (existing && existing.id !== id) {
-      throw new Error("Email already in use");
-    }
-
-    return repository.update(id, { email });
+    return profile;
   }
 }

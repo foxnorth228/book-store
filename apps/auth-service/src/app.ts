@@ -1,5 +1,5 @@
 import AutoLoad from "@fastify/autoload";
-import { createConfigPlugin } from "@org/fastify-plugins";
+import { createConfigPlugin, errorHandlerPlugin } from "@org/fastify-plugins";
 import Fastify from "fastify";
 import path from "path";
 
@@ -8,6 +8,7 @@ import { ServerOptions } from "./server";
 export async function buildApp(opts: ServerOptions) {
   const app = Fastify(opts.fastifyOptions);
 
+  await app.register(errorHandlerPlugin);
   await app.register(createConfigPlugin(opts.config));
 
   // plugins

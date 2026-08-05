@@ -8,6 +8,10 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/tools/generate-proto-client.ts"],
-  "references": []
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../localization/tsconfig.lib.json"
+    }
+  ]
 }

@@ -2,6 +2,7 @@ import { envServerSchema } from "@org/shared";
 import { z } from "zod";
 
 export const PATH_TO_PROJECT = "apps/auth-service";
+export const DATABASE_PATH_NAME = "prisma";
 
 export const authServiceEnvSchema = envServerSchema.extend({
   GRPC_SERVER_HOST: z.coerce.string().default("0.0.0.0"),

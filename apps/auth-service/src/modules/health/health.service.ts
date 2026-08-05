@@ -1,7 +1,11 @@
-import { FastifyInstance } from "fastify";
+import { BaseService } from "@org/fastify";
 
-export const healthService = {
-  async getHealthStatus(module: FastifyInstance) {
+export class HealthService extends BaseService<null> {
+  protected readonly repositoryKey = "";
+
+  async getHealthStatus() {
+    const module = this.app;
+
     const appHealthStatus = {
       app: { status: "down" },
       database: { status: "down" },
@@ -17,7 +21,6 @@ export const healthService = {
       module.log.error(error);
     }
 
-    module.log.info("redis 1");
     // redis
     try {
       const message = await module.redis.ping();
@@ -41,5 +44,5 @@ export const healthService = {
     appHealthStatus.app.status = "up";
 
     return appHealthStatus;
-  },
-};
+  }
+}

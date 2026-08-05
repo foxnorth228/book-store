@@ -1,7 +1,7 @@
 export const profileConfig = {
-  controllerName: "profileController",
-  serviceName: "profileService",
   repositoryName: "profileRepository",
+  serviceName: "profileService",
+  controllerName: "profileController",
   schemas: {
     healthRes: "profileRes",
   },

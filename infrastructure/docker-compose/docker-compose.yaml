@@ -77,6 +77,22 @@ services:
       - monorepo-network
     restart: unless-stopped
 
+  mailpit:
+    image: axllent/mailpit
+    env_file:
+      - .env
+    ports:
+      - "${SMTP_PORT}:1025"
+      - "${SMTP_WEB_PORT}:8025"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://${SMTP_HOST}:${SMTP_WEB_PORT}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped
+
   profile-service:
     build:
       context: ../../apps/profile-service
@@ -189,6 +205,8 @@ services:
         WEB_PORT: ${WEB_PORT}
     environment:
       WEB_PORT: ${WEB_PORT}
+      VITE_AUTH_SERVICE_PREFIX: ${AUTH_PATH_PREFIX}
+      VITE_PROFILE_SERVICE_PREFIX: ${PROFILE_PATH_PREFIX}
     ports:
       - "${WEB_PORT}:${WEB_PORT}"
     depends_on:

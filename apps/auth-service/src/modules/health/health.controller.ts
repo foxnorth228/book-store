@@ -1,14 +1,13 @@
-import { FastifyInstance } from "fastify";
+import { BaseController } from "@org/fastify";
 
 import { healthConfig } from "./health.config";
-import { HealthService } from "./health.interface";
+import { HealthService } from "./health.service";
 
-export const createHealthController = (module: FastifyInstance) => {
-  return {
-    async getHealthStatus() {
-      const healthService = module.getDecorator<HealthService>(healthConfig.serviceName);
-      const healthStatus = await healthService.getHealthStatus(module);
-      return healthStatus;
-    },
-  };
-};
+export class HealthController extends BaseController<HealthService> {
+  protected readonly serviceKey = healthConfig.serviceName;
+
+  async getHealthStatus() {
+    console.log("1");
+    return await this.service.getHealthStatus();
+  }
+}

@@ -1,12 +1,24 @@
+import { authContracts, AuthLoginReq, AuthRegisterReq } from "@org/contracts";
 import { HttpClient } from "@org/http";
 
-export const AuthApi = {
-  httpClient: new HttpClient({ baseUrl: "" }),
-  login(data: LoginRequest) {
-    return this.httpClient.post("/api/auth/login", data);
-  },
+import { ForgotPasswordFormData, ResetPasswordFormData } from "../model/reset-password.schema";
 
-  register(data: RegisterRequest) {
-    return this.httpClient.post("/api/auth/register", data);
+export const AuthApi = {
+  httpClient: new HttpClient({ baseUrl: import.meta.env.VITE_AUTH_SERVICE_PREFIX }),
+  login(data: AuthLoginReq) {
+    return this.httpClient.post(authContracts.login.path, data);
+  },
+  register(data: AuthRegisterReq) {
+    return this.httpClient.post(authContracts.register.path, data);
+  },
+  async forgotPassword(data: ForgotPasswordFormData) {
+    return this.httpClient.post("/auth/password/reset-request", data);
+  },
+  async resetPassword(
+    data: ResetPasswordFormData & {
+      token: string;
+    },
+  ) {
+    return this.httpClient.post("/api/auth/password/reset", data);
   },
 };
