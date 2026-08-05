@@ -106,6 +106,7 @@
     "react-router": "catalog:",
     "redis": "catalog:",
     "styled-components": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "zustand": "catalog:"
   }
 }

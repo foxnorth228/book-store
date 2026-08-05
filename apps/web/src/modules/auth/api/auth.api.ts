@@ -11,6 +11,9 @@ export const AuthApi = {
   register(data: AuthRegisterReq) {
     return this.httpClient.post(authContracts.register.path, data);
   },
+  refreshTokens() {
+    return this.httpClient.get<string>("");
+  },
   async forgotPassword(data: ForgotPasswordFormData) {
     return this.httpClient.post("/auth/password/reset-request", data);
   },
