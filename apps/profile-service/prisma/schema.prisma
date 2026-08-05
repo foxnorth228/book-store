@@ -23,5 +23,10 @@ model Profile {
 
   accountId String   @unique
 
+  firstName  String?
+  lastName   String?
+  middleName String?
+  nickname   String
+
   language  Language @default(en)
 }
