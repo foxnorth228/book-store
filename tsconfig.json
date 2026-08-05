@@ -2,6 +2,36 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": [],
-  "compilerOptions": {}
+  "references": [
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./apps/profile-service"
+    },
+    {
+      "path": "./packages/contracts"
+    },
+    {
+      "path": "./apps/web-e2e"
+    },
+    {
+      "path": "./apps/web"
+    },
+    {
+      "path": "./apps/auth-service"
+    },
+    {
+      "path": "./packages/fastify-plugins"
+    },
+    {
+      "path": "./packages/rabbitmq"
+    },
+    {
+      "path": "./packages/errors"
+    },
+    {
+      "path": "./packages/http"
+    }
+  ]
 }

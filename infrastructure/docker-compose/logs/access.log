@@ -1,0 +1,5 @@
+172.20.0.1 - - [03/Jun/2026:13:23:51 +0000] "GET / HTTP/1.1" 499 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+172.20.0.1 - - [03/Jun/2026:13:24:19 +0000] "GET / HTTP/1.1" 200 399 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+172.20.0.1 - - [03/Jun/2026:13:24:19 +0000] "GET /assets/index-CoZVvvXU.js HTTP/1.1" 200 272746 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+172.20.0.1 - - [03/Jun/2026:13:24:19 +0000] "GET /favicon.ico HTTP/1.1" 200 15086 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+172.20.0.1 - - [03/Jun/2026:13:24:21 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 200 399 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"

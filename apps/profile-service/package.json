@@ -1,0 +1,171 @@
+{
+  "name": "@org/profile-service",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "prisma:deploy": "prisma migrate deploy"
+  },
+  "devDependencies": {
+    "prisma": "catalog:",
+    "@types/pg": "catalog:"
+  },
+  "dependencies": {
+    "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
+    "@fastify/autoload": "catalog:",
+    "@fastify/sensible": "catalog:",
+    "@fastify/swagger": "catalog:",
+    "@fastify/swagger-ui": "catalog:",
+    "@prisma/client": "catalog:",
+    "@prisma/adapter-pg": "catalog:",
+    "pg": "catalog:",
+    "zod": "catalog:",
+    "pino": "catalog:",
+    "@grpc/grpc-js": "catalog:",
+    "@org/shared": "workspace:*",
+    "@org/fastify-plugins": "workspace:*",
+    "@org/contracts": "workspace:*",
+    "@org/rabbitmq": "workspace:*"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "inputs": [
+          "default",
+          "!{projectRoot}/prisma/**"
+        ],
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "apps/profile-service/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "apps/profile-service/src/server.ts",
+          "tsConfig": "apps/profile-service/tsconfig.app.json",
+          "assets": [
+            "apps/profile-service/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "generateLockfile": true,
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "prune-lockfile": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "executor": "@nx/js:prune-lockfile",
+        "outputs": [
+          "{workspaceRoot}/apps/profile-service/dist/package.json",
+          "{workspaceRoot}/apps/profile-service/dist/pnpm-lock.yaml"
+        ],
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "copy-workspace-modules": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "outputs": [
+          "{workspaceRoot}/apps/profile-service/dist/workspace_modules"
+        ],
+        "executor": "@nx/js:copy-workspace-modules",
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "generate-pnpm-workspace": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/profile-service/dist"
+        }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules",
+          "generate-pnpm-workspace"
+        ],
+        "executor": "nx:noop"
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@org/profile-service:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@org/profile-service:build:development"
+          },
+          "production": {
+            "buildTarget": "@org/profile-service:build:production"
+          }
+        }
+      },
+      "docker:build": {
+        "command": "docker build apps/profile-service --tag apps-profile-service",
+        "dependsOn": [
+          "build",
+          "prune",
+          "generate-pnpm-workspace"
+        ]
+      },
+      "global:prisma:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma generate --schema=apps/profile-service/prisma/schema.prisma"
+        }
+      },
+      "global:prisma:migrate:dev": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma migrate dev --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts"
+        }
+      },
+      "global:prisma:migrate:reset": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma migrate reset --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts --force"
+        }
+      }
+    }
+  }
+}

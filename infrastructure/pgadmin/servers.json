@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Rift Hub",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": "5433",
+      "MaintenanceDB": "postgres",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    }
+  }
+}
