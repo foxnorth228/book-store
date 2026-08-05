@@ -1,8 +1,7 @@
-import { BaseContract } from "../types.js";
 import { profileRoutes } from "./profile.routes.js";
 import { profileSchemas } from "./profile.schemas.js";
 
-export const profileContracts: Record<string, BaseContract> = {
+export const profileContracts = {
   me: {
     method: "GET",
     path: profileRoutes.myProfile,

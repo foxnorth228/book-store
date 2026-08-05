@@ -1,31 +1,22 @@
-import { profileParamsSchema } from "@org/contracts";
+import { profileContracts } from "@org/contracts";
 import { FastifyInstance } from "fastify";
 
 import { profileConfig } from "./profile.config";
-import { ProfileService } from "./profile.service";
+import { ProfileController } from "./profile.controller";
 
 export async function profileRoutes(module: FastifyInstance) {
-  const profileService = module.getDecorator<ProfileService>(profileConfig.serviceName);
+  const profileController = module.getDecorator<ProfileController>(profileConfig.controllerName);
 
-  module.get(
-    "/profile/:id",
-    {
-      schema: {
-        tags: ["Profile"],
-        summary: "Get user profile",
-        description: "Retrieve the profile information for the authenticated user",
-      },
+  module.route({
+    method: profileContracts.me.method,
+    url: profileContracts.me.path,
+    schema: {
+      tags: [profileConfig.tags.profile],
+      200: module.getSchema(profileConfig.schemas.myProfileRes),
     },
-    async (req, reply) => {
-      const { id } = req.params as { id: string };
-
-      const profile = profileService.getProfile(id);
-
-      if (!profile) {
-        return reply.code(404).send({ message: "Profile not found" });
-      }
-
-      return profileParamsSchema.parse(profile);
+    onRequest: [module.authenticate],
+    handler: (request) => {
+      return profileController.getMyProfile(request);
     },
-  );
+  });
 }

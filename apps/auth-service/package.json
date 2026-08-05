@@ -27,6 +27,7 @@
     "@prisma/client": "catalog:",
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",
+    "ms": "catalog:",
     "pg": "catalog:",
     "pino": "catalog:",
     "redis": "catalog:",

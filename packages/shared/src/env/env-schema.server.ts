@@ -23,7 +23,10 @@ export const envServerSchema = z.object({
   REDIS_PORT: z.coerce.number().int().positive().default(6379),
   REDIS_PASSWORD: z.string(),
 
-  JWT_ACCESS_TOKEN_PUBLIC_KEY: z.string(),
+  JWT_ACCESS_TOKEN_PUBLIC_KEY: z
+    .string()
+    .transform((v) => Buffer.from(v, "base64").toString("utf-8")),
+  COOKIE_SIGNATURE: z.string().min(32),
 });
 
 export type EnvServerSchema = typeof envServerSchema;

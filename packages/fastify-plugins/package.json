@@ -17,6 +17,7 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@fastify/jwt": "catalog:",
+    "@org/contracts": "workspace:*",
     "@org/errors": "workspace:*",
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",

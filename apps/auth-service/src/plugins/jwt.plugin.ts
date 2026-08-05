@@ -9,6 +9,7 @@ const jwtPlugin = fp(async (app) => {
         private: app.config.env.JWT_ACCESS_TOKEN_PRIVATE_KEY,
       },
       sign: {
+        algorithm: "RS256",
         expiresIn: app.config.env.JWT_ACCESS_TOKEN_EXPIRES_IN,
       },
     }),

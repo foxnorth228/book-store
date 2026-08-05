@@ -17,7 +17,7 @@ export class AccountController extends BaseController<AccountService> {
       httpOnly: true,
       secure: this.app.config.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: Number.parseInt(this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN) ?? 0,
+      maxAge: this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN * 1000,
     });
 
     return {
