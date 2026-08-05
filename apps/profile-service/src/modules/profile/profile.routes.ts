@@ -14,7 +14,7 @@ export async function profileRoutes(module: FastifyInstance) {
       tags: [profileConfig.tags.profile],
       200: module.getSchema(profileConfig.schemas.myProfileRes),
     },
-    onRequest: [module.authenticate],
+    preHandler: [module.authenticate],
     handler: (request) => {
       return profileController.getMyProfile(request);
     },

@@ -1,4 +1,4 @@
-import { ResetPasswordForm } from "@modules/auth/ui";
+import { ResetPasswordForm } from "@modules/auth";
 
 export function ResetPasswordPage() {
   const token = new URLSearchParams(window.location.search).get("token");
