@@ -23,7 +23,6 @@ export async function accountRoutes(module: FastifyInstance) {
       return accountController.login(request, reply);
     },
   });
-
   module.route({
     method: authContracts.register.method,
     url: authContracts.register.path,
@@ -36,6 +35,32 @@ export async function accountRoutes(module: FastifyInstance) {
     },
     handler: async (request: FastifyRequest<{ Body: AuthRegisterReq }>) => {
       return accountController.register(request);
+    },
+  });
+  module.route({
+    method: authContracts.session.refresh.method,
+    url: `${authContracts.session.prefix}${authContracts.session.refresh.path}`,
+    schema: {
+      tags: [accountConfig.tags.account],
+      response: {
+        200: module.getSchema(accountConfig.schemas.loginRes),
+      },
+    },
+    handler: async (request, reply) => {
+      return accountController.refreshSession(request, reply);
+    },
+  });
+  module.route({
+    method: authContracts.session.logout.method,
+    url: `${authContracts.session.prefix}${authContracts.session.logout.path}`,
+    schema: {
+      tags: [accountConfig.tags.account],
+      response: {
+        204: {},
+      },
+    },
+    handler: async (request, reply) => {
+      return accountController.logout(request, reply);
     },
   });
 }

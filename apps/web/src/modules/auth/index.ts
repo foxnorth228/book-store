@@ -1,5 +1,6 @@
 export { AuthTranslations } from "./locales";
 export { createHttpAuthClient } from "./model/create-http-auth-client";
+export { restoreSession } from "./model/restore-session";
 export { useSessionStore } from "./model/use-session-store";
 export { ForgotPasswordForm } from "./ui/AuthForm/ForgotPasswordForm";
 export { LoginForm } from "./ui/AuthForm/LoginForm";

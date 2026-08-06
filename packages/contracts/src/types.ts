@@ -7,6 +7,7 @@ export interface BaseContract<
   TResponse extends ZodType = ZodType,
 > {
   method: HttpMethod;
+  prefix?: string;
   path: string;
 
   body?: TBody;

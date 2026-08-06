@@ -14,4 +14,16 @@ export const authContracts = {
     body: authSchemas.register.body,
     response: authSchemas.register.response,
   },
+  session: {
+    prefix: authRoutes.session.$prefix,
+    refresh: {
+      method: "POST",
+      path: authRoutes.session.refresh,
+      response: authSchemas.login.response,
+    },
+    logout: {
+      method: "DELETE",
+      path: authRoutes.session.logout,
+    },
+  },
 };

@@ -11,4 +11,5 @@ export const accountConfig = {
   tags: {
     account: "Account",
   },
+  refreshTokenName: "refreshToken",
 };

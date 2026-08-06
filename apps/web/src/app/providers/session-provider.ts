@@ -1,4 +1,4 @@
-import { useSessionStore } from "@modules/auth";
+import { restoreSession, useSessionStore } from "@modules/auth";
 import { loadProfile } from "@modules/profile";
 import { FC, PropsWithChildren, useEffect } from "react";
 
@@ -12,6 +12,10 @@ export const SessionProvider: FC<PropsWithChildren> = ({ children }) => {
 
     loadProfile();
   }, [accessToken]);
+
+  useEffect(() => {
+    restoreSession();
+  }, []);
 
   return children;
 };

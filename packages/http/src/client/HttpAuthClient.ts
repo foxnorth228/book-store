@@ -29,6 +29,7 @@ export class HttpAuthClient extends HttpClient {
         onError: async (error, { retryCount, retry }) => {
           if (error instanceof HttpError && error.status === 401 && retryCount < 1) {
             await authProvider.refreshToken();
+            console.log("retry");
             return retry();
           }
 
