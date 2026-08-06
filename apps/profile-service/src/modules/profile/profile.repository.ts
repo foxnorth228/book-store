@@ -22,6 +22,7 @@ export class ProfileRepository extends BaseRepository<PrismaClient> {
     return this.db.profile.create({
       data: {
         accountId,
+        nickname: "",
         language,
       },
     });

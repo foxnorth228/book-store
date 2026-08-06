@@ -1,4 +1,10 @@
 export { AuthTranslations } from "./locales";
+export { createHttpAuthClient } from "./model/create-http-auth-client";
+export { restoreSession } from "./model/restore-session";
+export { useSessionStore } from "./model/use-session-store";
 export { ForgotPasswordForm } from "./ui/AuthForm/ForgotPasswordForm";
 export { LoginForm } from "./ui/AuthForm/LoginForm";
 export { RegisterForm } from "./ui/AuthForm/RegisterForm";
+export { ResetPasswordForm } from "./ui/AuthForm/ResetPasswordForm";
+export { ProtectedRoute } from "./ui/ProtectedRoute";
+export { PublicRoute } from "./ui/PublicRoute";

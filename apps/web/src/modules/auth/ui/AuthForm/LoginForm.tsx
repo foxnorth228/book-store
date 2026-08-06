@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthApi } from "@modules/auth/api/auth.api";
 import { authContracts, AuthLoginReq } from "@org/contracts";
 import { RHFFormField } from "@shared/lib";
 import { Input } from "@shared/ui";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
+import { signIn } from "../../model/sign-in";
 import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm.styles";
 
 export function LoginForm() {
@@ -18,7 +18,7 @@ export function LoginForm() {
 
   const onSubmit = async (data: AuthLoginReq) => {
     try {
-      const response = await AuthApi.login(data);
+      const response = await signIn(data);
 
       console.log(response);
     } catch (error) {

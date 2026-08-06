@@ -1,4 +1,5 @@
 import { AuthEvents } from "@org/contracts";
+import { UnauthorizedError } from "@org/errors";
 import { BaseService } from "@org/fastify";
 import { Languages } from "@org/localization";
 import { hashPassword, verifyPassword } from "@org/shared";
@@ -25,7 +26,7 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new InvalidCredentialsError("Invalid email or password");
     }
 
-    const tokens = await this.generateTokens(account.id, account.email);
+    const tokens = await this.generateTokens(account.id);
 
     return {
       id: account.id,
@@ -55,18 +56,37 @@ export class AccountService extends BaseService<AccountRepository> {
     }
   }
 
-  async generateTokens(id: string, email: string) {
+  async refreshTokens(refreshToken: string) {
+    const userIdFromRedis = await this.app.redis.get(this.getRedisRefreshToken(refreshToken));
+    if (!userIdFromRedis) {
+      throw new UnauthorizedError("No session");
+    }
+
+    await this.removeSession(refreshToken);
+    const tokens = await this.generateTokens(userIdFromRedis);
+
+    return { id: userIdFromRedis, ...tokens };
+  }
+
+  async removeSession(refreshToken: string) {
+    await this.app.redis.del(this.getRedisRefreshToken(refreshToken));
+  }
+
+  async generateTokens(id: string) {
     const accessToken = this.app.jwt.sign({
       sub: id,
-      email: email,
     });
 
     const refreshToken = crypto.randomBytes(64).toString("hex");
 
-    await this.app.redis.set(`refresh:${refreshToken}`, id, {
-      EX: Number.parseInt(this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN) ?? 0,
+    await this.app.redis.set(this.getRedisRefreshToken(refreshToken), id, {
+      EX: this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN ?? 0,
     });
 
     return { accessToken, refreshToken };
+  }
+
+  private getRedisRefreshToken(refreshToken: string) {
+    return `refresh:${refreshToken}`;
   }
 }

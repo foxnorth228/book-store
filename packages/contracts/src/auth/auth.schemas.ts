@@ -37,3 +37,7 @@ export const authAccountRegisteredSchema = z.object({
   accountId: z.uuid(),
   language: languageSchema,
 });
+
+export const authJwtPayloadSchema = z.object({
+  sub: z.string(),
+});

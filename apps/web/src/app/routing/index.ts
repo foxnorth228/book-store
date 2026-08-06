@@ -1,1 +1,1 @@
-export { routes } from "./config/routes";
+export { AuthRoutes, PublicRoutes, routes } from "./config/routes";

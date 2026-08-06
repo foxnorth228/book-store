@@ -2,10 +2,11 @@ export const profileConfig = {
   repositoryName: "profileRepository",
   serviceName: "profileService",
   controllerName: "profileController",
-  schemas: {
-    healthRes: "profileRes",
+  tags: {
+    profile: "Profile",
   },
-  urls: {
-    health: "/profile",
+  schemas: {
+    healthRes: "healthRes",
+    myProfileRes: "myProfileRes",
   },
 };

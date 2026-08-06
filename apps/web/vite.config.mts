@@ -16,13 +16,11 @@ export default defineConfig(() => {
         "/api/auth": {
           target: `http://localhost:${env.AUTH_PORT}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/auth/, ""),
         },
 
         "/api/profile": {
           target: `http://localhost:${env.PROFILE_PORT}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/profile/, ""),
         },
       },
     },
