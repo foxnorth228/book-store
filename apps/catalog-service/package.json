@@ -1,0 +1,182 @@
+{
+  "name": "@org/catalog-service",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --config=./prisma.config.ts"
+  },
+  "dependencies": {
+    "@fastify/autoload": "catalog:",
+    "@fastify/cookie": "catalog:",
+    "@fastify/jwt": "catalog:",
+    "@fastify/sensible": "catalog:",
+    "@fastify/swagger": "catalog:",
+    "@fastify/swagger-ui": "catalog:",
+    "@grpc/grpc-js": "catalog:",
+    "@org/contracts": "workspace:*",
+    "@org/errors": "workspace:*",
+    "@org/fastify": "workspace:*",
+    "@org/fastify-plugins": "workspace:*",
+    "@org/grpc": "workspace:*",
+    "@org/localization": "workspace:*",
+    "@org/rabbitmq": "workspace:*",
+    "@org/shared": "workspace:*",
+    "@prisma/adapter-pg": "catalog:",
+    "@prisma/client": "catalog:",
+    "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
+    "ms": "catalog:",
+    "pg": "catalog:",
+    "pino": "catalog:",
+    "redis": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/pg": "catalog:",
+    "prisma": "catalog:"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "apps/catalog-service/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "apps/catalog-service/src/server.ts",
+          "tsConfig": "apps/catalog-service/tsconfig.app.json",
+          "assets": [
+            "apps/catalog-service/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "generateLockfile": true,
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "prune-lockfile": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "executor": "@nx/js:prune-lockfile",
+        "outputs": [
+          "{workspaceRoot}/apps/catalog-service/dist/package.json",
+          "{workspaceRoot}/apps/catalog-service/dist/pnpm-lock.yaml"
+        ],
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "copy-workspace-modules": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "outputs": [
+          "{workspaceRoot}/apps/catalog-service/dist/workspace_modules"
+        ],
+        "executor": "@nx/js:copy-workspace-modules",
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "generate-pnpm-workspace": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/catalog-service/dist"
+        }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules",
+          "generate-pnpm-workspace"
+        ],
+        "executor": "nx:noop"
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@org/catalog-service:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@org/catalog-service:build:development"
+          },
+          "production": {
+            "buildTarget": "@org/catalog-service:build:production"
+          }
+        }
+      },
+      "docker:build": {
+        "command": "docker build apps/catalog-service --tag apps-catalog-service",
+        "dependsOn": [
+          "build",
+          "prune",
+          "generate-pnpm-workspace"
+        ]
+      },
+      "docker:run": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker run --name apps-catalog-service -p 3003:3003 --env-file {projectRoot}/.env apps-catalog-service"
+        }
+      },
+      "global:prisma:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma generate --schema=apps/catalog-service/prisma/schema.prisma"
+        }
+      },
+      "global:prisma:migrate:dev": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma migrate dev --schema=apps/catalog-service/prisma/schema.prisma --config=apps/catalog-service/prisma.config.ts"
+        }
+      },
+      "global:prisma:migrate:reset": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma migrate reset --schema=apps/catalog-service/prisma/schema.prisma --config=apps/catalog-service/prisma.config.ts --force"
+        }
+      }
+    }
+  }
+}
