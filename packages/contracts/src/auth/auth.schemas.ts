@@ -1,7 +1,7 @@
 import { languageSchema } from "@org/localization";
 import z from "zod";
 
-import { AuthRole } from "./auth.types.js";
+import { AuthRole } from "./roles.js";
 
 export const passwordSchema = z.string().min(6);
 

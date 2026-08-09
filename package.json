@@ -94,6 +94,7 @@
     "fastify-plugin": "catalog:",
     "i18next": "catalog:",
     "i18next-browser-languagedetector": "catalog:",
+    "jwt-decode": "catalog:",
     "ms": "catalog:",
     "pg": "catalog:",
     "pino": "catalog:",

@@ -47,6 +47,9 @@
     },
     {
       "path": "./apps/catalog-service"
+    },
+    {
+      "path": "./packages/access-control"
     }
   ]
 }
