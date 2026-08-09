@@ -2,35 +2,38 @@
   "name": "@org/web",
   "version": "0.0.1",
   "private": true,
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
   "dependencies": {
+    "@hookform/resolvers": "catalog:",
+    "@org/access-control": "workspace:*",
     "@org/contracts": "workspace:*",
+    "@org/errors": "workspace:*",
     "@org/http": "workspace:*",
     "@org/shared": "workspace:*",
-    "@hookform/resolvers": "catalog:",
     "i18next": "catalog:",
-    "react-i18next": "catalog:",
     "i18next-browser-languagedetector": "catalog:",
+    "jwt-decode": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
     "react-hot-toast": "catalog:",
-    "react-router": "catalog:",
+    "react-i18next": "catalog:",
     "react-is": "catalog:",
+    "react-router": "catalog:",
     "styled-components": "catalog:",
     "zod": "catalog:",
     "zustand": "catalog:"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/react-is": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }

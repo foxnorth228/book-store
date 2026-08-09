@@ -1,6 +1,8 @@
 import { languageSchema } from "@org/localization";
 import z from "zod";
 
+import { AuthRole } from "./roles.js";
+
 export const passwordSchema = z.string().min(6);
 
 export const authSchemas = {
@@ -40,4 +42,5 @@ export const authAccountRegisteredSchema = z.object({
 
 export const authJwtPayloadSchema = z.object({
   sub: z.string(),
+  roles: z.array(z.enum(AuthRole)),
 });
