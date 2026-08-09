@@ -12,9 +12,3 @@ export type AuthRegisterRes = z.infer<typeof authContracts.register.response>;
 export type AuthAccountRegisteredEventDto = z.infer<typeof authAccountRegisteredSchema>;
 
 export type AuthJwtPayloadUserDto = z.infer<typeof authJwtPayloadSchema>;
-
-export enum AuthRole {
-  USER = "user",
-  MODERATOR = "moderator",
-  ADMIN = "admin",
-}
