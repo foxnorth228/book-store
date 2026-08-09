@@ -5,7 +5,8 @@ import { Languages } from "@org/localization";
 import { hashPassword, verifyPassword } from "@org/shared";
 import crypto from "crypto";
 
-import { Prisma } from "../../libs/prisma/client";
+import { Prisma, Role } from "../../libs/prisma/client";
+import { mapPrismaRoleToAuthRole } from "../../libs/utils/to-auth-role";
 import { accountConfig } from "./account.config";
 import { InvalidCredentialsError, UserAlreadyExistError } from "./account.errors";
 import { AccountRepository } from "./account.repository";
@@ -26,7 +27,7 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new InvalidCredentialsError("Invalid email or password");
     }
 
-    const tokens = await this.generateTokens(account.id);
+    const tokens = await this.generateTokens(account.id, account.roles);
 
     return {
       id: account.id,
@@ -62,8 +63,14 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new UnauthorizedError("No session");
     }
 
+    const user = await this.repository.findById(userIdFromRedis);
+
+    if (!user) {
+      throw new UnauthorizedError("No session");
+    }
+
     await this.removeSession(refreshToken);
-    const tokens = await this.generateTokens(userIdFromRedis);
+    const tokens = await this.generateTokens(userIdFromRedis, user.roles);
 
     return { id: userIdFromRedis, ...tokens };
   }
@@ -72,13 +79,14 @@ export class AccountService extends BaseService<AccountRepository> {
     await this.app.redis.del(this.getRedisRefreshToken(refreshToken));
   }
 
-  async generateTokens(id: string) {
+  async generateTokens(id: string, roles: Role[]) {
+    const authRoles = roles.map((role) => mapPrismaRoleToAuthRole(role));
     const accessToken = this.app.jwt.sign({
       sub: id,
+      roles: authRoles,
     });
 
     const refreshToken = crypto.randomBytes(64).toString("hex");
-
     await this.app.redis.set(this.getRedisRefreshToken(refreshToken), id, {
       EX: this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN ?? 0,
     });

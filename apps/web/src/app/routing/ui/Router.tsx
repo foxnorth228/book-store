@@ -1,4 +1,4 @@
-import { ProtectedRoute, PublicRoute } from "@modules/auth";
+import { PublicRoute } from "@modules/auth";
 import { Navigate, Route, Routes } from "react-router";
 
 import { PublicRoutes, routes } from "../config/routes";
@@ -14,11 +14,9 @@ export const Router = () => {
           ))}
         </Route>
       </Route>
-      <Route element={<ProtectedRoute />}>
-        {Object.entries(routes.public).map(([key, element]) => (
-          <Route path={key} element={element} />
-        ))}
-      </Route>
+      {Object.entries(routes.public).map(([key, element]) => (
+        <Route path={key} element={element} />
+      ))}
       <Route path="/*" element={<Navigate to={PublicRoutes.Homepage} />} />
     </Routes>
   );
