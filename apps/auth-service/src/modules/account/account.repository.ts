@@ -6,10 +6,17 @@ import { PrismaClient } from "../../libs/prisma/client";
 export class AccountRepository extends BaseRepository<PrismaClient> {
   protected readonly databaseKey = DATABASE_PATH_NAME;
 
+  public findById(id: string) {
+    return this.db.account.findUnique({
+      where: { id },
+      select: { id: true, email: true, passwordHash: true, roles: true },
+    });
+  }
+
   public findByEmail(email: string) {
     return this.db.account.findUnique({
       where: { email },
-      select: { id: true, email: true, passwordHash: true },
+      select: { id: true, email: true, passwordHash: true, roles: true },
     });
   }
 
