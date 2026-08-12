@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+
 import { loadLocalDevClientEnv } from "@org/shared";
 
 export default defineConfig(() => {
@@ -28,11 +30,7 @@ export default defineConfig(() => {
       port: 4200,
       host: "localhost",
     },
-    plugins: [react()],
-    // Uncomment this if you are using workers.
-    // worker: {
-    //  plugins: [],
-    // },
+    plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
         "@app": path.resolve(__dirname, "./src/app"),

@@ -1,11 +1,9 @@
 import { Outlet } from "react-router";
 
-import { Layout } from "./AuthLayout.styles";
-
 export const AuthLayout = () => {
   return (
-    <Layout>
+    <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,#334155,#020617)] p-6">
       <Outlet />
-    </Layout>
+    </div>
   );
 };
