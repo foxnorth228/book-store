@@ -19,9 +19,8 @@ export const theme = {
   },
 
   shadows: {
-    card: "0 10px 30px rgba(15,23,42,.08)",
-
-    modal: "0 25px 50px rgba(15,23,42,.15)",
+    card: "0 10px 30px rgba(37, 37, 34, 0.08)",
+    modal: "0 25px 50px rgba(37, 37, 34, 0.15)",
   },
 
   transitions: {
