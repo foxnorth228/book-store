@@ -1,18 +1,15 @@
+import "./theme/global-styles.css";
+import "./theme/theme.css";
+
 import { Toaster } from "react-hot-toast";
-import { ThemeProvider } from "styled-components";
 
 import { Router } from "./routing/ui/Router";
-import { GlobalStyles } from "./theme/global-styles";
-import { theme } from "./theme/theme";
 
 export function App() {
   return (
     <>
-      <GlobalStyles />
       <Toaster />
-      <ThemeProvider theme={theme}>
-        <Router />
-      </ThemeProvider>
+      <Router />
     </>
   );
 }

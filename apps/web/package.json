@@ -14,6 +14,8 @@
     "@org/errors": "workspace:*",
     "@org/http": "workspace:*",
     "@org/shared": "workspace:*",
+    "@tailwindcss/vite": "catalog:",
+    "clsx": "catalog:",
     "i18next": "catalog:",
     "i18next-browser-languagedetector": "catalog:",
     "jwt-decode": "catalog:",
@@ -24,7 +26,8 @@
     "react-i18next": "catalog:",
     "react-is": "catalog:",
     "react-router": "catalog:",
-    "styled-components": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:",
     "zod": "catalog:",
     "zustand": "catalog:"
   },

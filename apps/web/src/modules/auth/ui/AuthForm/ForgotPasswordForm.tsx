@@ -5,14 +5,7 @@ import { Input, Link } from "@shared/ui";
 import { useState } from "react";
 
 import { ForgotPasswordFormData, forgotPasswordSchema } from "../../model/reset-password.schema";
-import {
-  Description,
-  Footer,
-  FooterLink,
-  SubmitButton,
-  SuccessMessage,
-  Title,
-} from "./AuthForm.styles";
+import { Description, Footer, FooterLink, SubmitButton, SuccessMessage, Title } from "./AuthForm";
 
 export function ForgotPasswordForm() {
   const [success, setSuccess] = useState(false);

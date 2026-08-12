@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { signIn } from "../../model/sign-in";
-import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm.styles";
+import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm";
 
 export function LoginForm() {
   const formProps = useForm<AuthLoginReq>({

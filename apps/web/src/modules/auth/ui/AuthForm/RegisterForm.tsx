@@ -5,7 +5,7 @@ import { Input, Link } from "@shared/ui";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { AuthApi } from "../../api/auth.api";
-import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm.styles";
+import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm";
 
 export function RegisterForm() {
   const formProps = useForm<AuthRegisterReq>({
