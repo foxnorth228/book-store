@@ -106,6 +106,7 @@
     "prisma": "catalog:",
     "protobufjs": "^8.6.4",
     "protolint": "^0.56.4",
+    "shadcn": "^4.17.0",
     "tailwindcss": "catalog:",
     "ts-proto": "^2.11.8",
     "tslib": "catalog:",
