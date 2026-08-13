@@ -1,7 +1,8 @@
 import { AuthTranslations } from "@modules/auth";
-import { CommonTranslations } from "@shared/locales";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+
+import { CommonTranslations } from "./locales";
 
 export const i18nResources = {
   en: {

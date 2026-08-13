@@ -6,7 +6,9 @@ export const Header = () => {
   return (
     <Page.Header>
       <Page.HeaderContent>
-        <HeaderAccount />
+        <div className="flex shrink-0 items-center gap-1">
+          <HeaderAccount />
+        </div>
       </Page.HeaderContent>
     </Page.Header>
   );
