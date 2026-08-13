@@ -60,6 +60,8 @@ catalog:
   '@tailwindcss/vite': ^4.3.3
   clsx: ^2.1.1
   tailwind-merge: ^3.6.0
+  vite-plugin-svgr: ^5.2.0
+  lucide-react: ^1.31.0
 minimumReleaseAgeExclude:
   - '@nx/cypress@23.1.1'
   - '@nx/devkit@23.1.1'

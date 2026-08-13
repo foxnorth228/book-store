@@ -6,5 +6,8 @@ export { ForgotPasswordForm } from "./ui/AuthForm/ForgotPasswordForm";
 export { LoginForm } from "./ui/AuthForm/LoginForm";
 export { RegisterForm } from "./ui/AuthForm/RegisterForm";
 export { ResetPasswordForm } from "./ui/AuthForm/ResetPasswordForm";
+export { AuthModal } from "./ui/AuthModal/AuthModal";
+export { LoginButton } from "./ui/LoginButton/LoginButton";
+export { ProfileButton } from "./ui/ProfileButton/ProfileButton";
 export { ProtectedRoute } from "./ui/ProtectedRoute";
 export { PublicRoute } from "./ui/PublicRoute";

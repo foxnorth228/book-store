@@ -6,12 +6,22 @@ export const PageHeader: FC<BaseComponentProps> = ({ children, className }) => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-10 w-full border-b border-neutral-300 bg-neutral-100",
+        "sticky top-0 z-10 flex w-full items-center border-b border-neutral-300 bg-neutral-100",
         className,
       )}
     >
       {children}
     </header>
+  );
+};
+
+export const PageHeaderContent: FC<BaseComponentProps> = ({ children, className }) => {
+  return (
+    <div
+      className={cn("mx-auto flex h-16 w-full max-w-7xl items-center gap-8 px-6 py-4", className)}
+    >
+      {children}
+    </div>
   );
 };
 
@@ -26,13 +36,12 @@ export const PageFooter: FC<BaseComponentProps> = ({ children, className }) => {
 };
 
 export const PageContent: FC<BaseComponentProps> = ({ children, className }) => {
-  return (
-    <div className={cn("mx-auto w-[calc(100%-48px)] max-w-[1280px]", className)}>{children}</div>
-  );
+  return <div className={cn("mx-auto w-[calc(100%-48px)] max-w-7xl", className)}>{children}</div>;
 };
 
 export const Page: FC<BaseComponentProps> & {
   Header: typeof PageHeader;
+  HeaderContent: typeof PageHeaderContent;
   Main: typeof PageMain;
   Content: typeof PageContent;
   Footer: typeof PageFooter;
@@ -42,6 +51,7 @@ export const Page: FC<BaseComponentProps> & {
   },
   {
     Header: PageHeader,
+    HeaderContent: PageHeaderContent,
     Main: PageMain,
     Content: PageContent,
     Footer: PageFooter,

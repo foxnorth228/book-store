@@ -47,3 +47,26 @@
   --shadow-card: 0 10px 30px rgb(15 23 42 / 0.08);
   --shadow-modal: 0 25px 50px rgb(15 23 42 / 0.15);
 }
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-neutral-300);
+    border-radius: 9999px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neutral-400);
+  }
+}

@@ -19,6 +19,7 @@
     "i18next": "catalog:",
     "i18next-browser-languagedetector": "catalog:",
     "jwt-decode": "catalog:",
+    "lucide-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
@@ -37,6 +38,7 @@
     "@types/react-is": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "vite": "catalog:",
+    "vite-plugin-svgr": "catalog:",
     "vitest": "catalog:"
   }
 }

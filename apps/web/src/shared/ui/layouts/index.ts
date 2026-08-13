@@ -1,1 +1,2 @@
-export { Page } from "./Page/Page";
+export { Modal, type ModalProps } from "./Modal";
+export { Page } from "./Page";
