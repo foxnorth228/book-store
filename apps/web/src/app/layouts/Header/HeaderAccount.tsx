@@ -13,7 +13,7 @@ export const HeaderAccount = () => {
       <>
         <LoginButton onClick={() => setAuthModalOpen(true)} />
 
-        <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+        <AuthModal isOpen={authModalOpen} onOpenChange={setAuthModalOpen} />
       </>
     );
   }

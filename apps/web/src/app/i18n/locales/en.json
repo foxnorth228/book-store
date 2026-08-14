@@ -1,1 +1,12 @@
-{}
+{
+  "language": "Language",
+  "languages": {
+    "en": "English",
+    "ru": "Russian"
+  },
+  "theme": "Theme",
+  "themes": {
+    "light": "Light",
+    "dark": "Dark"
+  }
+}

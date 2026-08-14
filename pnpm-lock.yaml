@@ -705,6 +705,9 @@ importers:
       '@org/http':
         specifier: workspace:*
         version: link:../../packages/http
+      '@org/localization':
+        specifier: workspace:*
+        version: link:../../packages/localization
       '@org/shared':
         specifier: workspace:*
         version: link:../../packages/shared

@@ -16,6 +16,7 @@
     "@org/contracts": "workspace:*",
     "@org/errors": "workspace:*",
     "@org/http": "workspace:*",
+    "@org/localization": "workspace:*",
     "@org/shared": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "class-variance-authority": "^0.7.1",
