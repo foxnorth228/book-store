@@ -1,14 +1,21 @@
-import { Modal, ModalProps } from "@shared/ui";
+import { Dialog } from "@shared/ui";
 import { FC } from "react";
 
 import { LoginForm } from "../AuthForm/LoginForm";
 
-type AuthModalProps = ModalProps;
+interface AuthModalProps {
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+}
 
-export const AuthModal: FC<AuthModalProps> = ({ open, onClose }) => {
+export const AuthModal: FC<AuthModalProps> = ({ isOpen, onOpenChange }) => {
   return (
-    <Modal open={open} onClose={onClose}>
+    <Dialog isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Dialog.Header>
+        <Dialog.Title>Sign in</Dialog.Title>
+      </Dialog.Header>
+
       <LoginForm />
-    </Modal>
+    </Dialog>
   );
 };

@@ -1,50 +1,38 @@
-import { FormField } from "@shared/ui";
+import { Field, FieldError, FieldLabel } from "@shared/ui";
 import { FieldValues, Path, RegisterOptions, useFormContext } from "react-hook-form";
 
-interface RHFFormFieldRenderProps<T extends FieldValues> {
-  field: ReturnType<ReturnType<typeof useFormContext<T>>["register"]>;
-  meta: {
-    error?: string;
-    status: "default" | "error";
-  };
-}
+type RHFFieldControlProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 interface RHFFormFieldProps<T extends FieldValues> {
   name: Path<T>;
   label?: string;
   registerOptions?: RegisterOptions<T>;
-  render: (props: RHFFormFieldRenderProps<T>) => React.ReactNode;
+  children: (props: RHFFieldControlProps) => React.ReactNode;
 }
 
 export function RHFFormField<T extends FieldValues>({
   name,
   label,
   registerOptions,
-  render,
+  children,
 }: RHFFormFieldProps<T>) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<T>();
+  const { register, getFieldState } = useFormContext<T>();
 
-  const error = errors[name];
-
+  const { error } = getFieldState(name);
   const field = register(name, registerOptions);
 
-  return (
-    <FormField
-      label={label}
-      error={error?.message as string | undefined}
-      status={error ? "error" : "default"}
-    >
-      {render({
-        field,
-        meta: {
-          error: error?.message as string | undefined,
+  const controlProps: RHFFieldControlProps = {
+    ...field,
+    "aria-invalid": error ? true : undefined,
+  };
 
-          status: error ? "error" : "default",
-        },
-      })}
-    </FormField>
+  return (
+    <Field data-invalid={!!error}>
+      {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
+
+      {children(controlProps)}
+
+      {error && <FieldError errors={[error]} />}
+    </Field>
   );
 }

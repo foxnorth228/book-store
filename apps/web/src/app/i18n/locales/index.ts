@@ -1,5 +1,5 @@
-import CommonEnTranslations from "./common/en.json";
-import CommonRuTranslations from "./common/ru.json";
+import CommonEnTranslations from "./en.json";
+import CommonRuTranslations from "./ru.json";
 
 export const CommonTranslations = {
   en: CommonEnTranslations,

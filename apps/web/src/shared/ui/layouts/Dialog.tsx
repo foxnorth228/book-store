@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@shared/lib";
+import { Button } from "@shared/ui";
 import { XIcon } from "lucide-react";
 import * as React from "react";
 import {
@@ -13,8 +14,6 @@ import {
   ModalOverlay as ModalOverlayPrimitive,
   type ModalOverlayProps as ModalOverlayPrimitiveProps,
 } from "react-aria-components";
-
-import { Button } from "@/shared/ui/button";
 
 function DialogTrigger({ ...props }: DialogTriggerPrimitiveProps) {
   return <DialogTriggerPrimitive data-slot="dialog-trigger" {...props} />;
@@ -83,7 +82,7 @@ function Dialog({
       >
         <DialogPrimitive
           data-slot="dialog"
-          className="[display:inherit] [gap:inherit] outline-none"
+          className="[display:inherit] gap-[inherit] outline-none"
         >
           {children}
           {showCloseButton && (
@@ -148,15 +147,14 @@ function DialogDescription({ className, ...props }: Omit<React.ComponentProps<"d
   );
 }
 
-export {
-  Dialog,
-  DialogClose,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  type DialogPrimitiveProps,
-  DialogTitle,
-  DialogTrigger,
-  type DialogTriggerPrimitiveProps,
-};
+const DialogComponent = Object.assign(Dialog, {
+  Trigger: DialogTrigger,
+  Close: DialogClose,
+  Overlay: DialogOverlay,
+  Header: DialogHeader,
+  Footer: DialogFooter,
+  Title: DialogTitle,
+  Description: DialogDescription,
+});
+
+export { DialogComponent as Dialog, DialogPrimitiveProps, DialogTriggerPrimitiveProps };

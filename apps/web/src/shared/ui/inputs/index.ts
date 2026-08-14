@@ -1,2 +1,3 @@
-export { FormField } from "./FormField/FormField";
-export { Input } from "./Input/Input";
+export * from "./Field";
+export * from "./Input";
+export * from "./Label";
