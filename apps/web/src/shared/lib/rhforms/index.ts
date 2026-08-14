@@ -1,2 +1,2 @@
-export { RHFForm } from "./RHForm/RHForm";
-export { RHFFormField } from "./RHFormField/RHFormField";
+export { RHFForm } from "./RHForm";
+export { RHFFormField } from "./RHFormField";
