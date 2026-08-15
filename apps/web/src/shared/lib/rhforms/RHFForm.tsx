@@ -1,11 +1,7 @@
 import { cn } from "@shared/lib";
-import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormProps } from "react-hook-form";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 
-interface RHFFormProps<T extends FieldValues> extends UseFormProps<T> {
-  onSubmit: SubmitHandler<T>;
-  children: React.ReactNode;
-  className?: string;
-}
+import { RHFFormProps } from "./RHFForm.type";
 
 export function RHFForm<T extends FieldValues>({
   onSubmit,

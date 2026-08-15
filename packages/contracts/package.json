@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -15,9 +12,13 @@
       "default": "./dist/index.js"
     }
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "dependencies": {
+    "@org/errors": "workspace:*",
+    "@org/localization": "workspace:*",
     "tslib": "catalog:",
-    "zod": "catalog:",
-    "@org/localization": "workspace:*"
+    "zod": "catalog:"
   }
 }

@@ -1,33 +1,27 @@
+import { ValidationErrorCode } from "@org/errors";
 import { Field } from "@shared/ui";
-import { Controller, ControllerProps, FieldValues, Path, useFormContext } from "react-hook-form";
+import { Controller, FieldValues, useFormContext } from "react-hook-form";
 
-type RHFFieldRenderProps<T extends FieldValues, TName extends Path<T>> = Parameters<
-  ControllerProps<T, TName>["render"]
->[0] & {
-  additionalProps: React.InputHTMLAttributes<HTMLInputElement>;
-};
+import { RHFFormFieldProps } from "./RHFForm.type";
+import { createErrorMessageResolver } from "./utils";
 
-interface RHFFormFieldProps<T extends FieldValues> extends Omit<
-  ControllerProps<T, Path<T>>,
-  "name" | "control" | "render"
-> {
-  name: Path<T>;
-  label?: string;
-  render: (
-    props: RHFFieldRenderProps<T, Path<T>>,
-  ) => ReturnType<ControllerProps<T, Path<T>>["render"]>;
-}
-
-export function RHFFormField<T extends FieldValues>({
+export function RHFFormField<
+  T extends FieldValues,
+  TErrorCodes extends readonly ValidationErrorCode[] = readonly ValidationErrorCode[],
+>({
   name,
   label,
+  errorCodes,
+  getErrorMessage = (errorCode) => String(errorCode),
   render,
   ...controllerProps
-}: RHFFormFieldProps<T>) {
+}: RHFFormFieldProps<T, TErrorCodes>) {
   const { control } = useFormContext<T>();
 
   const fieldId = `field-${name}`;
   const errorId = `${fieldId}-error`;
+
+  const errorMessageResolver = createErrorMessageResolver<TErrorCodes>(getErrorMessage, errorCodes);
 
   return (
     <Controller
@@ -52,7 +46,9 @@ export function RHFFormField<T extends FieldValues>({
               additionalProps,
             })}
 
-            {fieldState.invalid && <Field.Error id={errorId} errors={[fieldState.error]} />}
+            {fieldState.invalid && (
+              <Field.Error id={errorId} errors={[errorMessageResolver(fieldState.error)]} />
+            )}
           </Field>
         );
       }}

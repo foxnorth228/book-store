@@ -12,6 +12,9 @@
   "references": [
     {
       "path": "../localization/tsconfig.lib.json"
+    },
+    {
+      "path": "../errors/tsconfig.lib.json"
     }
   ]
 }

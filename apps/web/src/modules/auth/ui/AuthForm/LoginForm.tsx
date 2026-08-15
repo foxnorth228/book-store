@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authContracts, AuthLoginReq } from "@org/contracts";
+import { ValidationErrorCode } from "@org/errors";
 import { RHFForm, RHFFormField } from "@shared/lib";
 import { Input } from "@shared/ui";
 import { useTranslation } from "react-i18next";
@@ -7,6 +8,8 @@ import { toast } from "sonner";
 
 import { signIn } from "../../model/sign-in";
 import { Description, Footer, FooterLink, SubmitButton } from "./auth-form-components";
+
+const emailErrorCodes = [ValidationErrorCode.Required, ValidationErrorCode.Invalid] as const;
 
 export function LoginForm() {
   const { t } = useTranslation(["auth"]);
@@ -26,9 +29,15 @@ export function LoginForm() {
     <RHFForm onSubmit={onSubmit} mode={"onSubmit"} resolver={zodResolver(authContracts.login.body)}>
       <Description>{t((w) => w.loginModal.description)}</Description>
 
-      <RHFFormField<AuthLoginReq>
+      <RHFFormField<AuthLoginReq, typeof emailErrorCodes>
         name="email"
         label={t((w) => w.loginModal.fields.email.label)}
+        errorCodes={emailErrorCodes}
+        getErrorMessage={(errorCode) =>
+          t((w) => w.loginModal.fields.email.errors[errorCode], {
+            defaultValue: errorCode,
+          })
+        }
         render={({ field, additionalProps }) => (
           <Input
             {...field}
