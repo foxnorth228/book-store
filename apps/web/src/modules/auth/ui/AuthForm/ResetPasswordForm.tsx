@@ -4,7 +4,7 @@ import { RHFForm, RHFFormField } from "@shared/lib";
 import { Input } from "@shared/ui";
 
 import { type ResetPasswordFormData, resetPasswordSchema } from "../../model/reset-password.schema";
-import { Description, SubmitButton, Title } from "./AuthForm";
+import { Description, SubmitButton, Title } from "../AuthForm";
 
 interface ResetPasswordFormProps {
   token: string;

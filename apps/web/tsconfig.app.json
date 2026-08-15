@@ -46,6 +46,9 @@
       "path": "../../packages/shared/tsconfig.lib.json"
     },
     {
+      "path": "../../packages/localization/tsconfig.lib.json"
+    },
+    {
       "path": "../../packages/http/tsconfig.lib.json"
     },
     {

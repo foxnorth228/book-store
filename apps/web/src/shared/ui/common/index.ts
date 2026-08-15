@@ -1,1 +1,2 @@
-export * from "./Separator";
+export { Separator } from "./Separator";
+export { Toaster } from "./Toaster";

@@ -6,7 +6,7 @@ export const PageHeader: FC<BaseComponentProps> = ({ children, className }) => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-10 flex w-full items-center border-b border-neutral-300 bg-neutral-100",
+        "border-border bg-header sticky top-0 z-10 flex w-full items-center border-b",
         className,
       )}
     >

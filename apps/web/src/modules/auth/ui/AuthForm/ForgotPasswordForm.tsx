@@ -2,18 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthApi } from "@modules/auth/api/auth.api";
 import { RHFForm, RHFFormField } from "@shared/lib";
 import { Input, Link } from "@shared/ui";
-import { useState } from "react";
 
 import { ForgotPasswordFormData, forgotPasswordSchema } from "../../model/reset-password.schema";
-import { Description, Footer, FooterLink, SubmitButton, SuccessMessage, Title } from "./AuthForm";
+import { Description, Footer, FooterLink, SubmitButton, Title } from "../AuthForm";
 
 export function ForgotPasswordForm() {
-  const [success, setSuccess] = useState(false);
-
   const onSubmit = async (data: ForgotPasswordFormData) => {
     await AuthApi.forgotPassword(data);
-
-    setSuccess(true);
   };
 
   return (
@@ -29,14 +24,10 @@ export function ForgotPasswordForm() {
       <RHFFormField<ForgotPasswordFormData>
         name="email"
         label="Email"
-        render={({ field, meta }) => (
-          <Input {...field} type="email" placeholder="example@mail.com" status={meta.status} />
-        )}
+        render={({ field }) => <Input {...field} type="email" placeholder="example@mail.com" />}
       />
 
       <SubmitButton type="submit">Отправить ссылку</SubmitButton>
-
-      {success && <SuccessMessage>Если аккаунт существует, письмо было отправлено.</SuccessMessage>}
 
       <Footer>
         <span>Вспомнили пароль?</span>

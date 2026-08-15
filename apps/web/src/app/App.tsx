@@ -2,6 +2,7 @@ import "./theme/global-styles.css";
 import "./theme/theme.css";
 import "./i18n/config";
 
+import { Toaster } from "@shared/ui";
 import { StrictMode } from "react";
 import { BrowserRouter } from "react-router";
 
@@ -16,6 +17,7 @@ export const App = () => {
         <SettingsProvider>
           <SessionProvider>
             <Router />
+            <Toaster />
           </SessionProvider>
         </SettingsProvider>
       </BrowserRouter>

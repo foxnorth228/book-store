@@ -74,6 +74,84 @@
   }
 }
 
+:root {
+  --radius: 0.625rem;
+
+  /* every raw token below points at the palette in the first @theme block —
+     change the brand there and everything here follows automatically */
+  --background: var(--color-neutral-50);
+  --foreground: var(--color-neutral-900);
+  --card: var(--color-neutral-100);
+  --card-foreground: var(--color-neutral-700);
+  --popover: var(--color-neutral-100);
+  --popover-foreground: var(--color-neutral-700);
+  --primary: var(--color-primary-700);
+  --primary-foreground: var(--color-primary-700);
+  --secondary: var(--color-neutral-100);
+  --secondary-foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-500);
+  --accent: var(--color-primary-100);
+  --accent-foreground: var(--color-primary-800);
+  --destructive: var(--color-error-text);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+  --ring: var(--color-primary-400);
+  --chart-1: var(--color-primary-300);
+  --chart-2: var(--color-primary-500);
+  --chart-3: var(--color-primary-700);
+  --chart-4: var(--color-neutral-400);
+  --chart-5: var(--color-neutral-600);
+  --sidebar: var(--color-neutral-50);
+  --sidebar-foreground: var(--color-neutral-900);
+  --sidebar-primary: var(--color-primary-700);
+  --sidebar-primary-foreground: var(--color-primary-50);
+  --sidebar-accent: var(--color-primary-100);
+  --sidebar-accent-foreground: var(--color-primary-800);
+  --sidebar-border: var(--color-neutral-200);
+  --sidebar-ring: var(--color-primary-400);
+
+  /* custom colors */
+  --header: var(--color-neutral-100);
+}
+
+.dark {
+  --background: var(--color-neutral-900);
+  --foreground: var(--color-neutral-50);
+  --card: var(--color-neutral-800);
+  --card-foreground: var(--color-neutral-50);
+  --popover: var(--color-neutral-800);
+  --popover-foreground: var(--color-neutral-50);
+  --primary: var(--color-primary-600);
+  --primary-foreground: var(--color-primary-200);
+  --secondary: var(--color-neutral-700);
+  --secondary-foreground: var(--color-neutral-50);
+  --muted: var(--color-neutral-700);
+  --muted-foreground: var(--color-neutral-400);
+  --accent: var(--color-primary-900);
+  --accent-foreground: var(--color-primary-200);
+  --destructive: #f87171;
+  --border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
+  --input: color-mix(in oklab, var(--color-neutral-50) 15%, transparent);
+  --ring: var(--color-primary-500);
+  --chart-1: var(--color-primary-300);
+  --chart-2: var(--color-primary-500);
+  --chart-3: var(--color-primary-700);
+  --chart-4: var(--color-neutral-400);
+  --chart-5: var(--color-neutral-600);
+  --sidebar: var(--color-neutral-800);
+  --sidebar-foreground: var(--color-neutral-50);
+  --sidebar-primary: var(--color-primary-600);
+  --sidebar-primary-foreground: var(--color-primary-50);
+  --sidebar-accent: var(--color-primary-900);
+  --sidebar-accent-foreground: var(--color-primary-200);
+  --sidebar-border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
+  --sidebar-ring: var(--color-primary-500);
+
+    /* custom colors */
+  --header: var(--color-neutral-800);
+}
+
 /* ===== shadcn semantic tokens — now just ALIASES onto the palette above ===== */
 @theme inline {
   --font-heading: var(--font-sans);
@@ -119,78 +197,9 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-}
 
-:root {
-  --radius: 0.625rem;
-
-  /* every raw token below points at the palette in the first @theme block —
-     change the brand there and everything here follows automatically */
-  --background: var(--color-neutral-50);
-  --foreground: var(--color-neutral-900);
-  --card: oklch(1 0 0);
-  --card-foreground: var(--color-neutral-900);
-  --popover: oklch(1 0 0);
-  --popover-foreground: var(--color-neutral-900);
-  --primary: var(--color-primary-700);
-  --primary-foreground: var(--color-primary-50);
-  --secondary: var(--color-neutral-100);
-  --secondary-foreground: var(--color-neutral-900);
-  --muted: var(--color-neutral-100);
-  --muted-foreground: var(--color-neutral-500);
-  --accent: var(--color-primary-100);
-  --accent-foreground: var(--color-primary-800);
-  --destructive: var(--color-error-text);
-  --border: var(--color-neutral-200);
-  --input: var(--color-neutral-200);
-  --ring: var(--color-primary-400);
-  --chart-1: var(--color-primary-300);
-  --chart-2: var(--color-primary-500);
-  --chart-3: var(--color-primary-700);
-  --chart-4: var(--color-neutral-400);
-  --chart-5: var(--color-neutral-600);
-  --sidebar: var(--color-neutral-50);
-  --sidebar-foreground: var(--color-neutral-900);
-  --sidebar-primary: var(--color-primary-700);
-  --sidebar-primary-foreground: var(--color-primary-50);
-  --sidebar-accent: var(--color-primary-100);
-  --sidebar-accent-foreground: var(--color-primary-800);
-  --sidebar-border: var(--color-neutral-200);
-  --sidebar-ring: var(--color-primary-400);
-}
-
-.dark {
-  --background: var(--color-neutral-900);
-  --foreground: var(--color-neutral-50);
-  --card: var(--color-neutral-800);
-  --card-foreground: var(--color-neutral-50);
-  --popover: var(--color-neutral-800);
-  --popover-foreground: var(--color-neutral-50);
-  --primary: var(--color-primary-400);
-  --primary-foreground: var(--color-primary-900);
-  --secondary: var(--color-neutral-700);
-  --secondary-foreground: var(--color-neutral-50);
-  --muted: var(--color-neutral-700);
-  --muted-foreground: var(--color-neutral-400);
-  --accent: var(--color-primary-900);
-  --accent-foreground: var(--color-primary-200);
-  --destructive: #f87171;
-  --border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
-  --input: color-mix(in oklab, var(--color-neutral-50) 15%, transparent);
-  --ring: var(--color-primary-500);
-  --chart-1: var(--color-primary-300);
-  --chart-2: var(--color-primary-500);
-  --chart-3: var(--color-primary-700);
-  --chart-4: var(--color-neutral-400);
-  --chart-5: var(--color-neutral-600);
-  --sidebar: var(--color-neutral-800);
-  --sidebar-foreground: var(--color-neutral-50);
-  --sidebar-primary: var(--color-primary-400);
-  --sidebar-primary-foreground: var(--color-primary-900);
-  --sidebar-accent: var(--color-primary-900);
-  --sidebar-accent-foreground: var(--color-primary-200);
-  --sidebar-border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
-  --sidebar-ring: var(--color-primary-500);
+  /* custom colors */
+  --color-header: var(--header);
 }
 
 @layer base {

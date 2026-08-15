@@ -4,7 +4,7 @@ import { RHFFormField } from "@shared/lib";
 import { Input, Link } from "@shared/ui";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { AuthApi } from "../../api/auth.api";
+import { AuthApi } from "../api/auth.api";
 import { Description, Footer, FooterLink, Form, SubmitButton, Title } from "./AuthForm";
 
 export function RegisterForm() {

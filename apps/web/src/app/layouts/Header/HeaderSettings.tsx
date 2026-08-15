@@ -16,7 +16,7 @@ export const HeaderSettings = () => {
 
   return (
     <DropdownMenu.Trigger>
-      <Button variant={"ghost"} size={"icon"}>
+      <Button size={"icon"}>
         <Settings />
       </Button>
       <DropdownMenu>

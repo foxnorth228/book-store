@@ -179,7 +179,7 @@ function FieldError({
 
     const uniqueErrors = [...new Map(errors.map((error) => [error?.message, error])).values()];
 
-    if (uniqueErrors?.length == 1) {
+    if (uniqueErrors?.length === 1) {
       return uniqueErrors[0]?.message;
     }
 
@@ -206,15 +206,16 @@ function FieldError({
   );
 }
 
-export {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldTitle,
-};
+export const FieldComponent = Object.assign(Field, {
+  Content: FieldContent,
+  Description: FieldDescription,
+  Error: FieldError,
+  Group: FieldGroup,
+  Label: FieldLabel,
+  Legend: FieldLegend,
+  Separator: FieldSeparator,
+  Set: FieldSet,
+  Title: FieldTitle,
+});
+
+export { FieldComponent as Field };

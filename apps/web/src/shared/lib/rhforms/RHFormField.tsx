@@ -1,5 +1,11 @@
-import { Field, FieldError, FieldLabel } from "@shared/ui";
+import { Field } from "@shared/ui";
 import { Controller, ControllerProps, FieldValues, Path, useFormContext } from "react-hook-form";
+
+type RHFFieldRenderProps<T extends FieldValues, TName extends Path<T>> = Parameters<
+  ControllerProps<T, TName>["render"]
+>[0] & {
+  additionalProps: React.InputHTMLAttributes<HTMLInputElement>;
+};
 
 interface RHFFormFieldProps<T extends FieldValues> extends Omit<
   ControllerProps<T, Path<T>>,
@@ -7,7 +13,9 @@ interface RHFFormFieldProps<T extends FieldValues> extends Omit<
 > {
   name: Path<T>;
   label?: string;
-  render: ControllerProps<T, Path<T>>["render"];
+  render: (
+    props: RHFFieldRenderProps<T, Path<T>>,
+  ) => ReturnType<ControllerProps<T, Path<T>>["render"]>;
 }
 
 export function RHFFormField<T extends FieldValues>({
@@ -18,24 +26,36 @@ export function RHFFormField<T extends FieldValues>({
 }: RHFFormFieldProps<T>) {
   const { control } = useFormContext<T>();
 
+  const fieldId = `field-${name}`;
+  const errorId = `${fieldId}-error`;
+
   return (
     <Controller
       {...controllerProps}
       name={name}
       control={control}
-      render={({ field, fieldState, formState }) => (
-        <Field data-invalid={fieldState.invalid}>
-          {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
+      render={({ field, fieldState, formState }) => {
+        const additionalProps: React.InputHTMLAttributes<HTMLInputElement> = {
+          id: fieldId,
+          "aria-invalid": fieldState.invalid,
+          "aria-describedby": fieldState.invalid ? errorId : undefined,
+        };
 
-          {render({
-            field,
-            fieldState,
-            formState,
-          })}
+        return (
+          <Field data-invalid={fieldState.invalid}>
+            {label && <Field.Label htmlFor={fieldId}>{label}</Field.Label>}
 
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </Field>
-      )}
+            {render({
+              field,
+              fieldState,
+              formState,
+              additionalProps,
+            })}
+
+            {fieldState.invalid && <Field.Error id={errorId} errors={[fieldState.error]} />}
+          </Field>
+        );
+      }}
     />
   );
 }
