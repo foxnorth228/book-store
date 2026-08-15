@@ -15,7 +15,32 @@ export const SettingsProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [i18n, language]);
 
   useEffect(() => {
-    window.document.documentElement.classList.toggle("dark", theme === Themes.Dark);
+    const root = document.documentElement;
+
+    if (theme === Themes.Light) {
+      root.classList.remove("dark");
+      return;
+    }
+
+    if (theme === Themes.Dark) {
+      root.classList.add("dark");
+      return;
+    }
+
+    const applyTheme = (isDark: boolean) => {
+      root.classList.toggle("dark", isDark);
+    };
+
+    function handleChange(event: MediaQueryListEvent) {
+      applyTheme(event.matches);
+    }
+
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    applyTheme(media.matches);
+    media.addEventListener("change", handleChange);
+    return () => {
+      media.removeEventListener("change", handleChange);
+    };
   }, [theme]);
 
   return children;

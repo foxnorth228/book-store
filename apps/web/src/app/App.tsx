@@ -1,4 +1,3 @@
-import "./theme/global-styles.css";
 import "./theme/theme.css";
 import "./i18n/config";
 

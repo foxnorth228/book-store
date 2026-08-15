@@ -1,4 +1,5 @@
 {
+  "settings": "Settings",
   "language": "Language",
   "languages": {
     "en": "English",
@@ -7,6 +8,7 @@
   "theme": "Theme",
   "themes": {
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "system": "System"
   }
 }

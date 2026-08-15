@@ -11,7 +11,10 @@ export const HeaderAccount = () => {
   if (!isAuthenticated) {
     return (
       <>
-        <LoginButton onClick={() => setAuthModalOpen(true)} />
+        <LoginButton
+          className="bg-header text-header-foreground"
+          onClick={() => setAuthModalOpen(true)}
+        />
 
         <AuthModal isOpen={authModalOpen} onOpenChange={setAuthModalOpen} />
       </>

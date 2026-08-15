@@ -50,7 +50,7 @@ export const FooterLink: FC<BaseComponentProps & ComponentProps<typeof Link>> = 
   ...props
 }) => {
   return (
-    <Link to={to} className="font-medium" {...props}>
+    <Link to={to} className="text-primary-600 font-medium" {...props}>
       {children}
     </Link>
   );

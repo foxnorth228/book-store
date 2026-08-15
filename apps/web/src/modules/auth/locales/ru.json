@@ -1,3 +1,28 @@
 {
-  "signIn": "Войти"
+  "signIn": "Войти",
+  "loginModal": {
+    "title": "Вход",
+    "description": "Введите данные своего аккаунта",
+    "forgotPassword": "Забыли пароль?",
+    "submit": "Войти",
+    "noAccount": "Нет аккаунта?",
+    "createAccount": "Создать аккаунт",
+    "fields": {
+      "email": {
+        "label": "Электронная почта",
+        "placeholder": "Введите адрес почты",
+        "errors": {
+          "required": "Введите адрес почты",
+          "invalid": "Введите корректный адрес почты"
+        }
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Введите пароль",
+        "errors": {
+          "required": "Введите пароль"
+        }
+      }
+    }
+  }
 }

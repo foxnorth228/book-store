@@ -2,7 +2,7 @@ import { Dialog } from "@shared/ui";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from "./AuthForm/LoginForm";
 
 interface AuthModalProps {
   isOpen: boolean;

@@ -85,7 +85,7 @@
   --card-foreground: var(--color-neutral-700);
   --popover: var(--color-neutral-100);
   --popover-foreground: var(--color-neutral-700);
-  --primary: var(--color-primary-700);
+  --primary: var(--color-primary-200);
   --primary-foreground: var(--color-primary-700);
   --secondary: var(--color-neutral-100);
   --secondary-foreground: var(--color-neutral-900);
@@ -113,6 +113,7 @@
 
   /* custom colors */
   --header: var(--color-neutral-100);
+  --header-foreground: var(--color-primary-800);
 }
 
 .dark {
@@ -122,7 +123,7 @@
   --card-foreground: var(--color-neutral-50);
   --popover: var(--color-neutral-800);
   --popover-foreground: var(--color-neutral-50);
-  --primary: var(--color-primary-600);
+  --primary: var(--color-primary-800);
   --primary-foreground: var(--color-primary-200);
   --secondary: var(--color-neutral-700);
   --secondary-foreground: var(--color-neutral-50);
@@ -148,8 +149,9 @@
   --sidebar-border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
   --sidebar-ring: var(--color-primary-500);
 
-    /* custom colors */
+  /* custom colors */
   --header: var(--color-neutral-800);
+  --header-foreground: var(--color-primary-200);
 }
 
 /* ===== shadcn semantic tokens — now just ALIASES onto the palette above ===== */
@@ -200,16 +202,87 @@
 
   /* custom colors */
   --color-header: var(--header);
+  --color-header-foreground: var(--header-foreground);
 }
 
 @layer base {
-  * {
+  *,
+  *::before,
+  *::after {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
     @apply font-sans;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    line-height: 1.5;
+    overflow-x: hidden;
+    transition-property: background-color, color;
+    transition-duration: 200ms;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  ::selection {
+    background-color: var(--color-primary-200);
   }
 }

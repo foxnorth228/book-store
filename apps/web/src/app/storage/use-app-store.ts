@@ -1,10 +1,11 @@
+import { Themes } from "@app/config/theme";
 import { Languages } from "@org/localization";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface AppValues {
   language: Languages;
-  theme: "light" | "dark";
+  theme: Themes;
 }
 
 export interface AppActions {
@@ -18,7 +19,7 @@ export const useAppStore = create<AppStore>()(
   persist(
     (set) => ({
       language: Languages.En,
-      theme: "light",
+      theme: Themes.System,
 
       setLanguage: (language) => set({ language }),
       setTheme: (theme) => set({ theme }),

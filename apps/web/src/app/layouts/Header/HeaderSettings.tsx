@@ -16,7 +16,12 @@ export const HeaderSettings = () => {
 
   return (
     <DropdownMenu.Trigger>
-      <Button size={"icon"}>
+      <Button
+        type={"button"}
+        size={"icon"}
+        className="bg-header text-header-foreground hover:text-header-foreground/80"
+        aria-label={t((w) => w.settings, { ns: "common" })}
+      >
         <Settings />
       </Button>
       <DropdownMenu>
@@ -65,6 +70,9 @@ export const HeaderSettings = () => {
                 }
               }}
             >
+              <DropdownMenu.Item id={Themes.System}>
+                {t((w) => w.themes.system, { ns: "common" })}
+              </DropdownMenu.Item>
               <DropdownMenu.Item id={Themes.Light}>
                 {t((w) => w.themes.light, { ns: "common" })}
               </DropdownMenu.Item>
