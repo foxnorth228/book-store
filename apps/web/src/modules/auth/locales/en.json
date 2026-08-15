@@ -20,7 +20,8 @@
         "label": "Password",
         "placeholder": "Enter your password",
         "errors": {
-          "required": "Password is required"
+          "required": "Password is required",
+          "tooShort": "Password is too short"
         }
       }
     }

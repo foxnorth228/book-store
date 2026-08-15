@@ -9,8 +9,6 @@ import { toast } from "sonner";
 import { signIn } from "../../model/sign-in";
 import { Description, Footer, FooterLink, SubmitButton } from "./auth-form-components";
 
-const emailErrorCodes = [ValidationErrorCode.Required, ValidationErrorCode.Invalid] as const;
-
 export function LoginForm() {
   const { t } = useTranslation(["auth"]);
 
@@ -29,15 +27,13 @@ export function LoginForm() {
     <RHFForm onSubmit={onSubmit} mode={"onSubmit"} resolver={zodResolver(authContracts.login.body)}>
       <Description>{t((w) => w.loginModal.description)}</Description>
 
-      <RHFFormField<AuthLoginReq, typeof emailErrorCodes>
+      <RHFFormField<AuthLoginReq>
         name="email"
         label={t((w) => w.loginModal.fields.email.label)}
-        errorCodes={emailErrorCodes}
-        getErrorMessage={(errorCode) =>
-          t((w) => w.loginModal.fields.email.errors[errorCode], {
-            defaultValue: errorCode,
-          })
-        }
+        errorMessagesMapper={{
+          [ValidationErrorCode.Required]: t((w) => w.loginModal.fields.email.errors.required),
+          [ValidationErrorCode.Invalid]: t((w) => w.loginModal.fields.email.errors.invalid),
+        }}
         render={({ field, additionalProps }) => (
           <Input
             {...field}
@@ -52,6 +48,10 @@ export function LoginForm() {
       <RHFFormField<AuthLoginReq>
         name="password"
         label={t((w) => w.loginModal.fields.password.label)}
+        errorMessagesMapper={{
+          [ValidationErrorCode.Required]: t((w) => w.loginModal.fields.password.errors.required),
+          [ValidationErrorCode.Invalid]: t((w) => w.loginModal.fields.email.errors.invalid),
+        }}
         render={({ field, additionalProps }) => (
           <Input
             {...field}

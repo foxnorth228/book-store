@@ -1,27 +1,20 @@
-import { ValidationErrorCode } from "@org/errors";
+import { parseValidationErrorCode } from "@org/errors";
 import { Field } from "@shared/ui";
 import { Controller, FieldValues, useFormContext } from "react-hook-form";
 
 import { RHFFormFieldProps } from "./RHFForm.type";
-import { createErrorMessageResolver } from "./utils";
 
-export function RHFFormField<
-  T extends FieldValues,
-  TErrorCodes extends readonly ValidationErrorCode[] = readonly ValidationErrorCode[],
->({
+export function RHFFormField<T extends FieldValues>({
   name,
   label,
-  errorCodes,
-  getErrorMessage = (errorCode) => String(errorCode),
+  errorMessagesMapper = {},
   render,
   ...controllerProps
-}: RHFFormFieldProps<T, TErrorCodes>) {
+}: RHFFormFieldProps<T>) {
   const { control } = useFormContext<T>();
 
   const fieldId = `field-${name}`;
   const errorId = `${fieldId}-error`;
-
-  const errorMessageResolver = createErrorMessageResolver<TErrorCodes>(getErrorMessage, errorCodes);
 
   return (
     <Controller
@@ -29,11 +22,17 @@ export function RHFFormField<
       name={name}
       control={control}
       render={({ field, fieldState, formState }) => {
+        console.log(fieldState.error);
         const additionalProps: React.InputHTMLAttributes<HTMLInputElement> = {
           id: fieldId,
           "aria-invalid": fieldState.invalid,
           "aria-describedby": fieldState.invalid ? errorId : undefined,
         };
+
+        const errorCode = parseValidationErrorCode(fieldState.error);
+
+        const errorMessage =
+          (errorCode && errorMessagesMapper[errorCode]) ?? fieldState.error?.message;
 
         return (
           <Field data-invalid={fieldState.invalid}>
@@ -47,7 +46,7 @@ export function RHFFormField<
             })}
 
             {fieldState.invalid && (
-              <Field.Error id={errorId} errors={[errorMessageResolver(fieldState.error)]} />
+              <Field.Error id={errorId} errors={[{ message: errorMessage }]} />
             )}
           </Field>
         );

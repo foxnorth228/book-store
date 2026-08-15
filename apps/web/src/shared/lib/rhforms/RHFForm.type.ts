@@ -13,15 +13,16 @@ export type RHFFieldRenderProps<T extends FieldValues, TName extends Path<T>> = 
   additionalProps: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
-export interface RHFFormFieldProps<
-  T extends FieldValues,
-  TErrorCodes extends readonly ValidationErrorCode[] = readonly ValidationErrorCode[],
-> extends Omit<ControllerProps<T, Path<T>>, "name" | "control" | "render"> {
+export type RFHFormFieldErrorMessagesMapper = Partial<Record<ValidationErrorCode, string>>;
+
+export interface RHFFormFieldProps<T extends FieldValues> extends Omit<
+  ControllerProps<T, Path<T>>,
+  "name" | "control" | "render"
+> {
   name: Path<T>;
   label?: string;
 
-  errorCodes?: TErrorCodes;
-  getErrorMessage?: (errorCode: TErrorCodes[number]) => string;
+  errorMessagesMapper?: RFHFormFieldErrorMessagesMapper;
 
   render: (
     props: RHFFieldRenderProps<T, Path<T>>,
