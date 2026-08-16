@@ -12,3 +12,8 @@ export type AuthRegisterRes = z.infer<typeof authContracts.register.response>;
 export type AuthAccountRegisteredEventDto = z.infer<typeof authAccountRegisteredSchema>;
 
 export type AuthJwtPayloadUserDto = z.infer<typeof authJwtPayloadSchema>;
+
+export enum VerificationOTPCodePurpose {
+  EmailConfirmation = "email_confirmation",
+  PasswordUpdate = "password_update",
+}
