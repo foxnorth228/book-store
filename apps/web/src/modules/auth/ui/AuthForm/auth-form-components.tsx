@@ -22,8 +22,17 @@ export const Title: FC<BaseComponentProps> = ({ children }) => {
 };
 
 export const Description: FC<BaseComponentProps> = ({ children }) => {
-  return <p className="mb-6 text-[15px] leading-normal text-neutral-500">{children}</p>;
+  return <p className="mb-2 text-[15px] leading-normal text-neutral-500">{children}</p>;
 };
+
+export const FormError: FC<BaseComponentProps> = ({ children }) => (
+  <div
+    role="alert"
+    className="border-destructive/30 bg-destructive/10 text-destructive rounded-md border px-3 py-2 text-sm"
+  >
+    <span>{children}</span>
+  </div>
+);
 
 export const SubmitButton: FC<BaseComponentProps & ComponentProps<typeof Button>> = ({
   children,
@@ -38,9 +47,20 @@ export const SubmitButton: FC<BaseComponentProps & ComponentProps<typeof Button>
 
 export const Footer: FC<BaseComponentProps> = ({ children }) => {
   return (
-    <div className="mt-6 flex items-center justify-center gap-1.5 text-sm text-neutral-500">
+    <div className="mt-2 flex items-center justify-center gap-1.5 text-sm text-neutral-500">
       {children}
     </div>
+  );
+};
+
+export const FooterButtonLink: FC<BaseComponentProps & ComponentProps<typeof Button>> = ({
+  children,
+  ...props
+}) => {
+  return (
+    <Button className="text-primary-600 h-fit p-0 font-medium" {...props}>
+      {children}
+    </Button>
   );
 };
 

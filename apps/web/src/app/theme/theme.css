@@ -114,6 +114,9 @@
   /* custom colors */
   --header: var(--color-neutral-100);
   --header-foreground: var(--color-primary-800);
+  --toast: var(--popover);
+  --toast-foreground: var(--popover-foreground);
+  --toast-description: var(--color-neutral-500);
 }
 
 .dark {
@@ -152,6 +155,9 @@
   /* custom colors */
   --header: var(--color-neutral-800);
   --header-foreground: var(--color-primary-200);
+  --toast: var(--popover);
+  --toast-foreground: var(--popover-foreground);
+  --toast-description: var(--color-neutral-400);
 }
 
 /* ===== shadcn semantic tokens — now just ALIASES onto the palette above ===== */
@@ -203,6 +209,9 @@
   /* custom colors */
   --color-header: var(--header);
   --color-header-foreground: var(--header-foreground);
+  --color-toast: var(--toast);
+  --color-toast-foreground: var(--toast-foreground);
+  --color-toast-description: var(--toast-description);
 }
 
 @layer base {

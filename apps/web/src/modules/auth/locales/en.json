@@ -24,6 +24,9 @@
           "tooShort": "Password must be at least {{minimum}} characters long"
         }
       }
+    },
+    "errors": {
+      "invalidCredentials": "Failed to log in. Check your email and password."
     }
   }
 }

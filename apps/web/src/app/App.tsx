@@ -16,7 +16,7 @@ export const App = () => {
         <SettingsProvider>
           <SessionProvider>
             <Router />
-            <Toaster />
+            <Toaster position={"top-center"} />
           </SessionProvider>
         </SettingsProvider>
       </BrowserRouter>

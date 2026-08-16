@@ -1,25 +1,43 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authContracts, AuthLoginReq } from "@org/contracts";
-import { createZodErrorMap, RHFForm, RHFFormField } from "@shared/lib";
+import { authContracts, AuthErrorCodes, AuthLoginReq } from "@org/contracts";
+import { createZodErrorMap, handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
 import { Input } from "@shared/ui";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 
 import { signIn } from "../../model/sign-in";
-import { Description, Footer, FooterLink, SubmitButton } from "./auth-form-components";
+import {
+  Description,
+  Footer,
+  FooterButtonLink,
+  FooterLink,
+  FormError,
+  SubmitButton,
+} from "./auth-form-components";
 
-export function LoginForm() {
+interface LoginFormProps {
+  onRegister: () => void;
+}
+
+export const LoginForm: FC<LoginFormProps> = ({ onRegister }) => {
   const { t } = useTranslation(["auth"]);
   const { t: tc } = useTranslation();
 
+  const [formError, setFormError] = useState<string | null>(null);
+
   const onSubmit = async (data: AuthLoginReq) => {
     try {
-      const response = await signIn(data);
-
-      console.log(response);
+      await signIn(data);
     } catch (error) {
-      toast("Error", { description: String(error) });
-      console.error(error);
+      if (
+        isHttpAppError<AuthErrorCodes>(error) &&
+        error.data.code === AuthErrorCodes.INVALID_CREDENTIALS
+      ) {
+        setFormError(t((w) => w.loginModal.errors.invalidCredentials));
+        return;
+      }
+
+      handleError(error);
     }
   };
 
@@ -62,6 +80,8 @@ export function LoginForm() {
     >
       <Description>{t((w) => w.loginModal.description)}</Description>
 
+      {formError && <FormError>{formError}</FormError>}
+
       <RHFFormField<AuthLoginReq>
         name="email"
         label={t((w) => w.loginModal.fields.email.label)}
@@ -99,8 +119,10 @@ export function LoginForm() {
       <Footer>
         <span>{t((w) => w.loginModal.noAccount)}</span>
 
-        <FooterLink to="/register">{t((w) => w.loginModal.createAccount)}</FooterLink>
+        <FooterButtonLink onClick={() => onRegister()} variant={"link"}>
+          {t((w) => w.loginModal.createAccount)}
+        </FooterButtonLink>
       </Footer>
     </RHFForm>
   );
-}
+};

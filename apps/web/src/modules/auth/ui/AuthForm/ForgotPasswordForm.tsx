@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthApi } from "@modules/auth/api/auth.api";
 import { RHFForm, RHFFormField } from "@shared/lib";
-import { Input, Link } from "@shared/ui";
+import { Input } from "@shared/ui";
 
 import { ForgotPasswordFormData, forgotPasswordSchema } from "../../model/reset-password.schema";
-import { Description, Footer, FooterLink, SubmitButton, Title } from "./auth-form-components";
+import { Description, Footer, SubmitButton, Title } from "./auth-form-components";
 
 export function ForgotPasswordForm() {
   const onSubmit = async (data: ForgotPasswordFormData) => {
@@ -31,10 +31,6 @@ export function ForgotPasswordForm() {
 
       <Footer>
         <span>Вспомнили пароль?</span>
-
-        <FooterLink as={Link} to="/login">
-          Войти
-        </FooterLink>
       </Footer>
     </RHFForm>
   );
