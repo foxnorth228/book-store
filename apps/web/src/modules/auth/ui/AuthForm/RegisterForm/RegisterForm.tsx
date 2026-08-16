@@ -1,26 +1,47 @@
 import { localeOptions } from "@app/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authContracts, AuthRegisterReq } from "@org/contracts";
+import { authContracts, AuthErrorCodes, AuthRegisterReq } from "@org/contracts";
 import { Languages } from "@org/localization";
-import { RHFForm, RHFFormField } from "@shared/lib";
+import { handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
 import { Input, PasswordInput, Select } from "@shared/ui";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AuthApi } from "../../../api/auth.api";
-import { Description, Footer, FooterButtonLink, SubmitButton } from "../auth-form-components";
+import {
+  Description,
+  Footer,
+  FooterButtonLink,
+  FormError,
+  SubmitButton,
+} from "../auth-form-components";
 import { createRegisterFormZodErrorsMapper } from "./utils";
 
 interface RegisterFormProps {
   onLogin: () => void;
+  onFinish: () => void;
 }
 
-export const RegisterForm: FC<RegisterFormProps> = ({ onLogin }) => {
+export const RegisterForm: FC<RegisterFormProps> = ({ onLogin, onFinish }) => {
   const { t } = useTranslation(["auth"]);
   const { t: tc } = useTranslation();
 
+  const [formError, setFormError] = useState<string | null>(null);
+
   const onSubmit = async (data: AuthRegisterReq) => {
-    await AuthApi.register(data);
+    setFormError("");
+    try {
+      await AuthApi.register(data);
+
+      onFinish();
+    } catch (e) {
+      if (isHttpAppError<AuthErrorCodes>(e) && e.data.code === AuthErrorCodes.USER_ALREADY_EXIST) {
+        setFormError(t((w) => w.registerModal.errors.userAlreadyExist));
+        return;
+      }
+
+      handleError(e);
+    }
   };
 
   return (
@@ -38,6 +59,8 @@ export const RegisterForm: FC<RegisterFormProps> = ({ onLogin }) => {
       }}
     >
       <Description>{t((w) => w.registerModal.description)}</Description>
+
+      {formError && <FormError>{formError}</FormError>}
 
       <RHFFormField<AuthRegisterReq>
         name="email"

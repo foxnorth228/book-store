@@ -1,10 +1,10 @@
-import { AuthModal, LoginButton, ProfileButton, useSessionStore } from "@modules/auth";
-import { useProfileStore } from "@modules/profile";
+import { AuthModal, LoginButton, useSessionStore } from "@modules/auth";
 import { useState } from "react";
+
+import { AccountMenu } from "./AccountMenu";
 
 export const HeaderAccount = () => {
   const isAuthenticated = useSessionStore((state) => state.isAuthenticated);
-  const profile = useProfileStore((state) => state.profile);
 
   const [authModalOpen, setAuthModalOpen] = useState(false);
 
@@ -21,5 +21,5 @@ export const HeaderAccount = () => {
     );
   }
 
-  return <ProfileButton nickname={profile?.nickname} onClick={() => {}} />;
+  return <AccountMenu />;
 };

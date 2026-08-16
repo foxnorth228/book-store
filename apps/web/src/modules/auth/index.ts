@@ -1,6 +1,7 @@
 export { AuthTranslations } from "./locales";
 export { createHttpAuthClient } from "./model/create-http-auth-client";
 export { restoreSession } from "./model/restore-session";
+export { signOut } from "./model/sign-out";
 export { useSessionStore } from "./model/use-session-store";
 export { ForgotPasswordForm } from "./ui/AuthForm/ForgotPasswordForm";
 export { LoginForm } from "./ui/AuthForm/LoginForm";
@@ -8,6 +9,5 @@ export { RegisterForm } from "./ui/AuthForm/RegisterForm/RegisterForm";
 export { ResetPasswordForm } from "./ui/AuthForm/ResetPasswordForm";
 export { AuthModal } from "./ui/AuthModal";
 export { LoginButton } from "./ui/LoginButton/LoginButton";
-export { ProfileButton } from "./ui/ProfileButton/ProfileButton";
 export { ProtectedRoute } from "./ui/ProtectedRoute";
 export { PublicRoute } from "./ui/PublicRoute";

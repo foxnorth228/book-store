@@ -22,6 +22,14 @@ export const AuthApi = {
       },
     );
   },
+  logout() {
+    return this.httpClient.request(
+      `${authContracts.session.prefix}${authContracts.session.logout.path}`,
+      {
+        method: authContracts.session.logout.method,
+      },
+    );
+  },
   async forgotPassword(data: ForgotPasswordFormData) {
     return this.httpClient.post("/auth/password/reset-request", data);
   },

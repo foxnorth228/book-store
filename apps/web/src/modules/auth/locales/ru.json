@@ -1,5 +1,6 @@
 {
   "signIn": "Войти",
+  "signOut": "Sign out",
   "loginModal": {
     "title": "Вход",
     "description": "Введите данные своего аккаунта",
@@ -32,6 +33,9 @@
   "registerModal": {
     "title": "Регистрация",
     "description": "Создайте новый аккаунт для работы с XD",
+    "submit": "Создать аккаунт",
+    "hasAccount": "Уже есть аккаунт?",
+    "signIn": "Войти",
     "fields": {
       "email": {
         "label": "Электронная почта",
@@ -59,11 +63,12 @@
         }
       },
       "language": {
-        "label": "Язык"
+        "label": "Язык",
+        "placeholder": "Выберите свой предпочитаемый язык"
       }
     },
-    "submit": "Создать аккаунт",
-    "hasAccount": "Уже есть аккаунт?",
-    "signIn": "Войти"
+    "errors": {
+      "userAlreadyExist": "Аккаунт с таким адресом электронной почты уже существует."
+    }
   }
 }

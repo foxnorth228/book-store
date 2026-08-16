@@ -15,6 +15,7 @@ interface SessionState {
 
 interface SessionActions {
   setData: (data: Partial<SessionState>) => void;
+  clearSession: () => void;
 }
 
 type SessionStore = SessionState & SessionActions;
@@ -26,5 +27,8 @@ export const useSessionStore = create<SessionStore>((set) => ({
   isSessionRestored: false,
   setData: (data) => {
     set(data);
+  },
+  clearSession: () => {
+    set({ user: undefined, accessToken: undefined, isAuthenticated: false });
   },
 }));

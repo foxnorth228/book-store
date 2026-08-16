@@ -34,9 +34,9 @@ export const AuthModal: FC<AuthModalProps> = ({ isOpen, onOpenChange, initialMod
       </Dialog.Header>
 
       {mode === "login" ? (
-        <LoginForm onRegister={() => setMode("register")} />
+        <LoginForm onRegister={() => setMode("register")} onFinish={() => onOpenChange(false)} />
       ) : (
-        <RegisterForm onLogin={() => setMode("login")} />
+        <RegisterForm onLogin={() => setMode("login")} onFinish={() => onOpenChange(false)} />
       )}
     </Dialog>
   );

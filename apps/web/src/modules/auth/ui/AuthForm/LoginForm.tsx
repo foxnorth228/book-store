@@ -17,9 +17,10 @@ import {
 
 interface LoginFormProps {
   onRegister: () => void;
+  onFinish: () => void;
 }
 
-export const LoginForm: FC<LoginFormProps> = ({ onRegister }) => {
+export const LoginForm: FC<LoginFormProps> = ({ onRegister, onFinish }) => {
   const { t } = useTranslation(["auth"]);
   const { t: tc } = useTranslation();
 
@@ -28,16 +29,15 @@ export const LoginForm: FC<LoginFormProps> = ({ onRegister }) => {
   const onSubmit = async (data: AuthLoginReq) => {
     try {
       await signIn(data);
-    } catch (error) {
-      if (
-        isHttpAppError<AuthErrorCodes>(error) &&
-        error.data.code === AuthErrorCodes.INVALID_CREDENTIALS
-      ) {
+
+      onFinish();
+    } catch (e) {
+      if (isHttpAppError<AuthErrorCodes>(e) && e.data.code === AuthErrorCodes.INVALID_CREDENTIALS) {
         setFormError(t((w) => w.loginModal.errors.invalidCredentials));
         return;
       }
 
-      handleError(error);
+      handleError(e);
     }
   };
 

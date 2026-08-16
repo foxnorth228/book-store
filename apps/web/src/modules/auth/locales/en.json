@@ -1,5 +1,6 @@
 {
   "signIn": "Sign in",
+  "signOut": "Sign out",
   "loginModal": {
     "title": "Sign in",
     "description": "Enter your account credentials",
@@ -32,6 +33,9 @@
   "registerModal": {
     "title": "Registration",
     "description": "Create a new account to work with XD",
+    "submit": "Create account",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign in",
     "fields": {
       "email": {
         "label": "Email",
@@ -60,11 +64,11 @@
       },
       "language": {
         "label": "Language",
-        "placeholder": ""
+        "placeholder": "Choose your preferred language"
       }
     },
-    "submit": "Create account",
-    "hasAccount": "Already have an account?",
-    "signIn": "Sign in"
+    "errors": {
+      "userAlreadyExist": "An account with this email already exists."
+    }
   }
 }
