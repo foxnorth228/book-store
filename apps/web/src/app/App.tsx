@@ -1,5 +1,5 @@
 import "./theme/theme.css";
-import "./i18n/config";
+import "./i18n/config/config";
 
 import { Toaster } from "@shared/ui";
 import { StrictMode } from "react";

@@ -4,7 +4,7 @@ export { restoreSession } from "./model/restore-session";
 export { useSessionStore } from "./model/use-session-store";
 export { ForgotPasswordForm } from "./ui/AuthForm/ForgotPasswordForm";
 export { LoginForm } from "./ui/AuthForm/LoginForm";
-export { RegisterForm } from "./ui/AuthForm/RegisterForm";
+export { RegisterForm } from "./ui/AuthForm/RegisterForm/RegisterForm";
 export { ResetPasswordForm } from "./ui/AuthForm/ResetPasswordForm";
 export { AuthModal } from "./ui/AuthModal";
 export { LoginButton } from "./ui/LoginButton/LoginButton";

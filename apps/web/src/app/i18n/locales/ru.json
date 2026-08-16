@@ -1,4 +1,6 @@
 {
+  "hidePassword": "Скрыть пароль",
+  "showPassword": "Показать пароль",
   "settings": "Настройки",
   "language": "Язык",
   "languages": {

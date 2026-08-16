@@ -58,7 +58,7 @@ export const FooterButtonLink: FC<BaseComponentProps & ComponentProps<typeof But
   ...props
 }) => {
   return (
-    <Button className="text-primary-600 h-fit p-0 font-medium" {...props}>
+    <Button className="text-primary-600 h-fit p-0 font-medium" variant={"link"} {...props}>
       {children}
     </Button>
   );

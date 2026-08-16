@@ -28,5 +28,43 @@
     "errors": {
       "invalidCredentials": "Failed to log in. Check your email and password."
     }
+  },
+  "registerModal": {
+    "title": "Registration",
+    "description": "Create a new account to work with XD",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "example@mail.com",
+        "errors": {
+          "required": "Email is required",
+          "invalid": "Enter a valid email address"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "errors": {
+          "required": "Password is required",
+          "tooShort": "Password must be at least {{minimum}} characters long"
+        }
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Repeat your password",
+        "errors": {
+          "required": "Password is required",
+          "tooShort": "Password must be at least {{minimum}} characters long",
+          "mismatch": "Passwords does not match"
+        }
+      },
+      "language": {
+        "label": "Language",
+        "placeholder": ""
+      }
+    },
+    "submit": "Create account",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign in"
   }
 }

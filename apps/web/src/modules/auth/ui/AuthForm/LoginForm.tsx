@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authContracts, AuthErrorCodes, AuthLoginReq } from "@org/contracts";
 import { createZodErrorMap, handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
-import { Input } from "@shared/ui";
+import { Input, PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -100,7 +100,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onRegister }) => {
         name="password"
         label={t((w) => w.loginModal.fields.password.label)}
         render={({ field, additionalProps }) => (
-          <Input
+          <PasswordInput
             {...field}
             {...additionalProps}
             type="password"
@@ -119,7 +119,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onRegister }) => {
       <Footer>
         <span>{t((w) => w.loginModal.noAccount)}</span>
 
-        <FooterButtonLink onClick={() => onRegister()} variant={"link"}>
+        <FooterButtonLink onClick={() => onRegister()}>
           {t((w) => w.loginModal.createAccount)}
         </FooterButtonLink>
       </Footer>

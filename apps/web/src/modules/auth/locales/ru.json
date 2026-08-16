@@ -28,5 +28,42 @@
     "errors": {
       "invalidCredentials": "Не удалось войти. Проверьте почту и пароль."
     }
+  },
+  "registerModal": {
+    "title": "Регистрация",
+    "description": "Создайте новый аккаунт для работы с XD",
+    "fields": {
+      "email": {
+        "label": "Электронная почта",
+        "placeholder": "Введите адрес почты",
+        "errors": {
+          "required": "Введите адрес почты",
+          "invalid": "Введите корректный адрес почты"
+        }
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Введите пароль",
+        "errors": {
+          "required": "Введите пароль",
+          "tooShort": "Пароль должен содержать не менее {{minimum}} символов"
+        }
+      },
+      "confirmPassword": {
+        "label": "Подтверждение пароля",
+        "placeholder": "Повторите пароль",
+        "errors": {
+          "required": "Подтвердите пароль",
+          "tooShort": "Пароль должен содержать не менее {{minimum}} символов",
+          "mismatch": "Пароли не совпадают"
+        }
+      },
+      "language": {
+        "label": "Язык"
+      }
+    },
+    "submit": "Создать аккаунт",
+    "hasAccount": "Уже есть аккаунт?",
+    "signIn": "Войти"
   }
 }

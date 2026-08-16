@@ -6,10 +6,17 @@ export interface RHFFormProps<T extends FieldValues> extends UseFormProps<T> {
   className?: string;
 }
 
+export interface RHFFieldAdditionalProps {
+  id: string;
+  "aria-invalid": boolean;
+  "aria-describedby"?: string;
+  "aria-labelledby"?: string;
+}
+
 export type RHFFieldRenderProps<T extends FieldValues, TName extends Path<T>> = Parameters<
   ControllerProps<T, TName>["render"]
 >[0] & {
-  additionalProps: React.InputHTMLAttributes<HTMLInputElement>;
+  additionalProps: RHFFieldAdditionalProps;
 };
 
 export interface RHFFormFieldProps<T extends FieldValues> extends Omit<

@@ -12,6 +12,7 @@ export function RHFFormField<T extends FieldValues>({
   const { control } = useFormContext<T>();
 
   const fieldId = `field-${name}`;
+  const labelId = `${fieldId}-label`;
   const errorId = `${fieldId}-error`;
 
   return (
@@ -20,15 +21,20 @@ export function RHFFormField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState, formState }) => {
-        const additionalProps: React.InputHTMLAttributes<HTMLInputElement> = {
+        const additionalProps = {
           id: fieldId,
           "aria-invalid": fieldState.invalid,
           "aria-describedby": fieldState.invalid ? errorId : undefined,
+          "aria-labelledby": label ? labelId : undefined,
         };
 
         return (
           <Field data-invalid={fieldState.invalid}>
-            {label && <Field.Label htmlFor={fieldId}>{label}</Field.Label>}
+            {label && (
+              <Field.Label id={labelId} htmlFor={fieldId}>
+                {label}
+              </Field.Label>
+            )}
 
             {render({
               field,

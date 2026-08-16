@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { LoginForm } from "./AuthForm/LoginForm";
-import { RegisterForm } from "./AuthForm/RegisterForm";
+import { RegisterForm } from "./AuthForm/RegisterForm/RegisterForm";
 
 export type AuthModalMode = "login" | "register";
 
@@ -26,7 +26,11 @@ export const AuthModal: FC<AuthModalProps> = ({ isOpen, onOpenChange, initialMod
   return (
     <Dialog isOpen={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Header>
-        <Dialog.Title>{t((w) => w.signIn, { ns: "auth" })}</Dialog.Title>
+        <Dialog.Title>
+          {mode === "login"
+            ? t((w) => w.loginModal.title, { ns: "auth" })
+            : t((w) => w.registerModal.title, { ns: "auth" })}
+        </Dialog.Title>
       </Dialog.Header>
 
       {mode === "login" ? (
