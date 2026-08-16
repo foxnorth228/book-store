@@ -1,23 +1,14 @@
-import { ValidationErrorCode } from "@org/errors";
 import { languageSchema } from "@org/localization";
 import z from "zod";
 
 import { AuthRole } from "./roles.js";
 
-export const passwordSchema = z
-  .string(ValidationErrorCode.Required)
-  .trim()
-  .min(1, ValidationErrorCode.Required)
-  .min(6, ValidationErrorCode.TooShort);
+export const passwordSchema = z.string().trim().min(1).min(6);
 
 export const authSchemas = {
   login: {
     body: z.object({
-      email: z
-        .string(ValidationErrorCode.Required)
-        .trim()
-        .min(1, ValidationErrorCode.Required)
-        .pipe(z.email(ValidationErrorCode.Invalid)),
+      email: z.string().trim().min(1).pipe(z.email()),
       password: passwordSchema,
     }),
     response: z.object({

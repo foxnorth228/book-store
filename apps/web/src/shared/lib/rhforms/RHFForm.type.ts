@@ -1,4 +1,3 @@
-import { ValidationErrorCode } from "@org/errors";
 import { ControllerProps, FieldValues, Path, SubmitHandler, UseFormProps } from "react-hook-form";
 
 export interface RHFFormProps<T extends FieldValues> extends UseFormProps<T> {
@@ -13,16 +12,12 @@ export type RHFFieldRenderProps<T extends FieldValues, TName extends Path<T>> = 
   additionalProps: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
-export type RFHFormFieldErrorMessagesMapper = Partial<Record<ValidationErrorCode, string>>;
-
 export interface RHFFormFieldProps<T extends FieldValues> extends Omit<
   ControllerProps<T, Path<T>>,
   "name" | "control" | "render"
 > {
   name: Path<T>;
   label?: string;
-
-  errorMessagesMapper?: RFHFormFieldErrorMessagesMapper;
 
   render: (
     props: RHFFieldRenderProps<T, Path<T>>,

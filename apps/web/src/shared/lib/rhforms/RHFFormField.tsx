@@ -1,4 +1,3 @@
-import { parseValidationErrorCode } from "@org/errors";
 import { Field } from "@shared/ui";
 import { Controller, FieldValues, useFormContext } from "react-hook-form";
 
@@ -7,7 +6,6 @@ import { RHFFormFieldProps } from "./RHFForm.type";
 export function RHFFormField<T extends FieldValues>({
   name,
   label,
-  errorMessagesMapper = {},
   render,
   ...controllerProps
 }: RHFFormFieldProps<T>) {
@@ -22,17 +20,11 @@ export function RHFFormField<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState, formState }) => {
-        console.log(fieldState.error);
         const additionalProps: React.InputHTMLAttributes<HTMLInputElement> = {
           id: fieldId,
           "aria-invalid": fieldState.invalid,
           "aria-describedby": fieldState.invalid ? errorId : undefined,
         };
-
-        const errorCode = parseValidationErrorCode(fieldState.error);
-
-        const errorMessage =
-          (errorCode && errorMessagesMapper[errorCode]) ?? fieldState.error?.message;
 
         return (
           <Field data-invalid={fieldState.invalid}>
@@ -45,9 +37,7 @@ export function RHFFormField<T extends FieldValues>({
               additionalProps,
             })}
 
-            {fieldState.invalid && (
-              <Field.Error id={errorId} errors={[{ message: errorMessage }]} />
-            )}
+            {fieldState.invalid && <Field.Error id={errorId} errors={[fieldState.error]} />}
           </Field>
         );
       }}

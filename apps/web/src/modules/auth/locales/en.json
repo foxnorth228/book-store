@@ -21,7 +21,7 @@
         "placeholder": "Enter your password",
         "errors": {
           "required": "Password is required",
-          "tooShort": "Password is too short"
+          "tooShort": "Password must be at least {{minimum}} characters long"
         }
       }
     }

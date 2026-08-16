@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authContracts, AuthLoginReq } from "@org/contracts";
-import { ValidationErrorCode } from "@org/errors";
-import { RHFForm, RHFFormField } from "@shared/lib";
+import { createZodErrorMap, RHFForm, RHFFormField } from "@shared/lib";
 import { Input } from "@shared/ui";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -11,6 +10,7 @@ import { Description, Footer, FooterLink, SubmitButton } from "./auth-form-compo
 
 export function LoginForm() {
   const { t } = useTranslation(["auth"]);
+  const { t: tc } = useTranslation();
 
   const onSubmit = async (data: AuthLoginReq) => {
     try {
@@ -24,16 +24,47 @@ export function LoginForm() {
   };
 
   return (
-    <RHFForm onSubmit={onSubmit} mode={"onSubmit"} resolver={zodResolver(authContracts.login.body)}>
+    <RHFForm
+      onSubmit={onSubmit}
+      mode={"onSubmit"}
+      resolver={zodResolver(authContracts.login.body, {
+        error: createZodErrorMap<AuthLoginReq>(tc, {
+          email: {
+            too_small: (issue, t) => {
+              if (issue.minimum === 1) {
+                return t((w) => w.loginModal.fields.email.errors.required, { ns: "auth" });
+              }
+
+              return t((w) => w.loginModal.fields.email.errors.invalid, { ns: "auth" });
+            },
+            invalid_format: (_, t) => {
+              return t((w) => w.loginModal.fields.email.errors.invalid, { ns: "auth" });
+            },
+          },
+          password: {
+            too_small: (issue, t) => {
+              if (issue.minimum === 1) {
+                return t((w) => w.loginModal.fields.password.errors.required, { ns: "auth" });
+              }
+
+              return t((w) => w.loginModal.fields.password.errors.tooShort, {
+                ns: "auth",
+                minimum: issue.minimum,
+              });
+            },
+          },
+        }),
+      })}
+      defaultValues={{
+        email: "",
+        password: "",
+      }}
+    >
       <Description>{t((w) => w.loginModal.description)}</Description>
 
       <RHFFormField<AuthLoginReq>
         name="email"
         label={t((w) => w.loginModal.fields.email.label)}
-        errorMessagesMapper={{
-          [ValidationErrorCode.Required]: t((w) => w.loginModal.fields.email.errors.required),
-          [ValidationErrorCode.Invalid]: t((w) => w.loginModal.fields.email.errors.invalid),
-        }}
         render={({ field, additionalProps }) => (
           <Input
             {...field}
@@ -48,10 +79,6 @@ export function LoginForm() {
       <RHFFormField<AuthLoginReq>
         name="password"
         label={t((w) => w.loginModal.fields.password.label)}
-        errorMessagesMapper={{
-          [ValidationErrorCode.Required]: t((w) => w.loginModal.fields.password.errors.required),
-          [ValidationErrorCode.Invalid]: t((w) => w.loginModal.fields.email.errors.invalid),
-        }}
         render={({ field, additionalProps }) => (
           <Input
             {...field}

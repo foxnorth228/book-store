@@ -14,11 +14,3 @@ export enum ErrorCode {
 
   VALIDATION_ERROR = "VALIDATION_ERROR",
 }
-
-export enum ValidationErrorCode {
-  Required = "required",
-  Invalid = "invalid",
-  TooShort = "tooShort",
-  TooLong = "tooLong",
-  PasswordMismatch = "passwordMismatch",
-}

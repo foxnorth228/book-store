@@ -16,7 +16,6 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@org/errors": "workspace:*",
     "@org/localization": "workspace:*",
     "tslib": "catalog:",
     "zod": "catalog:"

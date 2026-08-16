@@ -813,9 +813,6 @@ importers:
 
   packages/contracts:
     dependencies:
-      '@org/errors':
-        specifier: workspace:*
-        version: link:../errors
       '@org/localization':
         specifier: workspace:*
         version: link:../localization

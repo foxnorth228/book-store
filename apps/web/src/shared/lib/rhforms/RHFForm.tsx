@@ -14,6 +14,7 @@ export function RHFForm<T extends FieldValues>({
   return (
     <FormProvider {...methods}>
       <form
+        noValidate
         className={cn("flex flex-col gap-4", className)}
         onSubmit={methods.handleSubmit(onSubmit)}
       >
