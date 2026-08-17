@@ -1,6 +1,6 @@
-import { authContracts, zodToJsonSchema } from "@org/contracts";
+import { authContracts, VerificationRequestOtpCodeReq, zodToJsonSchema } from "@org/contracts";
 import { errorBodySchema } from "@org/errors";
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyRequest } from "fastify";
 
 import { verificationConfig } from "./verification.config";
 import { VerificationController } from "./verification.controller";
@@ -21,8 +21,8 @@ export async function verificationRoutes(module: FastifyInstance) {
         400: zodToJsonSchema(errorBodySchema),
       },
     },
-    handler: () => {
-      return verificationController.requestOtpCode();
+    handler: (request: FastifyRequest<{ Body: VerificationRequestOtpCodeReq }>) => {
+      return verificationController.requestOtpCode(request);
     },
   });
 

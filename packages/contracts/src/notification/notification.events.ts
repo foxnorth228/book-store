@@ -1,5 +1,6 @@
 export const NotificationEvents = {
-  SendOtpCode: {
+  exchange: "auth-notification-events",
+  PasswordResetOtpRequested: {
     queue: "notification.auth.queue",
   },
 };

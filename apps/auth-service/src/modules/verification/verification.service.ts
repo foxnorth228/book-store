@@ -1,4 +1,8 @@
-import { VerificationOTPCodePurpose } from "@org/contracts";
+import {
+  NotificationAuthSendOtpCodeEventDTO,
+  NotificationEvents,
+  VerificationOTPCodePurpose,
+} from "@org/contracts";
 import { BaseService } from "@org/fastify";
 import { createHash, randomInt } from "crypto";
 
@@ -8,6 +12,25 @@ import { VerificationRepository } from "./verification.repository";
 
 export class VerificationService extends BaseService<VerificationRepository> {
   protected readonly repositoryKey = verificationConfig.repositoryName;
+
+  async processRequestOtpCode(email: string) {
+    const user = await this.repository.findByEmail(email);
+
+    if (!user) {
+      return;
+    }
+
+    const code = await this.createOTPCode(VerificationOTPCodePurpose.PasswordUpdate, user.id);
+
+    await this.app.rabbitmq.publish<NotificationAuthSendOtpCodeEventDTO>(
+      NotificationEvents.exchange,
+      NotificationEvents.PasswordResetOtpRequested.queue,
+      {
+        email: user.email,
+        code: code,
+      },
+    );
+  }
 
   async createOTPCode(purpose: VerificationOTPCodePurpose, userId: string) {
     const newOTPCode = this.generateOTPCode();

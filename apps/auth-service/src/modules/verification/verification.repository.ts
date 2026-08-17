@@ -5,4 +5,11 @@ import { PrismaClient } from "../../libs/prisma/client";
 
 export class VerificationRepository extends BaseRepository<PrismaClient> {
   protected readonly databaseKey = DATABASE_PATH_NAME;
+
+  public findByEmail(email: string) {
+    return this.db.account.findUnique({
+      where: { email },
+      select: { id: true, email: true },
+    });
+  }
 }
