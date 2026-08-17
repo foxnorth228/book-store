@@ -2,9 +2,16 @@ export const verificationConfig = {
   repositoryName: "verificationRepository",
   serviceName: "verificationRepository",
   controllerName: "verificationController",
-  schemas: {},
+  schemas: {
+    requestOtpCodeReq: "requestOtpCodeReq",
+    requestOtpCodeRes: "requestOtpCodeRes",
+    verifyOtpCodeReq: "verifyOtpCodeReq",
+    verifyOtpCodeRes: "verifyOtpCodeRes",
+    updatePasswordReq: "updatePasswordReq",
+    updatePasswordRes: "updatePasswordRes",
+  },
   tags: {
-    verification: "Verification",
+    passwordUpdate: "Password update",
   },
   otp: {
     secretPhrase: "secret-saving-salt-cringe",
