@@ -43,7 +43,7 @@
           {{ expiration }}
         </mj-text>
 
-        <mj-divider border-color="#e4e4e7" margin="24px 0" />
+        <mj-divider border-color="#e4e4e7" padding="24px 0" />
 
         <mj-text align="center" color="#71717a" font-size="13px">
           {{ ignoreMessage }}
