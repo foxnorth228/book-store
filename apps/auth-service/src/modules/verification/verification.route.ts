@@ -15,9 +15,9 @@ export async function verificationRoutes(module: FastifyInstance) {
     url: `${authContracts.passwordReset.prefix}${authContracts.passwordReset.requestOtpCode.path}`,
     schema: {
       tags: [verificationConfig.tags.passwordUpdate],
-      body: module.addSchema(verificationConfig.schemas.requestOtpCodeReq),
+      body: module.getSchema(verificationConfig.schemas.requestOtpCodeReq),
       response: {
-        200: module.addSchema(verificationConfig.schemas.requestOtpCodeRes),
+        200: module.getSchema(verificationConfig.schemas.requestOtpCodeRes),
         400: zodToJsonSchema(errorBodySchema),
       },
     },
@@ -31,9 +31,9 @@ export async function verificationRoutes(module: FastifyInstance) {
     url: `${authContracts.passwordReset.prefix}${authContracts.passwordReset.verifyOtpCode.path}`,
     schema: {
       tags: [verificationConfig.tags.passwordUpdate],
-      body: module.addSchema(verificationConfig.schemas.verifyOtpCodeReq),
+      body: module.getSchema(verificationConfig.schemas.verifyOtpCodeReq),
       response: {
-        200: module.addSchema(verificationConfig.schemas.verifyOtpCodeRes),
+        200: module.getSchema(verificationConfig.schemas.verifyOtpCodeRes),
         400: zodToJsonSchema(errorBodySchema),
       },
     },
@@ -47,9 +47,9 @@ export async function verificationRoutes(module: FastifyInstance) {
     url: `${authContracts.passwordReset.prefix}${authContracts.passwordReset.updatePassword.path}`,
     schema: {
       tags: [verificationConfig.tags.passwordUpdate],
-      body: module.addSchema(verificationConfig.schemas.updatePasswordReq),
+      body: module.getSchema(verificationConfig.schemas.updatePasswordReq),
       response: {
-        200: module.addSchema(verificationConfig.schemas.updatePasswordRes),
+        200: module.getSchema(verificationConfig.schemas.updatePasswordRes),
         400: zodToJsonSchema(errorBodySchema),
       },
     },

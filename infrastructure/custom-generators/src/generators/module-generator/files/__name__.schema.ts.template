@@ -1,3 +1,3 @@
 import z from "zod";
 
-export const <%= propertyName %>Schemas = {};
+export const <%= propertyName %>Schemas = [];

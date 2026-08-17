@@ -3,6 +3,7 @@ import {
   NotificationEvents,
   VerificationOTPCodePurpose,
 } from "@org/contracts";
+
 import { BaseService } from "@org/fastify";
 import { createHash, randomInt } from "crypto";
 
@@ -24,7 +25,7 @@ export class VerificationService extends BaseService<VerificationRepository> {
 
     await this.app.rabbitmq.publish<NotificationAuthSendOtpCodeEventDTO>(
       NotificationEvents.exchange,
-      NotificationEvents.PasswordResetOtpRequested.queue,
+      NotificationEvents.PasswordResetOtpRequested.routingKey,
       {
         email: user.email,
         code: code,

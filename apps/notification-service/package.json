@@ -17,6 +17,10 @@
     "nodemailer": "catalog:notification-service",
     "pino": "catalog:"
   },
+  "devDependencies": {
+    "@types/mjml": "catalog:notification-service",
+    "@types/nodemailer": "catalog:notification-service"
+  },
   "nx": {
     "targets": {
       "build": {
@@ -35,7 +39,12 @@
           "main": "apps/notification-service/src/server.ts",
           "tsConfig": "apps/notification-service/tsconfig.app.json",
           "assets": [
-            "apps/notification-service/src/assets"
+            "apps/notification-service/src/assets",
+            {
+              "input": "apps/notification-service/src/modules/emails/templates",
+              "glob": "**/*.mjml",
+              "output": "apps/notification-service/src/modules/emails/templates"
+            }
           ],
           "esbuildOptions": {
             "sourcemap": true,

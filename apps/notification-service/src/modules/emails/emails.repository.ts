@@ -1,5 +1,5 @@
 import { BaseRepository } from "@org/fastify";
 
-export class <%= className %>Repository extends BaseRepository {
+export class EmailsRepository extends BaseRepository<null> {
   protected readonly databaseKey = "";
 }

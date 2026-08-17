@@ -1,6 +1,6 @@
 export const verificationConfig = {
   repositoryName: "verificationRepository",
-  serviceName: "verificationRepository",
+  serviceName: "verificationService",
   controllerName: "verificationController",
   schemas: {
     requestOtpCodeReq: "requestOtpCodeReq",
