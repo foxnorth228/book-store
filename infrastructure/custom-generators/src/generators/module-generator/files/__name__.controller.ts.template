@@ -1,0 +1,8 @@
+import { BaseController } from "@org/fastify";
+
+import { <%= propertyName %>Config } from "./<%= fileName %>.config";
+import { <%= className %>Service } from "./<%= fileName %>.service";
+
+export class <%= className %>Controller extends BaseController<<%= className %>Service> {
+  protected override serviceKey = <%= propertyName %>Config.serviceName;
+}

@@ -1,0 +1,7 @@
+import { BaseRepository } from "@org/fastify";
+
+import { <%= propertyName %>Config } from "./<%= fileName %>.config";
+
+export class <%= className %>Repository extends BaseRepository {
+  protected readonly config = <%= propertyName %>Config;
+}
