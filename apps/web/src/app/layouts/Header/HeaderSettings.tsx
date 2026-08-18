@@ -40,7 +40,7 @@ export const HeaderSettings = () => {
                   newLanguage = languageSchema.parse(selectedLanguage);
                   setLanguage(newLanguage);
                 } catch (e) {
-                  console.log(e);
+                  console.error(e);
                 }
               }}
             >
@@ -66,7 +66,7 @@ export const HeaderSettings = () => {
                   newTheme = themeSchema.parse(selectedTheme);
                   setTheme(newTheme);
                 } catch (e) {
-                  console.log(e);
+                  console.error(e);
                 }
               }}
             >

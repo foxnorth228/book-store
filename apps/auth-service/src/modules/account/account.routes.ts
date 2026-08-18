@@ -1,5 +1,5 @@
 import { authContracts, AuthLoginReq, AuthRegisterReq, zodToJsonSchema } from "@org/contracts";
-import { errorBodySchema } from "@org/errors";
+import { BadRequestError, errorBodySchema } from "@org/errors";
 import { FastifyInstance, FastifyRequest } from "fastify";
 
 import { accountConfig } from "./account.config";
@@ -32,6 +32,14 @@ export async function accountRoutes(module: FastifyInstance) {
       response: {
         200: module.getSchema(accountConfig.schemas.registerRes),
       },
+    },
+    preHandler: (request) => {
+      const data = request.body;
+      const result = authContracts.register.body.safeParse(data);
+
+      if (!result.success) {
+        throw new BadRequestError("Incorrect data");
+      }
     },
     handler: async (request: FastifyRequest<{ Body: AuthRegisterReq }>) => {
       return accountController.register(request);

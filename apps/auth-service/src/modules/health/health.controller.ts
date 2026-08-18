@@ -7,7 +7,6 @@ export class HealthController extends BaseController<HealthService> {
   protected readonly serviceKey = healthConfig.serviceName;
 
   async getHealthStatus() {
-    console.log("1");
     return await this.service.getHealthStatus();
   }
 }

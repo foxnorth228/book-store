@@ -12,4 +12,8 @@ export class VerificationRepository extends BaseRepository<PrismaClient> {
       select: { id: true, email: true },
     });
   }
+
+  public updateUserPassword(userId: string, passwordHash: string) {
+    return this.db.account.update({ where: { id: userId }, data: { passwordHash } });
+  }
 }

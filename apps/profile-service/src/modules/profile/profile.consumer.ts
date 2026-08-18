@@ -13,7 +13,7 @@ export async function registerProfileConsumers(app: FastifyInstance) {
     AuthEvents.Registered,
     async (message) => {
       const content = JSON.parse(message.content.toString()) as AuthAccountRegisteredEventDto;
-      console.log(content);
+
       await service.createProfile(content.accountId, content.language);
     },
   );

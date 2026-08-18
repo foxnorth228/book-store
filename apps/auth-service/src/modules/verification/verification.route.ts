@@ -1,5 +1,11 @@
-import { authContracts, VerificationRequestOtpCodeReq, zodToJsonSchema } from "@org/contracts";
-import { errorBodySchema } from "@org/errors";
+import {
+  authContracts,
+  VerificationRequestOtpCodeReq,
+  VerificationUpdatePasswordReq,
+  VerificationVerifyOtpCodeReq,
+  zodToJsonSchema,
+} from "@org/contracts";
+import { BadRequestError, errorBodySchema } from "@org/errors";
 import { FastifyInstance, FastifyRequest } from "fastify";
 
 import { verificationConfig } from "./verification.config";
@@ -37,8 +43,8 @@ export async function verificationRoutes(module: FastifyInstance) {
         400: zodToJsonSchema(errorBodySchema),
       },
     },
-    handler: () => {
-      return verificationController.verifyOtpCode();
+    handler: (request: FastifyRequest<{ Body: VerificationVerifyOtpCodeReq }>) => {
+      return verificationController.verifyOtpCode(request);
     },
   });
 
@@ -53,8 +59,16 @@ export async function verificationRoutes(module: FastifyInstance) {
         400: zodToJsonSchema(errorBodySchema),
       },
     },
-    handler: () => {
-      return verificationController.updatePassword();
+    preHandler: (request) => {
+      const data = request.body;
+      const result = authContracts.passwordReset.updatePassword.body.safeParse(data);
+
+      if (!result.success) {
+        throw new BadRequestError("Incorrect data");
+      }
+    },
+    handler: (request: FastifyRequest<{ Body: VerificationUpdatePasswordReq }>) => {
+      return verificationController.updatePassword(request);
     },
   });
 }

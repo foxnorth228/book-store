@@ -142,14 +142,3 @@ export const RegisterForm: FC<RegisterFormProps> = ({ onLogin, onFinish }) => {
     </RHFForm>
   );
 };
-
-const result = authContracts.register.body.safeParse({
-  email: "test@test.com",
-  password: "password",
-  confirmPassword: "password2",
-  language: "en",
-});
-
-if (!result.success) {
-  console.log(result.error.issues);
-}

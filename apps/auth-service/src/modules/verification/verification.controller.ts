@@ -1,4 +1,8 @@
-import { VerificationRequestOtpCodeReq } from "@org/contracts";
+import {
+  VerificationRequestOtpCodeReq,
+  VerificationUpdatePasswordReq,
+  VerificationVerifyOtpCodeReq,
+} from "@org/contracts";
 import { BaseController } from "@org/fastify";
 import { FastifyRequest } from "fastify";
 
@@ -15,6 +19,20 @@ export class VerificationController extends BaseController<VerificationService> 
 
     return { success: true };
   }
-  verifyOtpCode() {}
-  updatePassword() {}
+
+  async verifyOtpCode(request: FastifyRequest<{ Body: VerificationVerifyOtpCodeReq }>) {
+    const { code, email } = request.body;
+
+    const resetToken = await this.service.verifyPasswordResetOtpCode(code, email);
+
+    return { resetToken };
+  }
+
+  async updatePassword(request: FastifyRequest<{ Body: VerificationUpdatePasswordReq }>) {
+    const { resetToken, password } = request.body;
+
+    await this.service.updateUserPassword(resetToken, password);
+
+    return { success: true };
+  }
 }

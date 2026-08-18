@@ -10,6 +10,9 @@ import { verificationConfig } from "./verification.config";
 import { VerificationRepository } from "./verification.repository";
 import { FastifyInstance } from "fastify";
 import { OtpService } from "./otp/otp.service";
+import { NotFoundError } from "@org/errors";
+import { ResetTokenService } from "./reset-token/reset-token.service";
+import { hashPassword } from "@org/shared";
 
 export class VerificationService extends BaseService<VerificationRepository> {
   protected readonly repositoryKey = verificationConfig.repositoryName;
@@ -17,22 +20,9 @@ export class VerificationService extends BaseService<VerificationRepository> {
   constructor(
     app: FastifyInstance,
     private readonly otpService = new OtpService(app),
+    private readonly resetTokenService = new ResetTokenService(app),
   ) {
     super(app);
-  }
-
-  async verifyPasswordResetOtpCode(otpCode: string, email: string) {
-    const user = await this.repository.findByEmail(email);
-
-    if (!user) {
-      return;
-    }
-
-    await this.otpService.verifyOTPCode(
-      otpCode,
-      VerificationOTPCodePurpose.PasswordUpdate,
-      user.id,
-    );
   }
 
   async processRequestOtpCode(email: string) {
@@ -55,5 +45,29 @@ export class VerificationService extends BaseService<VerificationRepository> {
         code: code,
       },
     );
+  }
+
+  async verifyPasswordResetOtpCode(otpCode: string, email: string) {
+    const user = await this.repository.findByEmail(email);
+
+    if (!user) {
+      throw new NotFoundError("User not found");
+    }
+
+    await this.otpService.verifyOTPCode(
+      otpCode,
+      VerificationOTPCodePurpose.PasswordUpdate,
+      user.id,
+    );
+
+    return await this.resetTokenService.createResetToken(user.id);
+  }
+
+  async updateUserPassword(resetToken: string, password: string) {
+    const userId = await this.resetTokenService.consumeResetToken(resetToken);
+
+    const passwordHash = await hashPassword(password);
+
+    await this.repository.updateUserPassword(userId, passwordHash);
   }
 }
