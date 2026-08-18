@@ -13,14 +13,4 @@ export const verificationConfig = {
   tags: {
     passwordUpdate: "Password update",
   },
-  otp: {
-    secretPhrase: "secret-saving-salt-cringe",
-    codeTimeLimit: 600,
-    maxVerifyRetriesCount: 5,
-    resendCodeTimeLimit: 60,
-  },
-  resetToken: {
-    secretPhrase: "fasdfasdfdasfsdafsd",
-    timeLimit: 600,
-  },
 };
