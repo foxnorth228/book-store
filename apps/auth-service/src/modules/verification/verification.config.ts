@@ -19,4 +19,8 @@ export const verificationConfig = {
     maxVerifyRetriesCount: 5,
     resendCodeTimeLimit: 60,
   },
+  resetToken: {
+    secretPhrase: "fasdfasdfdasfsdafsd",
+    timeLimit: 600,
+  },
 };

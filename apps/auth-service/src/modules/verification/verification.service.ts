@@ -5,10 +5,14 @@ import {
 } from "@org/contracts";
 
 import { BaseService } from "@org/fastify";
-import { createHash, randomInt } from "crypto";
+import { createHash, randomBytes, randomInt } from "crypto";
 
 import { verificationConfig } from "./verification.config";
-import { InvalidOTPCodeError, OTPCodeExpiredError } from "./verification.errors";
+import {
+  InvalidOTPCodeError,
+  InvalidResetTokenError,
+  OTPCodeExpiredError,
+} from "./verification.errors";
 import { VerificationRepository } from "./verification.repository";
 
 export class VerificationService extends BaseService<VerificationRepository> {
@@ -92,5 +96,45 @@ export class VerificationService extends BaseService<VerificationRepository> {
     const max = 10 ** length;
 
     return randomInt(0, max).toString().padStart(length, "0");
+  }
+
+  async createResetToken(userId: string) {
+    const token = this.generateResetToken();
+    const tokenHash = this.hashResetToken(token);
+
+    await this.app.redis.set(`password-reset:${tokenHash}`, userId, {
+      EX: verificationConfig.resetToken.timeLimit,
+    });
+
+    return token;
+  }
+
+  async consumeResetToken(token: string) {
+    const tokenHash = this.hashResetToken(token);
+    const key = this.getResetTokenRedisKey(tokenHash);
+
+    const userId = await this.app.redis.get(key);
+
+    if (!userId) {
+      throw new InvalidResetTokenError("Reset token is invalid or expired");
+    }
+
+    await this.app.redis.del(key);
+
+    return userId;
+  }
+
+  getResetTokenRedisKey(tokenHash: string) {
+    return `password-reset:${tokenHash}`;
+  }
+
+  generateResetToken() {
+    return randomBytes(32).toString("base64url");
+  }
+
+  hashResetToken(token: string) {
+    return createHash("sha256")
+      .update(token + verificationConfig.resetToken.secretPhrase)
+      .digest("hex");
   }
 }
