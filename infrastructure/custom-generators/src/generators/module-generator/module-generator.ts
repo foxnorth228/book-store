@@ -1,5 +1,6 @@
-import { formatFiles, generateFiles, names, Tree, readProjectConfiguration } from "@nx/devkit";
 import { join } from "node:path";
+
+import { formatFiles, generateFiles, names, readProjectConfiguration, Tree } from "@nx/devkit";
 
 import { ModuleGeneratorSchema } from "./schema";
 

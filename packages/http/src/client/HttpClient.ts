@@ -81,6 +81,16 @@ export class HttpClient {
     });
   }
 
+  async put<T>(url: string, body?: unknown, options?: RequestOptions): Promise<HttpResponse<T>> {
+    return this.request<T>(url, {
+      ...options,
+      method: "PUT",
+      ...(body !== undefined && {
+        body: JSON.stringify(body),
+      }),
+    });
+  }
+
   async patch<T>(url: string, body?: unknown, options?: RequestOptions): Promise<HttpResponse<T>> {
     return this.request<T>(url, {
       ...options,

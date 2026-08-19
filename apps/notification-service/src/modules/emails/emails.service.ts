@@ -1,13 +1,14 @@
+import { readFile } from "node:fs/promises";
+
+import { NotificationAuthSendOtpCodeEventDTO } from "@org/contracts";
 import { BaseService } from "@org/fastify";
+import { FastifyInstance } from "fastify";
 import Handlebars from "handlebars";
 import mjml2html from "mjml";
-import { readFile } from "node:fs/promises";
 import { createTransport, type Transporter } from "nodemailer";
 
 import { emailsConfig } from "./emails.config";
 import { EmailsRepository } from "./emails.repository";
-import { FastifyInstance } from "fastify";
-import { NotificationAuthSendOtpCodeEventDTO } from "@org/contracts";
 import { EmailTemplateResetPasswordOtpBody } from "./emails.type";
 
 export class EmailsService extends BaseService<EmailsRepository> {

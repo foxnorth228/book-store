@@ -117,6 +117,7 @@
   --toast: var(--popover);
   --toast-foreground: var(--popover-foreground);
   --toast-description: var(--color-neutral-500);
+  --link-text: var(--color-primary-600);
 }
 
 .dark {
@@ -126,7 +127,7 @@
   --card-foreground: var(--color-neutral-50);
   --popover: var(--color-neutral-800);
   --popover-foreground: var(--color-neutral-50);
-  --primary: var(--color-primary-800);
+  --primary: var(--color-primary-700);
   --primary-foreground: var(--color-primary-200);
   --secondary: var(--color-neutral-700);
   --secondary-foreground: var(--color-neutral-50);
@@ -158,6 +159,7 @@
   --toast: var(--popover);
   --toast-foreground: var(--popover-foreground);
   --toast-description: var(--color-neutral-400);
+  --link-text: var(--color-primary-600);
 }
 
 /* ===== shadcn semantic tokens — now just ALIASES onto the palette above ===== */
@@ -212,6 +214,7 @@
   --color-toast: var(--toast);
   --color-toast-foreground: var(--toast-foreground);
   --color-toast-description: var(--toast-description);
+  --color-link-text: var(--link-text);
 }
 
 @layer base {

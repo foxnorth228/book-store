@@ -7,14 +7,8 @@ import { Input, PasswordInput, Select } from "@shared/ui";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { AuthApi } from "../../../api/auth.api";
-import {
-  Description,
-  Footer,
-  FooterButtonLink,
-  FormError,
-  SubmitButton,
-} from "../auth-form-components";
+import { AuthApi } from "../../api/auth.api";
+import { Description, Footer, FooterButtonLink, FormError, SubmitButton } from "../form-components";
 import { createRegisterFormZodErrorsMapper } from "./utils";
 
 interface RegisterFormProps {

@@ -18,7 +18,7 @@ export const Form: FC<BaseComponentProps> = ({ children, className, ...props }) 
 };
 
 export const Title: FC<BaseComponentProps> = ({ children }) => {
-  return <h1 className="text-[28px] leading-[1.2] font-semibold text-neutral-900">{children}</h1>;
+  return <h1 className="text-[28px] leading-[1.2] font-semibold">{children}</h1>;
 };
 
 export const Description: FC<BaseComponentProps> = ({ children }) => {
@@ -58,7 +58,7 @@ export const FooterButtonLink: FC<BaseComponentProps & ComponentProps<typeof But
   ...props
 }) => {
   return (
-    <Button className="text-primary-600 h-fit p-0 font-medium" variant={"link"} {...props}>
+    <Button className="h-fit p-0 font-medium" variant={"link"} {...props}>
       {children}
     </Button>
   );
@@ -70,8 +70,25 @@ export const FooterLink: FC<BaseComponentProps & ComponentProps<typeof Link>> = 
   ...props
 }) => {
   return (
-    <Link to={to} className="text-primary-600 font-medium" {...props}>
+    <Link to={to} className="text-link-text font-medium" {...props}>
       {children}
     </Link>
+  );
+};
+
+export const BackButton: FC<BaseComponentProps & ComponentProps<typeof Button>> = ({
+  children,
+  className,
+  ...props
+}) => {
+  return (
+    <Button
+      className={cn("absolute top-3 left-5", className)}
+      type="button"
+      variant="link"
+      {...props}
+    >
+      {children}
+    </Button>
   );
 };

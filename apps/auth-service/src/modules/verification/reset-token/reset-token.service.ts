@@ -1,7 +1,8 @@
+import { createHash, randomBytes } from "crypto";
 import { FastifyInstance } from "fastify";
+
 import { resetTokenConfig } from "./reset-token.config";
 import { InvalidResetTokenError } from "./reset-token.errors";
-import { createHash, randomBytes } from "crypto";
 
 export class ResetTokenService {
   constructor(private readonly app: FastifyInstance) {}

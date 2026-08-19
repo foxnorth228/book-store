@@ -5,7 +5,7 @@ import { Input, PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { signIn } from "../../model/sign-in";
+import { signIn } from "../model/sign-in";
 import {
   Description,
   Footer,
@@ -13,7 +13,7 @@ import {
   FooterLink,
   FormError,
   SubmitButton,
-} from "./auth-form-components";
+} from "./form-components";
 
 interface LoginFormProps {
   onRegister: () => void;

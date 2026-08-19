@@ -785,6 +785,9 @@ importers:
       i18next-browser-languagedetector:
         specifier: 'catalog:'
         version: 8.2.1
+      input-otp:
+        specifier: ^1.4.2
+        version: 1.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       jwt-decode:
         specifier: 'catalog:'
         version: 4.0.0
@@ -6328,6 +6331,12 @@ packages:
     resolution: {integrity: sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==}
     engines: {node: '>=10'}
 
+  input-otp@1.4.2:
+    resolution: {integrity: sha512-l3jWwYNvrEa6NTCt7BECfCm48GvwuZzkoeG3gBL2w4CHeOXW3eKFmf9UNYkNfYc3mxMrthMnxjIE07MT0zLBQA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+
   inspect-with-kind@1.0.5:
     resolution: {integrity: sha512-MAQUJuIo7Xqk8EVNP+6d3CKq9c80hi4tjIbIAT6lmGW9W6WzlHiu9PS8uSuUYU+Do+j1baiFp3H25XEVxDIG2g==}
 
@@ -11284,7 +11293,7 @@ snapshots:
       eventsource: 3.0.7
       eventsource-parser: 3.1.1
       express: 5.2.1(supports-color@8.1.1)
-      express-rate-limit: 8.6.2(express@5.2.1(supports-color@7.2.0))(supports-color@8.1.1)
+      express-rate-limit: 8.6.2(express@5.2.1(supports-color@8.1.1))(supports-color@8.1.1)
       hono: 4.12.23
       jose: 6.2.8
       json-schema-typed: 8.0.2
@@ -12753,11 +12762,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@5.9.3))(supports-color@8.1.1)':
+  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(supports-color@8.1.1)(typescript@5.9.3))(supports-color@8.1.1)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
       '@svgr/babel-preset': 8.1.0(@babel/core@7.29.7(supports-color@8.1.1))
-      '@svgr/core': 8.1.0(supports-color@7.2.0)(typescript@5.9.3)
+      '@svgr/core': 8.1.0(supports-color@8.1.1)(typescript@5.9.3)
       '@svgr/hast-util-to-babel-ast': 8.0.0
       svg-parser: 2.0.4
     transitivePeerDependencies:
@@ -13330,7 +13339,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.7(@types/node@22.19.0)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(jsdom@22.1.0(supports-color@7.2.0))(vite@8.0.14(@types/node@22.19.0)(esbuild@0.27.7)(jiti@2.4.2)(terser@5.48.0)(yaml@2.9.0))
+      vitest: 4.1.7(@types/node@22.19.0)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(jsdom@22.1.0(supports-color@8.1.1))(vite@8.0.14(@types/node@22.19.0)(esbuild@0.27.7)(jiti@2.4.2)(terser@5.48.0)(yaml@2.9.0))
 
   '@vitest/expect@4.1.7':
     dependencies:
@@ -13374,9 +13383,9 @@ snapshots:
       flatted: 3.4.2
       pathe: 2.0.3
       sirv: 3.0.2
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vitest: 4.1.7(@types/node@22.19.0)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(jsdom@22.1.0(supports-color@7.2.0))(vite@8.0.14(@types/node@22.19.0)(esbuild@0.27.7)(jiti@2.4.2)(terser@5.48.0)(yaml@2.9.0))
+      vitest: 4.1.7(@types/node@22.19.0)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(jsdom@22.1.0(supports-color@8.1.1))(vite@8.0.14(@types/node@22.19.0)(esbuild@0.27.7)(jiti@2.4.2)(terser@5.48.0)(yaml@2.9.0))
 
   '@vitest/utils@4.1.7':
     dependencies:
@@ -15328,10 +15337,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  express-rate-limit@8.6.2(express@5.2.1(supports-color@7.2.0))(supports-color@8.1.1):
+  express-rate-limit@8.6.2(express@5.2.1(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
-      express: 5.2.1(supports-color@7.2.0)
+      express: 5.2.1(supports-color@8.1.1)
       ip-address: 10.5.0
     transitivePeerDependencies:
       - supports-color
@@ -16219,6 +16228,11 @@ snapshots:
   ini@1.3.8: {}
 
   ini@2.0.0: {}
+
+  input-otp@1.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+    dependencies:
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
 
   inspect-with-kind@1.0.5:
     dependencies:
@@ -20093,7 +20107,7 @@ snapshots:
     dependencies:
       '@rollup/pluginutils': 5.4.0(rollup@4.60.4)
       '@svgr/core': 8.1.0(supports-color@8.1.1)(typescript@5.9.3)
-      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(supports-color@7.2.0)(typescript@5.9.3))(supports-color@8.1.1)
+      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(supports-color@8.1.1)(typescript@5.9.3))(supports-color@8.1.1)
       vite: 8.0.14(@types/node@22.19.0)(esbuild@0.27.7)(jiti@2.4.2)(terser@5.48.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - rollup

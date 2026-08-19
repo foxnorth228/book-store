@@ -1,8 +1,9 @@
 import { VerificationOTPCodePurpose } from "@org/contracts";
+import { createHash, randomInt } from "crypto";
 import { FastifyInstance } from "fastify";
+
 import { otpConfig } from "./otp.config";
 import { InvalidOTPCodeError, OTPCodeExpiredError } from "./otp.errors";
-import { createHash, randomInt } from "crypto";
 
 export class OtpService {
   constructor(private readonly app: FastifyInstance) {}

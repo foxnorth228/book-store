@@ -70,5 +70,43 @@
     "errors": {
       "userAlreadyExist": "An account with this email already exists."
     }
+  },
+  "resetPassword": {
+    "forgotPasswordForm": {
+      "title": "Reset password",
+      "description": "Enter your email and we'll send you a password reset code.",
+      "email": "Email",
+      "emailPlaceholder": "example@mail.com",
+      "submit": "Send code"
+    },
+    "verifyOtpForm": {
+      "title": "Code verification",
+      "description": "Enter the code sent to {{email}}.",
+      "submit": "Verify",
+      "notReceived": "Didn't receive the code?",
+      "resend": "Resend"
+    },
+    "updatePasswordForm": {
+      "title": "New password",
+      "description": "Create a new password for your account.",
+      "submit": "Save password",
+      "password": {
+        "label": "New password",
+        "placeholder": "Enter your new password",
+        "errors": {
+          "required": "New password is required",
+          "tooShort": "New password must be at least {{minimum}} characters long"
+        }
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Repeat your password",
+        "errors": {
+          "required": "Password is required",
+          "tooShort": "Password must be at least {{minimum}} characters long",
+          "mismatch": "Passwords does not match"
+        }
+      }
+    }
   }
 }

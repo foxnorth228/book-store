@@ -1,7 +1,16 @@
-import { authContracts, AuthLoginReq, AuthLoginRes, AuthRegisterReq } from "@org/contracts";
+import {
+  authContracts,
+  AuthLoginReq,
+  AuthLoginRes,
+  AuthRegisterReq,
+  VerificationRequestOtpCodeReq,
+  VerificationRequestOtpCodeRes,
+  VerificationUpdatePasswordReq,
+  VerificationUpdatePasswordRes,
+  VerificationVerifyOtpCodeReq,
+  VerificationVerifyOtpCodeRes,
+} from "@org/contracts";
 import { HttpClient } from "@org/http";
-
-import { ForgotPasswordFormData, ResetPasswordFormData } from "../model/reset-password.schema";
 
 export const AuthApi = {
   httpClient: new HttpClient({ baseUrl: import.meta.env.VITE_AUTH_SERVICE_PREFIX }),
@@ -30,14 +39,22 @@ export const AuthApi = {
       },
     );
   },
-  async forgotPassword(data: ForgotPasswordFormData) {
-    return this.httpClient.post("/auth/password/reset-request", data);
+  async forgotPassword(data: VerificationRequestOtpCodeReq) {
+    return this.httpClient.post<VerificationRequestOtpCodeRes>(
+      `${authContracts.passwordReset.prefix}${authContracts.passwordReset.requestOtpCode.path}`,
+      data,
+    );
   },
-  async resetPassword(
-    data: ResetPasswordFormData & {
-      token: string;
-    },
-  ) {
-    return this.httpClient.post("/api/auth/password/reset", data);
+  async verifyOtpCode(data: VerificationVerifyOtpCodeReq) {
+    return this.httpClient.post<VerificationVerifyOtpCodeRes>(
+      `${authContracts.passwordReset.prefix}${authContracts.passwordReset.verifyOtpCode.path}`,
+      data,
+    );
+  },
+  async updatePassword(data: VerificationUpdatePasswordReq) {
+    return this.httpClient.put<VerificationUpdatePasswordRes>(
+      `${authContracts.passwordReset.prefix}${authContracts.passwordReset.updatePassword.path}`,
+      data,
+    );
   },
 };

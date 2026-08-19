@@ -70,5 +70,30 @@
     "errors": {
       "userAlreadyExist": "Аккаунт с таким адресом электронной почты уже существует."
     }
+  },
+  "resetPassword": {
+    "forgotPasswordForm": {
+      "title": "Восстановление пароля",
+      "description": "Введите email, и мы отправим код для восстановления пароля.",
+      "email": "Email",
+      "emailPlaceholder": "example@mail.com",
+      "submit": "Отправить код"
+    },
+    "verifyOtpForm": {
+      "title": "Проверка кода",
+      "description": "Введите код, отправленный на {{email}}.",
+      "submit": "Подтвердить",
+      "notReceived": "Не получили код?",
+      "resend": "Отправить повторно"
+    },
+    "updatePasswordForm": {
+      "title": "Новый пароль",
+      "description": "Придумайте новый пароль для вашего аккаунта.",
+      "password": "Новый пароль",
+      "passwordPlaceholder": "Введите новый пароль",
+      "confirmPassword": "Повторите пароль",
+      "confirmPasswordPlaceholder": "Повторите пароль",
+      "submit": "Сохранить пароль"
+    }
   }
 }

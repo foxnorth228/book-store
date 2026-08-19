@@ -25,7 +25,7 @@ export interface RHFFormFieldProps<T extends FieldValues> extends Omit<
 > {
   name: Path<T>;
   label?: string;
-
+  className?: string;
   render: (
     props: RHFFieldRenderProps<T, Path<T>>,
   ) => ReturnType<ControllerProps<T, Path<T>>["render"]>;

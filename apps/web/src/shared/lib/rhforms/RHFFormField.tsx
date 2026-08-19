@@ -1,12 +1,14 @@
 import { Field } from "@shared/ui";
 import { Controller, FieldValues, useFormContext } from "react-hook-form";
 
+import { cn } from "../styles";
 import { RHFFormFieldProps } from "./RHFForm.type";
 
 export function RHFFormField<T extends FieldValues>({
   name,
   label,
   render,
+  className,
   ...controllerProps
 }: RHFFormFieldProps<T>) {
   const { control } = useFormContext<T>();
@@ -29,7 +31,7 @@ export function RHFFormField<T extends FieldValues>({
         };
 
         return (
-          <Field data-invalid={fieldState.invalid}>
+          <Field className={cn(className)} data-invalid={fieldState.invalid}>
             {label && (
               <Field.Label id={labelId} htmlFor={fieldId}>
                 {label}

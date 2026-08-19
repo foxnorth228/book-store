@@ -3,16 +3,15 @@ import {
   NotificationEvents,
   VerificationOTPCodePurpose,
 } from "@org/contracts";
-
+import { NotFoundError } from "@org/errors";
 import { BaseService } from "@org/fastify";
+import { hashPassword } from "@org/shared";
+import { FastifyInstance } from "fastify";
 
+import { OtpService } from "./otp/otp.service";
+import { ResetTokenService } from "./reset-token/reset-token.service";
 import { verificationConfig } from "./verification.config";
 import { VerificationRepository } from "./verification.repository";
-import { FastifyInstance } from "fastify";
-import { OtpService } from "./otp/otp.service";
-import { NotFoundError } from "@org/errors";
-import { ResetTokenService } from "./reset-token/reset-token.service";
-import { hashPassword } from "@org/shared";
 
 export class VerificationService extends BaseService<VerificationRepository> {
   protected readonly repositoryKey = verificationConfig.repositoryName;

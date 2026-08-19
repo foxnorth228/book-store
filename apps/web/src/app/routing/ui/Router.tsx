@@ -1,7 +1,6 @@
 import { PublicRoute } from "@modules/auth";
 import { Navigate, Route, Routes } from "react-router";
 
-import { AuthLayout } from "../../layouts/AuthLayout";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
 import { PublicRoutes, routes } from "../config/routes";
 
@@ -9,7 +8,7 @@ export const Router = () => {
   return (
     <Routes>
       <Route element={<PublicRoute />}>
-        <Route element={<AuthLayout />}>
+        <Route element={<DefaultLayout />}>
           {Object.entries(routes.auth).map(([key, element]) => (
             <Route path={key} element={element} />
           ))}

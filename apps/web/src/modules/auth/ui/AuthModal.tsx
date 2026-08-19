@@ -2,8 +2,8 @@ import { Dialog } from "@shared/ui";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { LoginForm } from "./AuthForm/LoginForm";
-import { RegisterForm } from "./AuthForm/RegisterForm/RegisterForm";
+import { LoginForm } from "./LoginForm";
+import { RegisterForm } from "./RegisterForm/RegisterForm";
 
 export type AuthModalMode = "login" | "register";
 

@@ -26,7 +26,7 @@ export const PageHeaderContent: FC<BaseComponentProps> = ({ children, className 
 };
 
 export const PageMain: FC<BaseComponentProps> = ({ children, className }) => {
-  return <main className={cn("w-full flex-1", className)}>{children}</main>;
+  return <main className={cn("flex w-full flex-1", className)}>{children}</main>;
 };
 
 export const PageFooter: FC<BaseComponentProps> = ({ children, className }) => {

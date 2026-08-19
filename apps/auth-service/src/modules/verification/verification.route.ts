@@ -59,13 +59,15 @@ export async function verificationRoutes(module: FastifyInstance) {
         400: zodToJsonSchema(errorBodySchema),
       },
     },
-    preHandler: (request) => {
+    preHandler: async (request) => {
       const data = request.body;
-      const result = authContracts.passwordReset.updatePassword.body.safeParse(data);
+      const result = await authContracts.passwordReset.updatePassword.body.safeParseAsync(data);
 
       if (!result.success) {
         throw new BadRequestError("Incorrect data");
       }
+
+      return;
     },
     handler: (request: FastifyRequest<{ Body: VerificationUpdatePasswordReq }>) => {
       return verificationController.updatePassword(request);

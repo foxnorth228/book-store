@@ -1,5 +1,6 @@
 export * from "./Field";
 export * from "./Input";
+export { InputOtp } from "./InputOtp";
 export * from "./Label";
 export { PasswordInput } from "./PasswordInput";
 export { Select } from "./Select";
