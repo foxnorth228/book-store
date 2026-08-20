@@ -75,16 +75,38 @@
     "forgotPasswordForm": {
       "title": "Reset password",
       "description": "Enter your email and we'll send you a password reset code.",
-      "email": "Email",
-      "emailPlaceholder": "example@mail.com",
-      "submit": "Send code"
+      "submit": "Send code",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": "example@mail.com",
+          "errors": {
+            "required": "Email is required",
+            "invalid": "Enter a valid email address"
+          }
+        }
+      }
     },
     "verifyOtpForm": {
       "title": "Code verification",
       "description": "Enter the code sent to {{email}}.",
       "submit": "Verify",
       "notReceived": "Didn't receive the code?",
-      "resend": "Resend"
+      "resend": "Resend",
+      "resendIn": "Resend in {{seconds}} sec.",
+      "fields": {
+        "otpCode": {
+          "errors": {
+            "wrongLength": "OTP code should contain {{length}} digits",
+            "invalid": "OTP code should include only digits"
+          }
+        }
+      },
+      "errors": {
+        "invalidCode": "Invalid verification code.",
+        "expiredCode": "The verification code has expired.",
+        "tooMuchRequests": "Too many requests. Please try again later."
+      }
     },
     "updatePasswordForm": {
       "title": "New password",
@@ -106,6 +128,9 @@
           "tooShort": "Password must be at least {{minimum}} characters long",
           "mismatch": "Passwords does not match"
         }
+      },
+      "errors": {
+        "invalidToken": "Your password reset request is no longer valid. Please start the process again."
       }
     }
   }

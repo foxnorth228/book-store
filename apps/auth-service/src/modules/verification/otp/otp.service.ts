@@ -1,4 +1,4 @@
-import { VerificationOTPCodePurpose } from "@org/contracts";
+import { authContractConfig, VerificationOTPCodePurpose } from "@org/contracts";
 import { createHash, randomInt } from "crypto";
 import { FastifyInstance } from "fastify";
 
@@ -8,8 +8,8 @@ import { InvalidOTPCodeError, OTPCodeExpiredError } from "./otp.errors";
 export class OtpService {
   constructor(private readonly app: FastifyInstance) {}
 
-  async createOTPCode(purpose: VerificationOTPCodePurpose, userId: string) {
-    const newOTPCode = this.generateOTPCode();
+  async createOTPCode(purpose: VerificationOTPCodePurpose, userId: string, length?: number) {
+    const newOTPCode = this.generateOTPCode(length);
 
     const otpCodeKey = this.getOTPRedisKey(purpose, userId);
 
@@ -67,5 +67,31 @@ export class OtpService {
     const max = 10 ** length;
 
     return randomInt(0, max).toString().padStart(length, "0");
+  }
+
+  async acquireResendCooldown(
+    purpose: VerificationOTPCodePurpose,
+    userId: string,
+  ): Promise<number | null> {
+    const key = this.getResendCooldownKey(purpose, userId);
+
+    const result = await this.app.redis.set(key, "1", {
+      condition: "NX",
+      expiration: { type: "EX", value: authContractConfig.passwordOtpCode.resendCooldown },
+    });
+
+    if (result === "OK") {
+      return null;
+    }
+
+    return Math.max(await this.app.redis.ttl(key), 0);
+  }
+
+  async releaseResendCooldown(purpose: VerificationOTPCodePurpose, userId: string): Promise<void> {
+    await this.app.redis.del(this.getResendCooldownKey(purpose, userId));
+  }
+
+  private getResendCooldownKey(purpose: VerificationOTPCodePurpose, userId: string) {
+    return `otp:resend:${purpose}:${userId}`;
   }
 }

@@ -2,6 +2,7 @@ import { languageSchema } from "@org/localization";
 import z from "zod";
 
 import { ZodCustomErrorCode } from "../utils/zod-custom-error-code.js";
+import { authContractConfig } from "./auth.config.js";
 import { AuthRole } from "./roles.js";
 
 export const emailSchema = z.string().trim().min(1).pipe(z.email());
@@ -43,7 +44,10 @@ export const authSchemas = {
       response: z.object({ success: z.literal(true) }),
     },
     verifyOtpCode: {
-      body: z.object({ email: emailSchema, code: z.string().trim().length(6) }),
+      body: z.object({
+        email: emailSchema,
+        code: z.string().trim().length(authContractConfig.passwordOtpCode.length).regex(/^\d+$/),
+      }),
       response: z.object({ resetToken: z.string() }),
     },
     updatePassword: {

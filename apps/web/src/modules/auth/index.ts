@@ -10,5 +10,5 @@ export { ProtectedRoute } from "./ui/ProtectedRoute";
 export { PublicRoute } from "./ui/PublicRoute";
 export { RegisterForm } from "./ui/RegisterForm/RegisterForm";
 export { ForgotPasswordForm } from "./ui/reset-password-forms/ForgotPasswordForm";
-export { ResetPasswordForm } from "./ui/reset-password-forms/ResetPasswordForm";
-export { VerifyPasswordOtpForm } from "./ui/reset-password-forms/VerifyPasswordOtpForm";
+export { ResetPasswordForm } from "./ui/reset-password-forms/ResetPasswordForm/ResetPasswordForm";
+export { VerifyPasswordOtpForm } from "./ui/reset-password-forms/VerifyPasswordOtpForm/VerifyPasswordOtpForm";

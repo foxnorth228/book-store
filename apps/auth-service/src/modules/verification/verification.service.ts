@@ -1,4 +1,5 @@
 import {
+  authContractConfig,
   NotificationAuthSendOtpCodeEventDTO,
   NotificationEvents,
   VerificationOTPCodePurpose,
@@ -8,6 +9,7 @@ import { BaseService } from "@org/fastify";
 import { hashPassword } from "@org/shared";
 import { FastifyInstance } from "fastify";
 
+import { OTPResendTooSoonError } from "./otp/otp.errors";
 import { OtpService } from "./otp/otp.service";
 import { ResetTokenService } from "./reset-token/reset-token.service";
 import { verificationConfig } from "./verification.config";
@@ -31,19 +33,38 @@ export class VerificationService extends BaseService<VerificationRepository> {
       return;
     }
 
-    const code = await this.otpService.createOTPCode(
+    const retryAfter = await this.otpService.acquireResendCooldown(
       VerificationOTPCodePurpose.PasswordUpdate,
       user.id,
     );
 
-    await this.app.rabbitmq.publish<NotificationAuthSendOtpCodeEventDTO>(
-      NotificationEvents.exchange,
-      NotificationEvents.PasswordResetOtpRequested.routingKey,
-      {
-        email: user.email,
-        code: code,
-      },
-    );
+    if (retryAfter !== null) {
+      throw new OTPResendTooSoonError("OTP resend is temporarily unavailable", retryAfter);
+    }
+
+    try {
+      const code = await this.otpService.createOTPCode(
+        VerificationOTPCodePurpose.PasswordUpdate,
+        user.id,
+        authContractConfig.passwordOtpCode.length,
+      );
+
+      await this.app.rabbitmq.publish<NotificationAuthSendOtpCodeEventDTO>(
+        NotificationEvents.exchange,
+        NotificationEvents.PasswordResetOtpRequested.routingKey,
+        {
+          email: user.email,
+          code: code,
+        },
+      );
+    } catch (e) {
+      await this.otpService.releaseResendCooldown(
+        VerificationOTPCodePurpose.PasswordUpdate,
+        user.id,
+      );
+
+      throw e;
+    }
   }
 
   async verifyPasswordResetOtpCode(otpCode: string, email: string) {
