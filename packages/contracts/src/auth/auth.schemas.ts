@@ -1,14 +1,17 @@
 import { languageSchema } from "@org/localization";
 import z from "zod";
 
+import { ZodCustomErrorCode } from "../utils/zod-custom-error-code.js";
+import { authContractConfig } from "./auth.config.js";
 import { AuthRole } from "./roles.js";
 
-export const passwordSchema = z.string().min(6);
+export const emailSchema = z.string().trim().min(1).pipe(z.email());
+export const passwordSchema = z.string().trim().min(1).min(6);
 
 export const authSchemas = {
   login: {
     body: z.object({
-      email: z.email(),
+      email: emailSchema,
       password: passwordSchema,
     }),
     response: z.object({
@@ -19,19 +22,52 @@ export const authSchemas = {
   register: {
     body: z
       .object({
-        email: z.email(),
+        email: emailSchema,
         password: passwordSchema,
         confirmPassword: passwordSchema,
         language: languageSchema,
       })
       .refine((data) => data.password === data.confirmPassword, {
-        error: "Passwords much match",
         path: ["confirmPassword"],
+        params: {
+          code: ZodCustomErrorCode.PasswordsMismatch,
+        },
       }),
     response: z.object({
       id: z.uuid(),
       email: z.email(),
     }),
+  },
+  passwordReset: {
+    requestOtpCode: {
+      body: z.object({ email: emailSchema }),
+      response: z.object({ success: z.literal(true) }),
+    },
+    verifyOtpCode: {
+      body: z.object({
+        email: emailSchema,
+        code: z.string().trim().length(authContractConfig.passwordOtpCode.length).regex(/^\d+$/),
+      }),
+      response: z.object({ resetToken: z.string() }),
+    },
+    updatePassword: {
+      body: z
+        .object({
+          resetToken: z.string().trim(),
+          password: passwordSchema,
+          confirmPassword: passwordSchema,
+        })
+        .refine((data) => data.password === data.confirmPassword, {
+          path: ["confirmPassword"],
+          params: {
+            code: ZodCustomErrorCode.PasswordsMismatch,
+          },
+        }),
+
+      response: z.object({
+        success: z.literal(true),
+      }),
+    },
   },
 };
 

@@ -1,1 +1,137 @@
-{}
+{
+  "signIn": "Войти",
+  "signOut": "Sign out",
+  "loginModal": {
+    "title": "Вход",
+    "description": "Введите данные своего аккаунта",
+    "forgotPassword": "Забыли пароль?",
+    "submit": "Войти",
+    "noAccount": "Нет аккаунта?",
+    "createAccount": "Создать аккаунт",
+    "fields": {
+      "email": {
+        "label": "Электронная почта",
+        "placeholder": "Введите адрес почты",
+        "errors": {
+          "required": "Введите адрес почты",
+          "invalid": "Введите корректный адрес почты"
+        }
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Введите пароль",
+        "errors": {
+          "required": "Введите пароль",
+          "tooShort": "Пароль должен содержать не менее {{minimum}} символов"
+        }
+      }
+    },
+    "errors": {
+      "invalidCredentials": "Не удалось войти. Проверьте почту и пароль."
+    }
+  },
+  "registerModal": {
+    "title": "Регистрация",
+    "description": "Создайте новый аккаунт для работы с XD",
+    "submit": "Создать аккаунт",
+    "hasAccount": "Уже есть аккаунт?",
+    "signIn": "Войти",
+    "fields": {
+      "email": {
+        "label": "Электронная почта",
+        "placeholder": "Введите адрес почты",
+        "errors": {
+          "required": "Введите адрес почты",
+          "invalid": "Введите корректный адрес почты"
+        }
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Введите пароль",
+        "errors": {
+          "required": "Введите пароль",
+          "tooShort": "Пароль должен содержать не менее {{minimum}} символов"
+        }
+      },
+      "confirmPassword": {
+        "label": "Подтверждение пароля",
+        "placeholder": "Повторите пароль",
+        "errors": {
+          "required": "Подтвердите пароль",
+          "tooShort": "Пароль должен содержать не менее {{minimum}} символов",
+          "mismatch": "Пароли не совпадают"
+        }
+      },
+      "language": {
+        "label": "Язык",
+        "placeholder": "Выберите свой предпочитаемый язык"
+      }
+    },
+    "errors": {
+      "userAlreadyExist": "Аккаунт с таким адресом электронной почты уже существует."
+    }
+  },
+  "resetPassword": {
+    "forgotPasswordForm": {
+      "title": "Восстановление пароля",
+      "description": "Введите email, и мы отправим код для восстановления пароля.",
+      "submit": "Отправить код",
+      "fields": {
+        "email": {
+          "label": "Электронная почта",
+          "placeholder": "example@mail.com",
+          "errors": {
+            "required": "Введите адрес почты",
+            "invalid": "Введите корректный адрес почты"
+          }
+        }
+      }
+    },
+    "verifyOtpForm": {
+      "title": "Проверка кода",
+      "description": "Введите код, отправленный на {{email}}.",
+      "submit": "Подтвердить",
+      "notReceived": "Не получили код?",
+      "resend": "Отправить повторно",
+      "resendIn": "Отправить повторно через {{seconds}} сек.",
+      "fields": {
+        "otpCode": {
+          "errors": {
+            "wrongLength": "OTP-код должен состоять из {{length}} цифр",
+            "invalid": "OTP-код должен содержать только цифры"
+          }
+        }
+      },
+      "errors": {
+        "invalidCode": "Неверный код подтверждения.",
+        "expiredCode": "Срок действия кода подтверждения истёк.",
+        "tooMuchRequests": "Слишком много запросов. Попробуйте позже."
+      }
+    },
+    "updatePasswordForm": {
+      "title": "Новый пароль",
+      "description": "Придумайте новый пароль для вашего аккаунта.",
+      "submit": "Сохранить пароль",
+      "password": {
+        "label": "Новый пароль",
+        "placeholder": "Введите новый пароль",
+        "errors": {
+          "required": "Введите новый пароль",
+          "tooShort": "Пароль должен содержать не менее {{minimum}} символов"
+        }
+      },
+      "confirmPassword": {
+        "label": "Подтверждение пароля",
+        "placeholder": "Повторите пароль",
+        "errors": {
+          "required": "Подтвердите пароль",
+          "tooShort": "Пароль должен содержать не менее {{minimum}} символов",
+          "mismatch": "Пароли не совпадают"
+        }
+      },
+      "errors": {
+        "invalidToken": "Запрос на восстановление пароля больше недействителен. Начните процесс восстановления заново."
+      }
+    }
+  }
+}

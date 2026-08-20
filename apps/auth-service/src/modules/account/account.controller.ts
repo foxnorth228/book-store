@@ -64,7 +64,10 @@ export class AccountController extends BaseController<AccountService> {
 
   private clearRefreshTokenCookie(reply: FastifyReply) {
     reply.clearCookie(accountConfig.refreshTokenName, {
-      path: `${this.app.config.env.PATH_PREFIX}${authContracts.session.prefix}`,
+      httpOnly: true,
+      secure: this.app.config.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: `/${this.app.config.env.PATH_PREFIX}${authContracts.session.prefix}`,
     });
   }
 }

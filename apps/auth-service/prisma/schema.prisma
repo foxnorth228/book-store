@@ -23,6 +23,8 @@ model Account {
   email        String   @unique
   passwordHash String
   roles        Role[]   @default([user])
+
+  emailVerifiedAt   DateTime?
   
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

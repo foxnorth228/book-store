@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
-  "files": [],
   "references": [
     {
       "path": "./packages/shared"
@@ -50,6 +49,9 @@
     },
     {
       "path": "./packages/access-control"
+    },
+    {
+      "path": "./infrastructure/custom-generators"
     }
   ]
 }

@@ -6,7 +6,7 @@ export const errorHandlerPlugin = fp(
   async (app: FastifyInstance) => {
     app.setErrorHandler(async function (
       error: FastifyError | AppError,
-      request,
+      _,
       reply,
     ): Promise<ErrorResponse> {
       app.log.error(error);
@@ -17,6 +17,7 @@ export const errorHandlerPlugin = fp(
           statusCode: error.statusCode,
           code: error.code,
           message: error.message,
+          details: error.details,
         };
       }
 

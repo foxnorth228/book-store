@@ -1,0 +1,57 @@
+{
+  "name": "@org/custom-generators",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@org/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "!**/*.tsbuildinfo",
+    "generators.json"
+  ],
+  "dependencies": {
+    "@nx/devkit": "23.1.1",
+    "tslib": "^2.3.0"
+  },
+  "generators": "./generators.json",
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/js:tsc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "infrastructure/custom-generators/dist",
+          "main": "infrastructure/custom-generators/src/index.ts",
+          "tsConfig": "infrastructure/custom-generators/tsconfig.lib.json",
+          "rootDir": "infrastructure/custom-generators/src",
+          "generatePackageJson": false,
+          "assets": [
+            {
+              "input": "./infrastructure/custom-generators/src",
+              "glob": "**/!(*.ts)",
+              "output": "."
+            },
+            {
+              "input": "./infrastructure/custom-generators/src",
+              "glob": "**/*.d.ts",
+              "output": "."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

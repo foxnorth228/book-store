@@ -1,0 +1,300 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/figtree";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===== SINGLE SOURCE OF TRUTH: brand palette + status colors ===== */
+@theme {
+  --color-primary-50: #fffbeb;
+  --color-primary-100: #fef3c7;
+  --color-primary-200: #fde68a;
+  --color-primary-300: #fcd34d;
+  --color-primary-400: #fbbf24;
+  --color-primary-500: #f59e0b;
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
+
+  --color-neutral-50: #faf9f6;
+  --color-neutral-100: #f2f0ea;
+  --color-neutral-200: #e5e1d6;
+  --color-neutral-300: #d1cabb;
+  --color-neutral-400: #a89f8c;
+  --color-neutral-500: #7c7565;
+  --color-neutral-600: #5a5447;
+  --color-neutral-700: #3f3a30;
+  --color-neutral-800: #2a2621;
+  --color-neutral-900: #1a1712;
+
+  --color-success-background: #ecfdf5;
+  --color-success-text: #047857;
+  --color-success-border: #a7f3d0;
+
+  --color-warning-background: #fff7ed;
+  --color-warning-text: #c2410c;
+  --color-warning-border: #fed7aa;
+
+  --color-error-background: #fef2f2;
+  --color-error-text: #b91c1c;
+  --color-error-border: #fecaca;
+
+  --color-info-background: #eff6ff;
+  --color-info-text: #1d4ed8;
+  --color-info-border: #bfdbfe;
+
+  --shadow-card: 0 10px 30px rgb(26 23 18 / 0.08);
+  --shadow-modal: 0 25px 50px rgb(26 23 18 / 0.16);
+
+  /* radius is defined ONCE, driven by --radius below — see @theme inline */
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-neutral-300);
+    border-radius: 9999px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neutral-400);
+  }
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* every raw token below points at the palette in the first @theme block —
+     change the brand there and everything here follows automatically */
+  --background: var(--color-neutral-50);
+  --foreground: var(--color-neutral-900);
+  --card: var(--color-neutral-100);
+  --card-foreground: var(--color-neutral-700);
+  --popover: var(--color-neutral-100);
+  --popover-foreground: var(--color-neutral-700);
+  --primary: var(--color-primary-200);
+  --primary-foreground: var(--color-primary-700);
+  --secondary: var(--color-neutral-100);
+  --secondary-foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-500);
+  --accent: var(--color-primary-100);
+  --accent-foreground: var(--color-primary-800);
+  --destructive: var(--color-error-text);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+  --ring: var(--color-primary-400);
+  --chart-1: var(--color-primary-300);
+  --chart-2: var(--color-primary-500);
+  --chart-3: var(--color-primary-700);
+  --chart-4: var(--color-neutral-400);
+  --chart-5: var(--color-neutral-600);
+  --sidebar: var(--color-neutral-50);
+  --sidebar-foreground: var(--color-neutral-900);
+  --sidebar-primary: var(--color-primary-700);
+  --sidebar-primary-foreground: var(--color-primary-50);
+  --sidebar-accent: var(--color-primary-100);
+  --sidebar-accent-foreground: var(--color-primary-800);
+  --sidebar-border: var(--color-neutral-200);
+  --sidebar-ring: var(--color-primary-400);
+
+  /* custom colors */
+  --header: var(--color-neutral-100);
+  --header-foreground: var(--color-primary-800);
+  --toast: var(--popover);
+  --toast-foreground: var(--popover-foreground);
+  --toast-description: var(--color-neutral-500);
+  --link-text: var(--color-primary-600);
+}
+
+.dark {
+  --background: var(--color-neutral-900);
+  --foreground: var(--color-neutral-50);
+  --card: var(--color-neutral-800);
+  --card-foreground: var(--color-neutral-50);
+  --popover: var(--color-neutral-800);
+  --popover-foreground: var(--color-neutral-50);
+  --primary: var(--color-primary-700);
+  --primary-foreground: var(--color-primary-200);
+  --secondary: var(--color-neutral-700);
+  --secondary-foreground: var(--color-neutral-50);
+  --muted: var(--color-neutral-700);
+  --muted-foreground: var(--color-neutral-400);
+  --accent: var(--color-primary-900);
+  --accent-foreground: var(--color-primary-200);
+  --destructive: #f87171;
+  --border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
+  --input: color-mix(in oklab, var(--color-neutral-50) 15%, transparent);
+  --ring: var(--color-primary-500);
+  --chart-1: var(--color-primary-300);
+  --chart-2: var(--color-primary-500);
+  --chart-3: var(--color-primary-700);
+  --chart-4: var(--color-neutral-400);
+  --chart-5: var(--color-neutral-600);
+  --sidebar: var(--color-neutral-800);
+  --sidebar-foreground: var(--color-neutral-50);
+  --sidebar-primary: var(--color-primary-600);
+  --sidebar-primary-foreground: var(--color-primary-50);
+  --sidebar-accent: var(--color-primary-900);
+  --sidebar-accent-foreground: var(--color-primary-200);
+  --sidebar-border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
+  --sidebar-ring: var(--color-primary-500);
+
+  /* custom colors */
+  --header: var(--color-neutral-800);
+  --header-foreground: var(--color-primary-200);
+  --toast: var(--popover);
+  --toast-foreground: var(--popover-foreground);
+  --toast-description: var(--color-neutral-400);
+  --link-text: var(--color-primary-600);
+}
+
+/* ===== shadcn semantic tokens — now just ALIASES onto the palette above ===== */
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: "Figtree Variable", sans-serif;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  /* single radius scale, derived from one --radius var */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* custom colors */
+  --color-header: var(--header);
+  --color-header-foreground: var(--header-foreground);
+  --color-toast: var(--toast);
+  --color-toast-foreground: var(--toast-foreground);
+  --color-toast-description: var(--toast-description);
+  --color-link-text: var(--link-text);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply font-sans;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    line-height: 1.5;
+    overflow-x: hidden;
+    transition-property: background-color, color;
+    transition-duration: 200ms;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  ::selection {
+    background-color: var(--color-primary-200);
+  }
+}
