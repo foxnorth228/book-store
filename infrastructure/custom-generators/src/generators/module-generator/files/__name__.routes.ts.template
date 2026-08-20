@@ -1,0 +1,13 @@
+import { FastifyInstance } from "fastify";
+
+import { <%= className %>Config } from "./<%= fileName %>.config.js";
+import { <%= className %>Controller } from "./<%= fileName %>.controller.js";
+
+export async function <%= propertyName %>Routes(module: FastifyInstance) {
+  const <%= propertyName %>Controller = module.getDecorator<<%= className %>Controller>(
+    <%= propertyName %>Config.controllerName,
+  );
+
+  // TODO: Add routes
+
+}

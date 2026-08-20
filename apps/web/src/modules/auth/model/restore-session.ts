@@ -18,7 +18,7 @@ export async function restoreSession() {
     });
   } catch (e) {
     if (e instanceof AppError && e.code !== 401) {
-      console.log(e);
+      console.error(e);
     }
     useSessionStore.getState().setData({ accessToken: undefined, isAuthenticated: false });
   } finally {

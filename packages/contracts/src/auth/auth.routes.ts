@@ -6,4 +6,10 @@ export const authRoutes = {
     refresh: "/refresh",
     logout: "/logout",
   },
+  passwordReset: {
+    $prefix: "/password-reset",
+    requestOtpCode: "/request",
+    verifyOtpCode: "/verify",
+    updatePassword: "/password-update",
+  },
 };

@@ -1,0 +1,17 @@
+{
+  "back": "Back",
+  "hidePassword": "Hide password",
+  "showPassword": "Show password",
+  "settings": "Settings",
+  "language": "Language",
+  "languages": {
+    "en": "English",
+    "ru": "Russian"
+  },
+  "theme": "Theme",
+  "themes": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}

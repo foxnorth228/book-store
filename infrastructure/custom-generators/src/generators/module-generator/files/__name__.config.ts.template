@@ -1,0 +1,11 @@
+export const <%= propertyName %>Config = {
+  repositoryName: "<%= className %>Repository",
+  serviceName: "<%= className %>Service",
+  controllerName: "<%= className %>Controller",
+
+  schemas: {},
+
+  tags: {
+    <%= propertyName %>: "<%= className %>",
+  },
+};

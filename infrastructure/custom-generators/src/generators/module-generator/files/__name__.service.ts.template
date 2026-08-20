@@ -1,0 +1,8 @@
+import { BaseService } from "@org/fastify";
+
+import { <%= propertyName %>Config } from "./<%= fileName %>.config";
+import { <%= className %>Repository } from "./<%= fileName %>.repository";
+
+export class <%= className %>Service extends BaseService<<%= className %>Repository> {
+  protected readonly repositoryKey = <%= propertyName %>Config.repositoryName;
+}

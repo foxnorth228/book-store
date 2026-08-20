@@ -7,7 +7,7 @@ import { accountRoutes } from "./account.routes.js";
 import { accountSchemas } from "./account.schema.js";
 import { AccountService } from "./account.service.js";
 
-async function HealthModule(app: FastifyInstance) {
+async function AccountModule(app: FastifyInstance) {
   app.decorate(accountConfig.repositoryName, new AccountRepository(app));
   app.decorate(accountConfig.serviceName, new AccountService(app));
   app.decorate(accountConfig.controllerName, new AccountController(app));
@@ -18,4 +18,4 @@ async function HealthModule(app: FastifyInstance) {
   app.register(accountRoutes);
 }
 
-export default HealthModule;
+export default AccountModule;

@@ -22,10 +22,12 @@ export class HttpClient {
     }
 
     try {
+      const hasBody = requestOptions.body !== undefined;
+
       let response = await fetch(buildUrl(this.baseUrl, url, requestOptions.query), {
         ...requestOptions,
         headers: {
-          "Content-Type": "application/json",
+          ...(hasBody && { "Content-Type": "application/json" }),
           ...this.headers,
           ...requestOptions.headers,
         },
@@ -73,7 +75,19 @@ export class HttpClient {
     return this.request<T>(url, {
       ...options,
       method: "POST",
-      body: JSON.stringify(body),
+      ...(body !== undefined && {
+        body: JSON.stringify(body),
+      }),
+    });
+  }
+
+  async put<T>(url: string, body?: unknown, options?: RequestOptions): Promise<HttpResponse<T>> {
+    return this.request<T>(url, {
+      ...options,
+      method: "PUT",
+      ...(body !== undefined && {
+        body: JSON.stringify(body),
+      }),
     });
   }
 
@@ -81,7 +95,9 @@ export class HttpClient {
     return this.request<T>(url, {
       ...options,
       method: "PATCH",
-      body: JSON.stringify(body),
+      ...(body !== undefined && {
+        body: JSON.stringify(body),
+      }),
     });
   }
 

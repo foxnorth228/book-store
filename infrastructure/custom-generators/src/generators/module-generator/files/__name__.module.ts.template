@@ -1,0 +1,27 @@
+import { FastifyInstance } from "fastify";
+
+import { <%= propertyName %>Config } from "./<%= fileName %>.config.js";
+import { <%= className %>Controller } from "./<%= fileName %>.controller.js";
+import { <%= propertyName %>Routes } from "./<%= fileName %>.routes.js";
+import { <%= propertyName %>Schemas } from "./<%= fileName %>.schema.js";
+import { <%= className %>Service } from "./<%= fileName %>.service.js";
+
+async function <%= className %>Module(app: FastifyInstance) {
+  app.decorate(
+    <%= propertyName %>Config.serviceName,
+    new <%= className %>Service(app),
+  );
+
+  app.decorate(
+    <%= propertyName %>Config.controllerName,
+    new <%= className %>Controller(app),
+  );
+
+  for (const schema of <%= propertyName %>Schemas) {
+    app.addSchema(schema);
+  }
+
+  app.register(<%= propertyName %>Routes);
+}
+
+export default <%= className %>Module;

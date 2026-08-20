@@ -26,4 +26,25 @@ export const authContracts = {
       path: authRoutes.session.logout,
     },
   },
+  passwordReset: {
+    prefix: authRoutes.passwordReset.$prefix,
+    requestOtpCode: {
+      method: "POST",
+      path: authRoutes.passwordReset.requestOtpCode,
+      body: authSchemas.passwordReset.requestOtpCode.body,
+      response: authSchemas.passwordReset.requestOtpCode.response,
+    },
+    verifyOtpCode: {
+      method: "POST",
+      path: authRoutes.passwordReset.verifyOtpCode,
+      body: authSchemas.passwordReset.verifyOtpCode.body,
+      response: authSchemas.passwordReset.verifyOtpCode.response,
+    },
+    updatePassword: {
+      method: "PUT",
+      path: authRoutes.passwordReset.updatePassword,
+      body: authSchemas.passwordReset.updatePassword.body,
+      response: authSchemas.passwordReset.updatePassword.response,
+    },
+  },
 };

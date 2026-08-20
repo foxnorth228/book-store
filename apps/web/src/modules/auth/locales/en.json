@@ -1,1 +1,137 @@
-{}
+{
+  "signIn": "Sign in",
+  "signOut": "Sign out",
+  "loginModal": {
+    "title": "Sign in",
+    "description": "Enter your account credentials",
+    "forgotPassword": "Forgot password?",
+    "submit": "Sign in",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create an account",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email",
+        "errors": {
+          "required": "Email is required",
+          "invalid": "Enter a valid email address"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "errors": {
+          "required": "Password is required",
+          "tooShort": "Password must be at least {{minimum}} characters long"
+        }
+      }
+    },
+    "errors": {
+      "invalidCredentials": "Failed to log in. Check your email and password."
+    }
+  },
+  "registerModal": {
+    "title": "Registration",
+    "description": "Create a new account to work with XD",
+    "submit": "Create account",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "example@mail.com",
+        "errors": {
+          "required": "Email is required",
+          "invalid": "Enter a valid email address"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "errors": {
+          "required": "Password is required",
+          "tooShort": "Password must be at least {{minimum}} characters long"
+        }
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Repeat your password",
+        "errors": {
+          "required": "Password is required",
+          "tooShort": "Password must be at least {{minimum}} characters long",
+          "mismatch": "Passwords does not match"
+        }
+      },
+      "language": {
+        "label": "Language",
+        "placeholder": "Choose your preferred language"
+      }
+    },
+    "errors": {
+      "userAlreadyExist": "An account with this email already exists."
+    }
+  },
+  "resetPassword": {
+    "forgotPasswordForm": {
+      "title": "Reset password",
+      "description": "Enter your email and we'll send you a password reset code.",
+      "submit": "Send code",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": "example@mail.com",
+          "errors": {
+            "required": "Email is required",
+            "invalid": "Enter a valid email address"
+          }
+        }
+      }
+    },
+    "verifyOtpForm": {
+      "title": "Code verification",
+      "description": "Enter the code sent to {{email}}.",
+      "submit": "Verify",
+      "notReceived": "Didn't receive the code?",
+      "resend": "Resend",
+      "resendIn": "Resend in {{seconds}} sec.",
+      "fields": {
+        "otpCode": {
+          "errors": {
+            "wrongLength": "OTP code should contain {{length}} digits",
+            "invalid": "OTP code should include only digits"
+          }
+        }
+      },
+      "errors": {
+        "invalidCode": "Invalid verification code.",
+        "expiredCode": "The verification code has expired.",
+        "tooMuchRequests": "Too many requests. Please try again later."
+      }
+    },
+    "updatePasswordForm": {
+      "title": "New password",
+      "description": "Create a new password for your account.",
+      "submit": "Save password",
+      "password": {
+        "label": "New password",
+        "placeholder": "Enter your new password",
+        "errors": {
+          "required": "New password is required",
+          "tooShort": "New password must be at least {{minimum}} characters long"
+        }
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Repeat your password",
+        "errors": {
+          "required": "Password is required",
+          "tooShort": "Password must be at least {{minimum}} characters long",
+          "mismatch": "Passwords does not match"
+        }
+      },
+      "errors": {
+        "invalidToken": "Your password reset request is no longer valid. Please start the process again."
+      }
+    }
+  }
+}

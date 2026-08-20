@@ -1,3 +1,4 @@
 {
-  "protobuf.protoc.path": "/usr/bin/protoc"
+  "protobuf.protoc.path": "/usr/bin/protoc",
+  "eslint.validate": ["json"]
 }

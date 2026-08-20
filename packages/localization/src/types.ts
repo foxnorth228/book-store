@@ -7,4 +7,4 @@ export enum Languages {
 
 export const languagesList = Object.values(Languages);
 
-export const languageSchema = z.enum(languagesList);
+export const languageSchema = z.enum(Languages);

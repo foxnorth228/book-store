@@ -1,18 +1,25 @@
-import { Toaster } from "react-hot-toast";
-import { ThemeProvider } from "styled-components";
+import "./theme/theme.css";
+import "./i18n/config/config";
 
+import { Toaster } from "@shared/ui";
+import { StrictMode } from "react";
+import { BrowserRouter } from "react-router";
+
+import { SessionProvider } from "./providers/session-provider";
+import { SettingsProvider } from "./providers/settings-provider";
 import { Router } from "./routing/ui/Router";
-import { GlobalStyles } from "./theme/global-styles";
-import { theme } from "./theme/theme";
 
-export function App() {
+export const App = () => {
   return (
-    <>
-      <GlobalStyles />
-      <Toaster />
-      <ThemeProvider theme={theme}>
-        <Router />
-      </ThemeProvider>
-    </>
+    <StrictMode>
+      <BrowserRouter>
+        <SettingsProvider>
+          <SessionProvider>
+            <Router />
+            <Toaster position={"top-center"} />
+          </SessionProvider>
+        </SettingsProvider>
+      </BrowserRouter>
+    </StrictMode>
   );
-}
+};
