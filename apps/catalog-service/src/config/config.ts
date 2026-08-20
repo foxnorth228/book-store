@@ -1,12 +1,15 @@
-import { envServerSchema } from "@org/shared";
+import { loadServerEnv } from "@org/shared";
 import { z } from "zod";
 
 export const PATH_TO_PROJECT = "apps/catalog-service";
 
-export const catalogServiceEnvSchema = envServerSchema.extend({
-  GRPC_AUTH_HOST: z.coerce.string().default("0.0.0.0"),
-  GRPC_AUTH_PORT: z.coerce.number().default(50051),
-});
+export const catalogServiceEnvSchema = z.object({});
 
 export type CatalogServiceEnvSchema = typeof catalogServiceEnvSchema;
 export type CatalogServiceEnvConfig = z.infer<CatalogServiceEnvSchema>;
+
+export const serviceEnvConfig = loadServerEnv(catalogServiceEnvSchema, PATH_TO_PROJECT, {
+  sources: ["service", "postgres", "rabbitmq", "redis", "jwt", "cookie"],
+});
+
+export type ServiceEnvConfig = typeof serviceEnvConfig;

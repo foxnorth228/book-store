@@ -1,36 +1,74 @@
 import dotenv from "dotenv";
 import path from "path";
 
-import { EnvServerConfig, EnvServerSchema, envServerSchema } from "./env-schema.server.js";
+import {
+  EnvDatabaseSchema,
+  EnvRabbitmqSchema,
+  EnvRedisSchema,
+  ServerEnvConfig,
+  ServerEnvSource,
+} from "./env-type.server.js";
+import z from "zod";
+import { envSourceSchemas } from "./env-schema.server.js";
 
-// TODO fix split schema into multiple instances with different settings
-export function loadServerEnv<T extends EnvServerSchema>(
-  schema: T = envServerSchema as T,
-  servicePath: string,
-) {
-  if (process.env.NODE_ENV !== "production") {
-    const postgresEnvPath = path.resolve("infrastructure/postgres/.env");
-    const rabbitmqEnvPath = path.resolve("infrastructure/rabbitmq/.env");
-    const redisEnvPath = path.resolve("infrastructure/redis/.env");
-    const serviceEnvPath = path.resolve(servicePath, ".env");
-
-    dotenv.config({ path: serviceEnvPath });
-    dotenv.config({ path: postgresEnvPath, override: true });
-    dotenv.config({ path: rabbitmqEnvPath, override: true });
-    dotenv.config({ path: redisEnvPath, override: true });
-  }
-
-  return schema.parse(process.env);
+export interface LoadServerEnvOptions<S extends readonly ServerEnvSource[] = []> {
+  sources?: S;
 }
 
-export function getDBUrlByConfig<T extends EnvServerConfig>(config: T) {
+export function loadServerEnv<
+  T extends z.ZodObject | undefined = undefined,
+  S extends readonly ServerEnvSource[] = readonly [],
+>(schema: T, servicePath: string, options: LoadServerEnvOptions<S> = {}): ServerEnvConfig<T, S> {
+  if (process.env.NODE_ENV !== "production") {
+    const sources: readonly ServerEnvSource[] = options.sources ?? [];
+
+    if (sources.includes("service")) {
+      dotenv.config({
+        path: path.resolve(servicePath, ".env"),
+      });
+    }
+
+    if (sources.includes("postgres")) {
+      dotenv.config({
+        path: path.resolve("infrastructure/postgres/.env"),
+        override: true,
+      });
+    }
+
+    if (sources.includes("rabbitmq")) {
+      dotenv.config({
+        path: path.resolve("infrastructure/rabbitmq/.env"),
+        override: true,
+      });
+    }
+
+    if (sources.includes("redis")) {
+      dotenv.config({
+        path: path.resolve("infrastructure/redis/.env"),
+        override: true,
+      });
+    }
+  }
+
+  let extendedShape: z.ZodRawShape = {};
+
+  for (const source of options.sources ?? []) {
+    extendedShape = { ...extendedShape, ...envSourceSchemas[source].shape };
+  }
+
+  const parsed = (schema ?? z.object({})).extend(extendedShape).parse(process.env);
+
+  return parsed as ServerEnvConfig<T, S>;
+}
+
+export function getDBUrlByConfig<T extends EnvDatabaseSchema>(config: T) {
   return `postgresql://${config.DB_USER}:${config.DB_PASSWORD}@${config.DB_HOST}:${config.DB_PORT}/${config.DB_NAME}`;
 }
 
-export function getRabbitmqUrlByConfig<T extends EnvServerConfig>(config: T) {
+export function getRabbitmqUrlByConfig<T extends EnvRabbitmqSchema>(config: T) {
   return `amqp://${config.RABBITMQ_USER}:${config.RABBITMQ_PASSWORD}@${config.RABBITMQ_HOST}:${config.RABBITMQ_PORT}`;
 }
 
-export function getRedisUrlByConfig<T extends EnvServerConfig>(config: T) {
+export function getRedisUrlByConfig<T extends EnvRedisSchema>(config: T) {
   return `redis://:${config.REDIS_PASSWORD}@${config.REDIS_HOST}:${config.REDIS_PORT}`;
 }

@@ -1,0 +1,14 @@
+services:
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "${SMTP_PORT}:1025"
+      - "${SMTP_WEB_PORT}:8025"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://${SMTP_HOST}:${SMTP_WEB_PORT}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped

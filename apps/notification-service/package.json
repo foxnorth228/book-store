@@ -93,10 +93,21 @@
           "buildTarget": "build"
         }
       },
-      "prune": {
+      "generate-pnpm-workspace": {
         "dependsOn": [
           "prune-lockfile",
           "copy-workspace-modules"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/notification-service/dist"
+        }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules",
+          "generate-pnpm-workspace"
         ],
         "executor": "nx:noop"
       },
@@ -123,7 +134,8 @@
       "docker:build": {
         "dependsOn": [
           "build",
-          "prune"
+          "prune",
+          "generate-pnpm-workspace"
         ]
       }
     }

@@ -4,9 +4,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "compose:build": "pnpm pgadmin:build && pnpm web:build && nx prune profile-service && nx prune auth-service && docker compose -f infrastructure/docker-compose/docker-compose.yaml build --no-cache",
-    "compose:down": "docker compose -f infrastructure/docker-compose/docker-compose.yaml down",
-    "compose:up": "docker compose -f infrastructure/docker-compose/docker-compose.yaml up",
+    "compose:prepare": "pnpm pgadmin:build && pnpm web:build && nx prune profile-service && nx prune auth-service && nx prune catalog-service && nx prune notification-service",
+    "compose:build": "pnpm compose:prepare && docker compose -f infrastructure/docker-compose/docker-compose.dev.yaml build --no-cache",
+    "compose:down": "docker compose -f infrastructure/docker-compose/docker-compose.dev.yaml down",
+    "compose:up": "docker compose -f infrastructure/docker-compose/docker-compose.dev.yaml up",
     "infra:down": "docker stop rift-hub-mailpit rift-hub-redis rift-hub-rabbitmq rift-hub-postgres",
     "infra:remove": "docker container remove rift-hub-mailpit rift-hub-redis rift-hub-rabbitmq rift-hub-postgres",
     "infra:up": "pnpm postgres:up && pnpm rabbitmq:up && pnpm redis:up && pnpm mailpit:up",
