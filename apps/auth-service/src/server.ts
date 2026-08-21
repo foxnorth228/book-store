@@ -1,7 +1,7 @@
 import { createLogger } from "@org/shared";
 
 import { buildApp } from "./app";
-import { PATH_TO_PROJECT, serviceEnvConfig, ServiceEnvConfig } from "./config/config";
+import { PATH_TO_PROJECT, ServiceEnvConfig, serviceEnvConfig } from "./config/config";
 
 export type ServerOptions = ReturnType<typeof getServerOptions>;
 
