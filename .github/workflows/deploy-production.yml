@@ -29,7 +29,10 @@ jobs:
         key: ${{ secrets.PROD_SSH_KEY }}
         script: |
           set -e
-
+          
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  
           cd /home/deploy/book-store
 
           git fetch origin prod
