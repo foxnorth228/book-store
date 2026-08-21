@@ -1,33 +1,50 @@
 import { z } from "zod";
 
-export const envServerSchema = z.object({
+export const envCommonSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
 
   HOST: z.string().default("0.0.0.0"),
   PATH_PREFIX: z.string().default("/"),
   PORT: z.coerce.number().int().positive().default(3000),
+});
 
+export const envDatabaseSchema = z.object({
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),
   DB_HOST: z.coerce.string().default("0.0.0.0"),
   DB_PORT: z.coerce.number().int().positive().default(5432),
   DB_NAME: z.string(),
+});
 
+export const envRabbitmqSchema = z.object({
   RABBITMQ_HOST: z.string(),
   RABBITMQ_PORT: z.coerce.number().int().positive().default(5672),
   RABBITMQ_USER: z.string(),
   RABBITMQ_PASSWORD: z.string(),
+});
 
+export const envRedisSchema = z.object({
   REDIS_HOST: z.string(),
   REDIS_PORT: z.coerce.number().int().positive().default(6379),
   REDIS_PASSWORD: z.string(),
+});
 
+export const envJwtSchema = z.object({
   JWT_ACCESS_TOKEN_PUBLIC_KEY: z
     .string()
     .transform((v) => Buffer.from(v, "base64").toString("utf-8")),
+});
+
+export const envCookieSchema = z.object({
   COOKIE_SIGNATURE: z.string().min(32),
 });
 
-export type EnvServerSchema = typeof envServerSchema;
-export type EnvServerConfig = z.infer<EnvServerSchema>;
+export const envSourceSchemas = {
+  service: envCommonSchema,
+  postgres: envDatabaseSchema,
+  rabbitmq: envRabbitmqSchema,
+  redis: envRedisSchema,
+  jwt: envJwtSchema,
+  cookie: envCookieSchema,
+} as const;

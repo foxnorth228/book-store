@@ -33,15 +33,18 @@ export async function accountRoutes(module: FastifyInstance) {
         200: module.getSchema(accountConfig.schemas.registerRes),
       },
     },
-    preHandler: (request) => {
+    preHandler: async (request) => {
       const data = request.body;
-      const result = authContracts.register.body.safeParse(data);
+      const result = await authContracts.register.body.safeParseAsync(data);
 
       if (!result.success) {
         throw new BadRequestError("Incorrect data");
       }
+
+      return;
     },
     handler: async (request: FastifyRequest<{ Body: AuthRegisterReq }>) => {
+      console.log("register");
       return accountController.register(request);
     },
   });

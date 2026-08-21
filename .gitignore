@@ -52,3 +52,5 @@ vitest.config.*.timestamp*
 test-output
 
 infrastructure/rsa-keys
+
+infrastructure/**/.env.*

@@ -4,6 +4,7 @@ import { globalIgnores } from "eslint/config";
 import prettier from "eslint-plugin-prettier";
 import importSort from "eslint-plugin-simple-import-sort";
 import tseslint from "typescript-eslint";
+import eslintReact from "@eslint-react/eslint-plugin";
 
 export default tseslint.config([
   // IGNORES
@@ -26,7 +27,11 @@ export default tseslint.config([
   // JS/TS + REACT BASE CONFIG
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
-    extends: [js.configs.recommended, tseslint.configs.recommended],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReact.configs["recommended-typescript"],
+    ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {

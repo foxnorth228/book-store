@@ -21,7 +21,7 @@ export const AuthModal: FC<AuthModalProps> = ({ isOpen, onOpenChange, initialMod
     if (isOpen) {
       setMode(initialMode);
     }
-  }, [isOpen, initialMode]);
+  }, [isOpen]);
 
   return (
     <Dialog isOpen={isOpen} onOpenChange={onOpenChange}>

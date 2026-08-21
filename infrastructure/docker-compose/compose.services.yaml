@@ -1,0 +1,170 @@
+x-common-environment: &common-environment
+  NODE_ENV: ${NODE_ENV}
+  LOG_LEVEL: ${LOG_LEVEL}
+  JWT_ACCESS_TOKEN_PUBLIC_KEY: ${JWT_ACCESS_TOKEN_PUBLIC_KEY}
+  COOKIE_SIGNATURE: ${COOKIE_SIGNATURE}
+
+x-database-environment: &database-environment
+  DB_HOST: ${DB_HOST}
+  DB_PORT: ${DB_PORT}
+  DB_USER: ${DB_USER}
+  DB_PASSWORD: ${DB_PASSWORD}
+
+x-rabbitmq-environment: &rabbitmq-environment
+  RABBITMQ_HOST: ${RABBITMQ_HOST}
+  RABBITMQ_PORT: ${RABBITMQ_PORT}
+  RABBITMQ_USER: ${RABBITMQ_USER}
+  RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+
+x-redis-environment: &redis-environment
+  REDIS_HOST: ${REDIS_HOST}
+  REDIS_PORT: ${REDIS_PORT}
+  REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+services:
+  auth-service:
+    build:
+      context: ../../apps/auth-service
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+    environment:
+      <<: [*common-environment, *database-environment, *rabbitmq-environment, *redis-environment]
+      HOST: ${AUTH_HOST}
+      PORT: ${AUTH_PORT}
+      PATH_PREFIX: ${AUTH_PATH_PREFIX}
+      DB_NAME: ${AUTH_DB_NAME}
+      JWT_ACCESS_TOKEN_PRIVATE_KEY: ${AUTH_JWT_ACCESS_TOKEN_SECRET}
+      JWT_ACCESS_TOKEN_EXPIRES_IN: ${AUTH_JWT_ACCESS_TOKEN_EXPIRES_IN}
+      JWT_REFRESH_TOKEN_EXPIRES_IN: ${AUTH_JWT_REFRESH_TOKEN_EXPIRES_IN}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://${AUTH_HOST}:${AUTH_PORT}/${AUTH_PATH_PREFIX}/health",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped
+
+  profile-service:
+    build:
+      context: ../../apps/profile-service
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+    environment:
+      <<: [*common-environment, *database-environment, *rabbitmq-environment, *redis-environment]
+      HOST: ${PROFILE_HOST}
+      PORT: ${PROFILE_PORT}
+      PATH_PREFIX: ${PROFILE_PATH_PREFIX}
+      DB_NAME: ${PROFILE_DB_NAME}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://${PROFILE_HOST}:${PROFILE_PORT}/${PROFILE_PATH_PREFIX}/health",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped
+
+  catalog-service:
+    build:
+      context: ../../apps/catalog-service
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+    environment:
+      <<: [*common-environment, *database-environment, *rabbitmq-environment, *redis-environment]
+      HOST: ${CATALOG_HOST}
+      PORT: ${CATALOG_PORT}
+      PATH_PREFIX: ${CATALOG_PATH_PREFIX}
+      DB_NAME: ${CATALOG_DB_NAME}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://${CATALOG_HOST}:${CATALOG_PORT}/${CATALOG_PATH_PREFIX}/health",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped
+
+  notification-service:
+    build:
+      context: ../../apps/notification-service
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+    environment:
+      <<: [*common-environment, *rabbitmq-environment, *redis-environment]
+      HOST: ${NOTIFICATION_HOST}
+      PORT: ${NOTIFICATION_PORT}
+      PATH_PREFIX: ${NOTIFICATION_PATH_PREFIX}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_FROM: "user@example.com"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://${NOTIFICATION_HOST}:${NOTIFICATION_PORT}/${NOTIFICATION_PATH_PREFIX}/health",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped
