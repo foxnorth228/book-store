@@ -1,0 +1,22 @@
+services:
+  web:
+    build:
+      context: ../../apps/web
+      dockerfile: Dockerfile
+      args:
+        WEB_PORT: ${WEB_PORT}
+    environment:
+      WEB_PORT: ${WEB_PORT}
+      VITE_AUTH_SERVICE_PREFIX: ${AUTH_PATH_PREFIX}
+      VITE_PROFILE_SERVICE_PREFIX: ${PROFILE_PATH_PREFIX}
+    depends_on:
+      - profile-service
+      - auth-service
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://${WEB_HOST}:${WEB_PORT}/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - monorepo-network
+    restart: unless-stopped

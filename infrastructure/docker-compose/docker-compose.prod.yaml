@@ -1,0 +1,37 @@
+include:
+  - ./compose.base.yaml
+
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - "${NGINX_PORT}:${NGINX_PORT}"
+    environment:
+      WEB_PORT: ${WEB_PORT}
+      PROFILE_PORT: ${PROFILE_PORT}
+      PROFILE_PATH_PREFIX: ${PROFILE_PATH_PREFIX}
+      AUTH_PORT: ${AUTH_PORT}
+      AUTH_PATH_PREFIX: ${AUTH_PATH_PREFIX}
+      NGINX_HOST: ${NGINX_HOST}
+      NGINX_PORT: ${NGINX_PORT}
+    volumes:
+      - ./nginx.conf.template:/etc/nginx/conf.d/nginx.conf.template
+    command: >
+      /bin/sh -c "envsubst '$$WEB_PORT $$PROFILE_PORT $$PROFILE_PATH_PREFIX $$AUTH_PORT $$AUTH_PATH_PREFIX $$NGINX_PORT $$NGINX_HOST'
+      < /etc/nginx/conf.d/nginx.conf.template
+      > /etc/nginx/conf.d/default.conf
+      && nginx -g 'daemon off;'"
+    depends_on:
+      web:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      profile-service:
+        condition: service_healthy
+      catalog-service:
+        condition: service_healthy
+      notification-service:
+        condition: service_healthy
+    networks:
+      - monorepo-network
+    restart: unless-stopped

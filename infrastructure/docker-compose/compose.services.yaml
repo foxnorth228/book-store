@@ -37,8 +37,6 @@ services:
       JWT_ACCESS_TOKEN_PRIVATE_KEY: ${AUTH_JWT_ACCESS_TOKEN_SECRET}
       JWT_ACCESS_TOKEN_EXPIRES_IN: ${AUTH_JWT_ACCESS_TOKEN_EXPIRES_IN}
       JWT_REFRESH_TOKEN_EXPIRES_IN: ${AUTH_JWT_REFRESH_TOKEN_EXPIRES_IN}
-    ports:
-      - "${AUTH_PORT}:${AUTH_PORT}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -75,8 +73,6 @@ services:
       PORT: ${PROFILE_PORT}
       PATH_PREFIX: ${PROFILE_PATH_PREFIX}
       DB_NAME: ${PROFILE_DB_NAME}
-    ports:
-      - "${PROFILE_PORT}:${PROFILE_PORT}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -113,8 +109,6 @@ services:
       PORT: ${CATALOG_PORT}
       PATH_PREFIX: ${CATALOG_PATH_PREFIX}
       DB_NAME: ${CATALOG_DB_NAME}
-    ports:
-      - "${CATALOG_PORT}:${CATALOG_PORT}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -153,11 +147,7 @@ services:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}
       SMTP_FROM: "user@example.com"
-    ports:
-      - "${NOTIFICATION_PORT}:${NOTIFICATION_PORT}"
     depends_on:
-      postgres:
-        condition: service_healthy
       rabbitmq:
         condition: service_healthy
       redis:
