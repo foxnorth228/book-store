@@ -1,0 +1,41 @@
+name: Deploy production
+
+on:
+  push:
+    branches:
+    - prod
+
+  workflow_dispatch:
+
+
+jobs:
+  deploy:
+    name: Deploy to Hetzner
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+
+    concurrency:
+      group: production
+      cancel-in-progress: true
+
+    steps:
+    - name: Deploy
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.PROD_HOST }}
+        username: ${{ secrets.PROD_USER }}
+        key: ${{ secrets.PROD_SSH_KEY }}
+        script: |
+          set -e
+
+          cd /home/deploy/book-store
+
+          git fetch origin prod
+          git reset --hard origin/prod
+
+          pnpm run compose:prod:build
+          pnpm run compose:prod:up -d
+
+          pnpm run compose:prod:ps
