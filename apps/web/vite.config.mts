@@ -4,11 +4,7 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import svgr from "vite-plugin-svgr";
 
-import { loadLocalDevClientEnv } from "@org/shared";
-
 export default defineConfig(() => {
-  const env = loadLocalDevClientEnv(__dirname);
-
   return {
     root: import.meta.dirname,
     cacheDir: "../../node_modules/.vite/apps/web",
@@ -17,12 +13,12 @@ export default defineConfig(() => {
       host: "localhost",
       proxy: {
         "/api/auth": {
-          target: `http://localhost:${env.AUTH_PORT}`,
+          target: `http://localhost:3001`,
           changeOrigin: true,
         },
 
         "/api/profile": {
-          target: `http://localhost:${env.PROFILE_PORT}`,
+          target: `http://localhost:3002`,
           changeOrigin: true,
         },
       },
