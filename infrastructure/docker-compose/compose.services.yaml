@@ -146,7 +146,9 @@ services:
       PATH_PREFIX: ${NOTIFICATION_PATH_PREFIX}
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}
-      SMTP_FROM: "user@example.com"
+      SMTP_FROM: ${SMTP_FROM}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
     depends_on:
       rabbitmq:
         condition: service_healthy
