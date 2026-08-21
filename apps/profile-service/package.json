@@ -148,6 +148,12 @@
           "generate-pnpm-workspace"
         ]
       },
+      "docker:run": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker run --name apps-profile-service -p 3002:3002 --env-file {projectRoot}/.env apps-profile-service"
+        }
+      },
       "global:prisma:generate": {
         "executor": "nx:run-commands",
         "options": {

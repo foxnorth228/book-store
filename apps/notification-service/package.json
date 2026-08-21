@@ -4,7 +4,10 @@
   "private": true,
   "dependencies": {
     "@fastify/autoload": "catalog:",
+    "@fastify/jwt": "catalog:",
     "@fastify/sensible": "catalog:",
+    "@fastify/swagger": "catalog:",
+    "@fastify/swagger-ui": "catalog:",
     "@org/contracts": "workspace:*",
     "@org/fastify": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
@@ -15,7 +18,8 @@
     "handlebars": "catalog:notification-service",
     "mjml": "catalog:notification-service",
     "nodemailer": "catalog:notification-service",
-    "pino": "catalog:"
+    "pino": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@types/mjml": "catalog:notification-service",
@@ -132,11 +136,18 @@
         }
       },
       "docker:build": {
+        "command": "docker build apps/notification-service --tag apps-notification-service",
         "dependsOn": [
           "build",
           "prune",
           "generate-pnpm-workspace"
         ]
+      },
+      "docker:run": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker run --name apps-notification-service -p 3004:3004 --env-file {projectRoot}/.env apps-notification-service"
+        }
       }
     }
   }

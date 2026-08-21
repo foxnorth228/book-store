@@ -34,7 +34,7 @@ services:
       PORT: ${AUTH_PORT}
       PATH_PREFIX: ${AUTH_PATH_PREFIX}
       DB_NAME: ${AUTH_DB_NAME}
-      JWT_ACCESS_TOKEN_SECRET: ${AUTH_JWT_ACCESS_TOKEN_SECRET}
+      JWT_ACCESS_TOKEN_PRIVATE_KEY: ${AUTH_JWT_ACCESS_TOKEN_SECRET}
       JWT_ACCESS_TOKEN_EXPIRES_IN: ${AUTH_JWT_ACCESS_TOKEN_EXPIRES_IN}
       JWT_REFRESH_TOKEN_EXPIRES_IN: ${AUTH_JWT_REFRESH_TOKEN_EXPIRES_IN}
     ports:
@@ -146,11 +146,13 @@ services:
       args:
         NODE_ENV: ${NODE_ENV}
     environment:
-      <<: [*common-environment, *database-environment, *rabbitmq-environment, *redis-environment]
+      <<: [*common-environment, *rabbitmq-environment, *redis-environment]
       HOST: ${NOTIFICATION_HOST}
       PORT: ${NOTIFICATION_PORT}
       PATH_PREFIX: ${NOTIFICATION_PATH_PREFIX}
-      DB_NAME: ${NOTIFICATION_DB_NAME}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_FROM: "user@example.com"
     ports:
       - "${NOTIFICATION_PORT}:${NOTIFICATION_PORT}"
     depends_on:

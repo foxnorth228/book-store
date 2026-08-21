@@ -22,7 +22,7 @@ WORKDIR /app
 
 COPY dist .
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i -r
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store,sharing=locked pnpm i -r
 
 
 CMD ["sh", "-c", "node server.js"]

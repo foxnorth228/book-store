@@ -24,7 +24,7 @@ COPY dist .
 COPY prisma ./prisma
 COPY prisma.config.ts .
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i -r
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store,sharing=locked pnpm i -r
 
 RUN pnpm prisma:generate
 
