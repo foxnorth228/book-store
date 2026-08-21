@@ -7,6 +7,9 @@ export const notificationServiceEnvSchema = z.object({
   SMTP_HOST: z.string(),
   SMTP_PORT: z.coerce.number(),
   SMTP_FROM: z.string(),
+  SMTP_SECURE: z.coerce.boolean().default(false),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
 });
 
 export type NotificationServiceEnvSchema = typeof notificationServiceEnvSchema;

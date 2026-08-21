@@ -18,9 +18,13 @@ export class EmailsService extends BaseService<EmailsRepository> {
   constructor(app: FastifyInstance) {
     super(app);
     this.transporter = createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: false,
+      host: app.config.env.SMTP_HOST,
+      port: Number(app.config.env.SMTP_PORT),
+      secure: app.config.env.SMTP_SECURE,
+      auth: {
+        user: app.config.env.SMTP_USER,
+        pass: app.config.env.SMTP_PASS,
+      },
     });
   }
 
