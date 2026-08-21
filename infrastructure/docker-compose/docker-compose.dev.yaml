@@ -69,16 +69,20 @@ services:
       - "${NGINX_PORT}:${NGINX_PORT}"
     environment:
       WEB_PORT: ${WEB_PORT}
-      PROFILE_PORT: ${PROFILE_PORT}
-      PROFILE_PATH_PREFIX: ${PROFILE_PATH_PREFIX}
       AUTH_PORT: ${AUTH_PORT}
       AUTH_PATH_PREFIX: ${AUTH_PATH_PREFIX}
+      PROFILE_PORT: ${PROFILE_PORT}
+      PROFILE_PATH_PREFIX: ${PROFILE_PATH_PREFIX}
+      CATALOG_PORT: ${CATALOG_PORT}
+      CATALOG_PATH_PREFIX: ${CATALOG_PATH_PREFIX}
+      NOTIFICATION_PORT: ${NOTIFICATION_PORT}
+      NOTIFICATION_PATH_PREFIX: ${NOTIFICATION_PATH_PREFIX}
       NGINX_HOST: ${NGINX_HOST}
       NGINX_PORT: ${NGINX_PORT}
     volumes:
       - ./nginx.conf.template:/etc/nginx/conf.d/nginx.conf.template
     command: >
-      /bin/sh -c "envsubst '$$WEB_PORT $$PROFILE_PORT $$PROFILE_PATH_PREFIX $$AUTH_PORT $$AUTH_PATH_PREFIX $$NGINX_PORT $$NGINX_HOST'
+      /bin/sh -c "envsubst '$$WEB_PORT $$AUTH_PORT $$AUTH_PATH_PREFIX $$PROFILE_PORT $$PROFILE_PATH_PREFIX $$CATALOG_PORT $$CATALOG_PATH_PREFIX $$NOTIFICATION_PORT $$NOTIFICATION_PATH_PREFIX $$NGINX_PORT $$NGINX_HOST'
       < /etc/nginx/conf.d/nginx.conf.template
       > /etc/nginx/conf.d/default.conf
       && nginx -g 'daemon off;'"
