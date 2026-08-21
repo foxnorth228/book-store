@@ -15,7 +15,7 @@ export const AccountMenu: FC<AccountMenuProps> = () => {
   return (
     <DropdownMenu.Trigger>
       <Button className="bg-header text-header-foreground hover:text-header-foreground/80">
-        {profile?.nickname ?? "Profile"}
+        {profile?.nickname || "Profile"}
       </Button>
       <DropdownMenu>
         <DropdownMenu.Item
