@@ -10,13 +10,13 @@ export const Router = () => {
       <Route element={<PublicRoute />}>
         <Route element={<DefaultLayout />}>
           {Object.entries(routes.auth).map(([key, element]) => (
-            <Route path={key} element={element} />
+            <Route key={key} path={key} element={element} />
           ))}
         </Route>
       </Route>
       <Route element={<DefaultLayout />}>
         {Object.entries(routes.public).map(([key, element]) => (
-          <Route path={key} element={element} />
+          <Route key={key} path={key} element={element} />
         ))}
       </Route>
       <Route path="/*" element={<Navigate to={PublicRoutes.Homepage} />} />

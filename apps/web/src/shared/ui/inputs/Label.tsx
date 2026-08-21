@@ -16,7 +16,7 @@ function Label({ className, htmlFor, slot, ...props }: LabelProps) {
   );
 
   if (htmlFor && slot === undefined) {
-    return <LabelContext.Provider value={null}>{label}</LabelContext.Provider>;
+    return <LabelContext value={null}>{label}</LabelContext>;
   }
 
   return label;

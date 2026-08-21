@@ -1,0 +1,13 @@
+include:
+  - ./compose.infrastructure.yaml
+  - ./compose.services.yaml
+  - ./compose.web.yaml
+
+networks:
+  monorepo-network:
+    driver: bridge
+
+volumes:
+  rift_hub_pg:
+  rabbitmq_data:
+  redis_data:

@@ -1,11 +1,11 @@
-import { envServerSchema } from "@org/shared";
+import { loadServerEnv } from "@org/shared";
 import ms, { StringValue } from "ms";
 import { z } from "zod";
 
 export const PATH_TO_PROJECT = "apps/auth-service";
 export const DATABASE_PATH_NAME = "prisma";
 
-export const authServiceEnvSchema = envServerSchema.extend({
+export const authServiceEnvSchema = z.object({
   GRPC_SERVER_HOST: z.coerce.string().default("0.0.0.0"),
   GRPC_SERVER_PORT: z.coerce.number().default(50051),
 
@@ -29,3 +29,9 @@ export const authServiceEnvSchema = envServerSchema.extend({
 
 export type AuthServiceEnvSchema = typeof authServiceEnvSchema;
 export type AuthServiceEnvConfig = z.infer<AuthServiceEnvSchema>;
+
+export const serviceEnvConfig = loadServerEnv(authServiceEnvSchema, PATH_TO_PROJECT, {
+  sources: ["service", "postgres", "rabbitmq", "redis", "jwt", "cookie"],
+});
+
+export type ServiceEnvConfig = typeof serviceEnvConfig;
