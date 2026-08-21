@@ -12,6 +12,7 @@
     "compose:prod:down": "docker compose -f infrastructure/docker-compose/docker-compose.prod.yaml --env-file infrastructure/docker-compose/.env.production down",
     "compose:prod:prepare": "pnpm i && pnpm web:build && nx prune profile-service && nx prune auth-service && nx prune catalog-service && nx prune notification-service",
     "compose:prod:up": "docker compose -f infrastructure/docker-compose/docker-compose.prod.yaml --env-file infrastructure/docker-compose/.env.production up",
+    "compose:prod:ps": "docker compose -f infrastructure/docker-compose/docker-compose.prod.yaml --env-file infrastructure/docker-compose/.env.production ps",
     "infra:down": "docker stop rift-hub-mailpit rift-hub-redis rift-hub-rabbitmq rift-hub-postgres",
     "infra:remove": "docker container remove rift-hub-mailpit rift-hub-redis rift-hub-rabbitmq rift-hub-postgres",
     "infra:up": "pnpm postgres:up && pnpm rabbitmq:up && pnpm redis:up && pnpm mailpit:up",
