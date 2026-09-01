@@ -1,4 +1,5 @@
 import styles from "./page.module.css";
+import { Button } from "@org/ui";
 
 export default function Index() {
   /*
@@ -15,6 +16,7 @@ export default function Index() {
               <span> Hello there, </span>
               Welcome web-store 👋
             </h1>
+            <Button>CRINGE</Button>
           </div>
 
           <div id="hero" className="rounded">

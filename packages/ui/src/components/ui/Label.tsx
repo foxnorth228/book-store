@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "#lib/utils";
 import { Label as LabelPrimitive, LabelContext, type LabelProps } from "react-aria-components";
 

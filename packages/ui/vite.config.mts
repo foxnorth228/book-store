@@ -39,7 +39,9 @@ export default defineConfig(() => ({
         esmExternalRequirePlugin({ external: ["react", "react-dom", "react/jsx-runtime"] }),
       ],
       output: {
-        esModule: true,
+        preserveModules: true,
+        preserveModulesRoot: "src",
+        entryFileNames: "[name].js",
       },
     },
   },

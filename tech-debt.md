@@ -1,0 +1,2 @@
+- добавить больше плагинов/настроек для api-gateway (cors, csrf, rate-limit и т.д.)
+- развить storybook в packages/ui

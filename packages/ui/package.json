@@ -2,6 +2,7 @@
   "name": "@org/ui",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "imports": {
     "#lib/*": "./src/lib/*",
     "#components/*": "./src/components/*"
@@ -10,12 +11,13 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
-    }
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles/libs.css": "./dist/styles/libs.css"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@fontsource-variable/figtree": "catalog:shadcn",

@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "#lib/utils";
 import { Label } from "#components/ui/Label";
 import { Separator } from "#components/ui/Separator";

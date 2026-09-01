@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "#lib/utils";
 import { InputGroup } from "./InputGroup";
 import { CheckIcon, ChevronDownIcon, SearchIcon } from "lucide-react";
