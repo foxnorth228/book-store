@@ -1,7 +1,6 @@
-import { Field } from "@shared/ui";
+import { cn, Field } from "@org/ui";
 import { Controller, FieldValues, useFormContext } from "react-hook-form";
 
-import { cn } from "../styles";
 import { RHFFormFieldProps } from "./RHFForm.type";
 
 export function RHFFormField<T extends FieldValues>({

@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useResetPasswordStore } from "@modules/auth/model/use-reset-password-store";
 import { authContracts, VerificationRequestOtpCodeReq } from "@org/contracts";
 import { createZodErrorMap, handleError, RHFForm, RHFFormField } from "@shared/lib";
-import { Input } from "@shared/ui";
+import { Input } from "@org/ui";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 

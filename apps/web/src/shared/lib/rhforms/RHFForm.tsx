@@ -1,4 +1,4 @@
-import { cn } from "@shared/lib";
+import { cn } from "@org/ui";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 
 import { RHFFormProps } from "./RHFForm.type";

@@ -1,9 +1,9 @@
-import { Button } from "@shared/ui";
+import { Button } from "@org/ui";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Input } from "./Input";
+import { Input } from "../../../../../../packages/ui/src/components/ui/Input";
 
 export function PasswordInput({ ...props }: React.ComponentProps<typeof Input>) {
   const { t } = useTranslation();

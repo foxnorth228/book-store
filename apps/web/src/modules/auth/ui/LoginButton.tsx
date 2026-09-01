@@ -1,6 +1,5 @@
-import { cn } from "@shared/lib";
+import { cn, Button } from "@org/ui";
 import { BaseComponentProps } from "@shared/types";
-import { Button } from "@shared/ui";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 

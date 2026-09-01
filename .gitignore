@@ -54,3 +54,9 @@ test-output
 infrastructure/rsa-keys
 
 infrastructure/**/.env.*
+
+# Next.js
+.next
+out
+
+storybook-static

@@ -1,7 +1,7 @@
 import "./theme/theme.css";
 import "./i18n/config/config";
 
-import { Toaster } from "@shared/ui";
+import { Toaster } from "@org/ui";
 import { StrictMode } from "react";
 import { BrowserRouter } from "react-router";
 

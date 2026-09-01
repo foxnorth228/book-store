@@ -8,7 +8,7 @@ import {
   VerificationVerifyOtpCodeReq,
 } from "@org/contracts";
 import { handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
-import { InputOtp } from "@shared/ui";
+import { InputOtp } from "@org/ui";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, useNavigate } from "react-router";

@@ -1,4 +1,4 @@
-import { Dialog } from "@shared/ui";
+import { Dialog } from "@org/ui";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 

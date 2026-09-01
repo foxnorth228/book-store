@@ -1,0 +1,37 @@
+{
+  "name": "@org/ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#lib/*": "./src/lib/*",
+    "#components/*": "./src/components/*"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles/libs.css": "./dist/styles/libs.css"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@fontsource-variable/figtree": "catalog:shadcn",
+    "@tailwindcss/vite": "catalog:web",
+    "class-variance-authority": "catalog:shadcn",
+    "clsx": "catalog:web",
+    "input-otp": "catalog:shadcn",
+    "lucide-react": "catalog:react",
+    "next-themes": "catalog:shadcn",
+    "react-aria-components": "catalog:shadcn",
+    "shadcn": "catalog:shadcn",
+    "sonner": "catalog:shadcn",
+    "tailwind-merge": "catalog:web",
+    "tailwindcss": "catalog:web",
+    "tw-animate-css": "catalog:shadcn"
+  }
+}

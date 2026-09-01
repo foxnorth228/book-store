@@ -1,5 +1,5 @@
 import { ErrorCode } from "@org/errors";
-import { toast } from "sonner";
+import { toast } from "@org/ui";
 
 import { isAppError, isError, isHttpError } from "./errors-comparison";
 

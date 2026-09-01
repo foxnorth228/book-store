@@ -3,13 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { authContracts, AuthErrorCodes, AuthRegisterReq } from "@org/contracts";
 import { Languages } from "@org/localization";
 import { handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
-import { Input, PasswordInput, Select } from "@shared/ui";
+import { PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AuthApi } from "../../api/auth.api";
 import { Description, Footer, FooterButtonLink, FormError, SubmitButton } from "../form-components";
 import { createRegisterFormZodErrorsMapper } from "./utils";
+import { Input, Select } from "@org/ui";
 
 interface RegisterFormProps {
   onLogin: () => void;
