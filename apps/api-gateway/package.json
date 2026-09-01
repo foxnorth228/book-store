@@ -1,60 +1,44 @@
 {
-  "name": "@org/profile-service",
+  "name": "@org/api-gateway",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "prisma:deploy": "prisma migrate deploy",
-    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma"
-  },
   "dependencies": {
     "@fastify/autoload": "catalog:",
+    "@fastify/cookie": "catalog:",
     "@fastify/sensible": "catalog:",
     "@fastify/swagger": "catalog:",
     "@fastify/swagger-ui": "catalog:",
-    "@grpc/grpc-js": "catalog:",
-    "@org/contracts": "workspace:*",
+    "@fastify/http-proxy": "catalog:",
     "@org/fastify": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
-    "@org/grpc": "workspace:*",
-    "@org/localization": "workspace:*",
-    "@org/rabbitmq": "workspace:*",
     "@org/shared": "workspace:*",
-    "@prisma/adapter-pg": "catalog:",
-    "@prisma/client": "catalog:",
     "fastify": "catalog:",
     "fastify-plugin": "catalog:",
-    "pg": "catalog:",
     "pino": "catalog:",
     "zod": "catalog:"
   },
-  "devDependencies": {
-    "@types/pg": "catalog:",
-    "prisma": "catalog:"
-  },
   "nx": {
+    "name": "api-gateway",
     "targets": {
       "build": {
         "executor": "@nx/esbuild:esbuild",
-        "inputs": [
-          "default",
-          "!{projectRoot}/prisma/**"
-        ],
         "outputs": [
           "{options.outputPath}"
         ],
         "defaultConfiguration": "production",
         "options": {
           "platform": "node",
-          "outputPath": "apps/profile-service/dist",
+          "outputPath": "apps/api-gateway/dist",
           "format": [
             "cjs"
           ],
           "bundle": false,
-          "main": "apps/profile-service/src/server.ts",
-          "tsConfig": "apps/profile-service/tsconfig.app.json",
+          "main": "apps/api-gateway/src/server.ts",
+          "tsConfig": "apps/api-gateway/tsconfig.app.json",
           "assets": [
-            "apps/profile-service/src/assets"
+            "apps/api-gateway/src/assets"
           ],
+          "generatePackageJson": true,
           "esbuildOptions": {
             "sourcemap": true,
             "outExtension": {
@@ -82,8 +66,8 @@
         "cache": true,
         "executor": "@nx/js:prune-lockfile",
         "outputs": [
-          "{workspaceRoot}/apps/profile-service/dist/package.json",
-          "{workspaceRoot}/apps/profile-service/dist/pnpm-lock.yaml"
+          "{workspaceRoot}/apps/api-gateway/dist/package.json",
+          "{workspaceRoot}/apps/api-gateway/dist/pnpm-lock.yaml"
         ],
         "options": {
           "buildTarget": "build"
@@ -95,7 +79,7 @@
         ],
         "cache": true,
         "outputs": [
-          "{workspaceRoot}/apps/profile-service/dist/workspace_modules"
+          "{workspaceRoot}/apps/api-gateway/dist/workspace_modules"
         ],
         "executor": "@nx/js:copy-workspace-modules",
         "options": {
@@ -128,20 +112,20 @@
           "build"
         ],
         "options": {
-          "buildTarget": "@org/profile-service:build",
+          "buildTarget": "api-gateway:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "@org/profile-service:build:development"
+            "buildTarget": "api-gateway:build:development"
           },
           "production": {
-            "buildTarget": "@org/profile-service:build:production"
+            "buildTarget": "api-gateway:build:production"
           }
         }
       },
       "docker:build": {
-        "command": "docker build apps/profile-service --tag apps-profile-service",
+        "command": "docker build apps/api-gateway --tag apps-api-gateway",
         "dependsOn": [
           "build",
           "prune",
@@ -151,28 +135,7 @@
       "docker:run": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "docker run --name apps-profile-service -p 3002:3002 --env-file {projectRoot}/.env apps-profile-service"
-        }
-      },
-      "global:prisma:generate": {
-        "executor": "nx:run-commands",
-        "options": {
-          "cwd": "{workspaceRoot}",
-          "command": "prisma generate --schema=apps/profile-service/prisma/schema.prisma"
-        }
-      },
-      "global:prisma:migrate:dev": {
-        "executor": "nx:run-commands",
-        "options": {
-          "cwd": "{workspaceRoot}",
-          "command": "prisma migrate dev --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts"
-        }
-      },
-      "global:prisma:migrate:reset": {
-        "executor": "nx:run-commands",
-        "options": {
-          "cwd": "{workspaceRoot}",
-          "command": "prisma migrate reset --schema=apps/profile-service/prisma/schema.prisma --config=apps/profile-service/prisma.config.ts --force"
+          "command": "docker run --name apps-api-gateway -p 3000:3000 --env-file {projectRoot}/.env apps-api-gateway"
         }
       }
     }
