@@ -52,6 +52,9 @@
     },
     {
       "path": "./infrastructure/custom-generators"
+    },
+    {
+      "path": "./apps/api-gateway"
     }
   ]
 }

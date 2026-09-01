@@ -28,6 +28,7 @@
     "@bufbuild/protobuf": "catalog:",
     "@fastify/autoload": "catalog:",
     "@fastify/cookie": "catalog:",
+    "@fastify/http-proxy": "catalog:",
     "@fastify/jwt": "catalog:",
     "@fastify/sensible": "catalog:",
     "@fastify/swagger": "catalog:",

@@ -1,3 +1,4 @@
+import { SERVICES_ROUTES } from "@app/routing";
 import {
   authContracts,
   AuthLoginReq,
@@ -13,7 +14,7 @@ import {
 import { HttpClient } from "@org/http";
 
 export const AuthApi = {
-  httpClient: new HttpClient({ baseUrl: import.meta.env.VITE_AUTH_SERVICE_PREFIX }),
+  httpClient: new HttpClient({ baseUrl: SERVICES_ROUTES.AUTH }),
   login(data: AuthLoginReq) {
     return this.httpClient.post<AuthLoginRes>(authContracts.login.path, data);
   },
