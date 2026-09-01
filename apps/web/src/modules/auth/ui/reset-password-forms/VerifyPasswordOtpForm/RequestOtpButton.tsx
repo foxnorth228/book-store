@@ -2,7 +2,7 @@ import { authContractConfig, AuthErrorCodes } from "@org/contracts";
 import { handleError, isHttpAppError } from "@shared/lib";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
+import { toast } from "@org/ui";
 
 import { AuthApi } from "../../../api/auth.api";
 import { FooterButtonLink } from "../../form-components";

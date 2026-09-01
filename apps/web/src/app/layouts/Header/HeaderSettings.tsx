@@ -1,5 +1,5 @@
 import { Languages, languageSchema } from "@org/localization";
-import { Button, DropdownMenu } from "@shared/ui";
+import { Button, DropdownMenu } from "@org/ui";
 import { Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
 

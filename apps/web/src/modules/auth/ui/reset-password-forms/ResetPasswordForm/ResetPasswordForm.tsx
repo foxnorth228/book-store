@@ -7,7 +7,7 @@ import { PasswordInput } from "@shared/ui";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, useNavigate } from "react-router";
-import { toast } from "sonner";
+import { toast } from "@org/ui";
 
 import { useResetPasswordStore } from "../../../model/use-reset-password-store";
 import { BackButton, Description, SubmitButton, Title } from "../../form-components";

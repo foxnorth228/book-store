@@ -1,4 +1,4 @@
-import { cn } from "@shared/lib/styles";
+import { cn } from "@org/ui";
 import type { AnchorHTMLAttributes, FC, PropsWithChildren } from "react";
 import { Link as RouterLink } from "react-router";
 

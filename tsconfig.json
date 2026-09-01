@@ -52,6 +52,12 @@
     },
     {
       "path": "./apps/api-gateway"
+    },
+    {
+      "path": "./apps/web-store"
+    },
+    {
+      "path": "./packages/ui"
     }
   ]
 }

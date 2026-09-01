@@ -122,7 +122,7 @@
     "prisma": "catalog:back",
     "protobufjs": "^8.6.4",
     "protolint": "^0.56.4",
-    "shadcn": "catalog:web",
+    "shadcn": "catalog:shadcn",
     "tailwindcss": "catalog:web",
     "ts-proto": "^2.11.8",
     "tslib": "catalog:",

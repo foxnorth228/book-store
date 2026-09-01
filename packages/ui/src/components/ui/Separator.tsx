@@ -1,4 +1,4 @@
-import { cn } from "@shared/lib";
+import { cn } from "#lib/utils";
 import { Separator as SeparatorPrimitive } from "react-aria-components";
 
 function Separator({

@@ -1,4 +1,4 @@
-import { cn } from "@shared/lib";
+import { cn } from "#lib/utils";
 import { Label as LabelPrimitive, LabelContext, type LabelProps } from "react-aria-components";
 
 function Label({ className, htmlFor, slot, ...props }: LabelProps) {

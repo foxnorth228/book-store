@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@shared/lib";
-import { Button } from "@shared/ui";
+import { cn } from "#lib/utils";
+import { Button } from "#components/ui/Button";
 import { XIcon } from "lucide-react";
 import * as React from "react";
 import {

@@ -1,5 +1,6 @@
-import { cn } from "@shared/lib";
-import { Label, Separator } from "@shared/ui";
+import { cn } from "#lib/utils";
+import { Label } from "#components/ui/Label";
+import { Separator } from "#components/ui/Separator";
 import { cva, type VariantProps } from "class-variance-authority";
 import { useMemo } from "react";
 

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authContracts, AuthErrorCodes, AuthLoginReq } from "@org/contracts";
 import { createZodErrorMap, handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
-import { Input, PasswordInput } from "@shared/ui";
+import { PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -14,6 +14,7 @@ import {
   FormError,
   SubmitButton,
 } from "./form-components";
+import { Input } from "@org/ui";
 
 interface LoginFormProps {
   onRegister: () => void;

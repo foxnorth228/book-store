@@ -1,6 +1,6 @@
-import { cn } from "@shared/lib";
+import { cn, Button } from "@org/ui";
 import { BaseComponentProps } from "@shared/types";
-import { Button, Link } from "@shared/ui";
+import { Link } from "@shared/ui";
 import { ComponentProps, FC } from "react";
 
 export const Form: FC<BaseComponentProps> = ({ children, className, ...props }) => {

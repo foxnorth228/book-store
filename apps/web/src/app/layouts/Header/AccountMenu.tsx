@@ -1,7 +1,7 @@
 import { signOut } from "@modules/auth";
 import { useProfileStore } from "@modules/profile";
 import { BaseComponentProps } from "@shared/types";
-import { Button, DropdownMenu } from "@shared/ui";
+import { Button, DropdownMenu } from "@org/ui";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 

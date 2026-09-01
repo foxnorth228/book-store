@@ -1,4 +1,4 @@
-import { cn } from "@shared/lib";
+import { cn } from "#lib/utils";
 import { cva } from "class-variance-authority";
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
 import * as React from "react";

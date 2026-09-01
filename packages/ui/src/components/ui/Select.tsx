@@ -1,5 +1,5 @@
-import { cn } from "@shared/lib";
-import { InputGroup } from "@shared/ui/inputs/InputGroup";
+import { cn } from "#lib/utils";
+import { InputGroup } from "./InputGroup";
 import { CheckIcon, ChevronDownIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
 import {

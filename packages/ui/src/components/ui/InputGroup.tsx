@@ -1,5 +1,7 @@
-import { cn } from "@shared/lib";
-import { Button, Input, Textarea } from "@shared/ui";
+import { cn } from "#lib/utils";
+import { Button } from "#components/ui/Button";
+import { Input } from "#components/ui/Input";
+import { Textarea } from "#components/ui/Textarea";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { Group, type GroupProps } from "react-aria-components";

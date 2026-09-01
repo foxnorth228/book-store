@@ -1,4 +1,4 @@
-import { cn } from "@shared/lib";
+import { cn } from "#lib/utils";
 import * as React from "react";
 import { composeRenderProps, TextArea as TextareaPrimitive } from "react-aria-components";
 
