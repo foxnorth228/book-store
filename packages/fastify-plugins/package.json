@@ -16,12 +16,12 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@fastify/jwt": "catalog:",
+    "@fastify/jwt": "catalog:fastify",
     "@org/contracts": "workspace:*",
     "@org/errors": "workspace:*",
-    "fastify": "catalog:",
-    "fastify-plugin": "catalog:",
-    "redis": "catalog:",
+    "fastify": "catalog:fastify",
+    "fastify-plugin": "catalog:fastify",
+    "redis": "catalog:back",
     "tslib": "catalog:"
   }
 }

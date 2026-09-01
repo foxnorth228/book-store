@@ -12,9 +12,6 @@
       "path": "./packages/contracts"
     },
     {
-      "path": "./apps/web-e2e"
-    },
-    {
       "path": "./apps/web"
     },
     {

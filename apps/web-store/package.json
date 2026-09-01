@@ -1,0 +1,13 @@
+{
+  "name": "@org/web-store",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "next": "catalog:react",
+    "react": "catalog:react",
+    "react-dom": "catalog:react"
+  },
+  "nx": {
+    "name": "web-store"
+  }
+}
