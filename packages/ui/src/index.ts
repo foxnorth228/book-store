@@ -1,4 +1,5 @@
 export * from "./lib/utils";
+export * from "./icons";
 export { Button } from "./components/ui/Button";
 export { DropdownMenu } from "./components/ui/DropdownMenu";
 export { Dialog } from "./components/ui/Dialog";

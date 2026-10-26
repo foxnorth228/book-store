@@ -1,5 +1,6 @@
 /// <reference types='vitest' />
 import { defineConfig, esmExternalRequirePlugin } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import * as path from "path";
@@ -9,6 +10,7 @@ export default defineConfig(() => ({
   cacheDir: "../../node_modules/.vite/packages/ui",
   plugins: [
     react(),
+    tailwindcss(),
     dts({
       entryRoot: "src",
       tsconfigPath: path.join(import.meta.dirname, "tsconfig.lib.json"),
@@ -25,13 +27,16 @@ export default defineConfig(() => ({
     outDir: "dist",
     emptyOutDir: true,
     reportCompressedSize: true,
+    cssCodeSplit: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     lib: {
-      entry: "src/index.ts",
+      entry: {
+        index: "src/index.ts",
+        "styles/libs": "src/styles/libs.css",
+      },
       name: "ui",
-      fileName: "index",
       formats: ["es" as const],
     },
     rolldownOptions: {

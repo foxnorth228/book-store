@@ -12,9 +12,6 @@
       "path": "./packages/contracts"
     },
     {
-      "path": "./apps/web"
-    },
-    {
       "path": "./apps/auth-service"
     },
     {
@@ -58,6 +55,9 @@
     },
     {
       "path": "./packages/ui"
+    },
+    {
+      "path": "./apps/web-admin"
     }
   ]
 }

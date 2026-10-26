@@ -15,7 +15,14 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "plugins": [{ "name": "next" }]
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@next/app/*": ["./app/*"],
+      "@app/*": ["./src/_app/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@pages/*": ["./src/_pages/*"],
+      "@shared/*": ["./src/shared/*"]
+    }
   },
   "include": [
     "**/*.ts",
@@ -29,5 +36,28 @@
     "index.d.ts",
     "next-env.d.ts"
   ],
-  "exclude": ["node_modules", "jest.config.ts", "jest.config.cts", "**/*.spec.ts", "**/*.test.ts"]
+  "exclude": ["node_modules", "jest.config.ts", "jest.config.cts", "**/*.spec.ts", "**/*.test.ts"],
+  "references": [
+    {
+      "path": "../../packages/ui"
+    },
+    {
+      "path": "../../packages/shared"
+    },
+    {
+      "path": "../../packages/localization"
+    },
+    {
+      "path": "../../packages/http"
+    },
+    {
+      "path": "../../packages/errors"
+    },
+    {
+      "path": "../../packages/contracts"
+    },
+    {
+      "path": "../../packages/access-control"
+    }
+  ]
 }
