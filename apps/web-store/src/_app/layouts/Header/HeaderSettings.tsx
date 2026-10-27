@@ -2,16 +2,17 @@
 
 import { Languages, languageSchema } from "@org/localization";
 import { Button, DropdownMenu, SettingsIcon } from "@org/ui";
-import { useTranslation } from "react-i18next";
+import { useLanguageSwitcher } from "@shared/lib/navigation";
 
 import { Themes, themeSchema } from "../../config/theme";
 import { useAppStore } from "../../storage/use-app-store";
+import { useT } from "next-i18next/client";
 
 export const HeaderSettings = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useT();
 
-  const language = useAppStore((s) => s.language);
-  const setLanguage = useAppStore((s) => s.setLanguage);
+  const language = i18n.resolvedLanguage ?? i18n.language;
+  const setLanguage = useLanguageSwitcher();
   const theme = useAppStore((s) => s.theme);
   const setTheme = useAppStore((s) => s.setTheme);
 
