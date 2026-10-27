@@ -21,6 +21,7 @@
     "i18next-browser-languagedetector": "catalog:web",
     "jwt-decode": "catalog:",
     "next": "catalog:react",
+    "next-i18next": "catalog:react",
     "postcss": "catalog:web",
     "react": "catalog:react",
     "react-dom": "catalog:react",
