@@ -438,6 +438,37 @@ Do not repeat the entire implementation in the summary.
 
 If no files were changed, state that clearly.
 
+## Continue Agent Tools
+
+### General Rules
+
+- Use only tools available in the current Continue tool list.
+- Never invent tool names, argument names, or argument values.
+- Follow each tool's declared argument schema exactly.
+- Provide all required arguments with non-empty values.
+- If a tool call fails because of invalid arguments, inspect the error and retry with the correct argument structure.
+- Prefer built-in Continue tools over terminal commands whenever they can accomplish the task.
+- Do not ask the user to execute commands manually when an available tool can perform the operation.
+- Do not claim to have read, searched, or modified files unless the corresponding tool call succeeded.
+
+### File Reading and Repository Exploration
+
+- Use `read_file` to read existing files. Pass the file path through the required `filepath` argument.
+- Use `read_currently_open_file` when the task specifically concerns the file currently open in the IDE.
+- Use `ls` to inspect directory contents.
+- Use `file_glob_search` to locate files by glob patterns.
+- Use `grep_search` to search file contents using regular expressions.
+- Prefer targeted searches and reads over scanning the entire repository.
+- Resolve paths relative to the project workspace unless an absolute path is required.
+
+### Terminal Commands
+
+- Use `run_terminal_command` only when necessary, such as when inspecting command output, running tests, or executing project scripts.
+- Do not use terminal commands to read files when `read_file` is sufficient.
+- Never assume terminal commands are permitted to run automatically; follow the configured tool policy.
+- Do not perform privileged or destructive operations without explicit user authorization.
+- After a failed tool call, do not repeatedly retry the same invalid invocation. Correct the arguments or choose another available tool.
+
 ---
 
 ## Final principle

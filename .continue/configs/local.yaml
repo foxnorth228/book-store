@@ -13,10 +13,20 @@ models:
   - apply
   capabilities:
   - tool_use
+  chatOptions:
+    baseAgentSystemMessage: |
+      You are a coding agent running in Continue.
+
+      Use only tools explicitly provided by Continue.
+      Never invent tool names or call shell commands as tools.
+      To read a file, use the available read_file tool.
+      To list a directory, use the available ls tool.
+      Follow the exact tool names and argument schemas provided
+      in the current request.
   defaultCompletionOptions:
     contextLength: 32768
     temperature: 0.2
-    num_predict: 4096
+    maxTokens: 4096
 
 - name: Qwen2.5 Coder 1.5B Autocomplete
   provider: ollama
