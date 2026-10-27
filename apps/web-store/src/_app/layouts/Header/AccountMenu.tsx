@@ -3,12 +3,12 @@ import { useProfileStore } from "@modules/profile";
 import { BaseComponentProps } from "@shared/types";
 import { Button, DropdownMenu } from "@org/ui";
 import type { FC } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 
 type AccountMenuProps = BaseComponentProps;
 
 export const AccountMenu: FC<AccountMenuProps> = () => {
-  const { t } = useTranslation();
+  const { t } = useT();
 
   const profile = useProfileStore((state) => state.profile);
 

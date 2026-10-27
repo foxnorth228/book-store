@@ -1,4 +1,6 @@
-import { useTranslation } from "react-i18next";
+"use client";
+
+import { useT } from "next-i18next/client";
 
 const languages = [
   {
@@ -12,7 +14,7 @@ const languages = [
 ];
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { i18n } = useT();
 
   const changeLanguage = async (language: string) => {
     await i18n.changeLanguage(language);

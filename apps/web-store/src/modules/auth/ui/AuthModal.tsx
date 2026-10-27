@@ -2,7 +2,7 @@
 
 import { Dialog } from "@org/ui";
 import { FC, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm/RegisterForm";
@@ -16,7 +16,7 @@ interface AuthModalProps {
 }
 
 export const AuthModal: FC<AuthModalProps> = ({ isOpen, onOpenChange, initialMode = "login" }) => {
-  const { t } = useTranslation();
+  const { t } = useT();
   const [mode, setMode] = useState<AuthModalMode>(initialMode);
 
   useEffect(() => {
