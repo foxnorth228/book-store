@@ -1,6 +1,6 @@
 {
   "signIn": "Войти",
-  "signOut": "Sign out",
+  "signOut": "Выйти",
   "loginModal": {
     "title": "Вход",
     "description": "Введите данные своего аккаунта",

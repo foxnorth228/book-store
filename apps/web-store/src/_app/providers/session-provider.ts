@@ -1,3 +1,5 @@
+"use client";
+
 import { restoreSession, useSessionStore } from "@modules/auth";
 import { loadProfile } from "@modules/profile";
 import { FC, PropsWithChildren, useEffect } from "react";
@@ -15,7 +17,9 @@ export const SessionProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [accessToken]);
 
   useEffect(() => {
+    console.log("a");
     restoreSession();
+    return () => console.log("b");
   }, []);
 
   if (!isSessionRestored) {
