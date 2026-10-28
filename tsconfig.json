@@ -12,12 +12,6 @@
       "path": "./packages/contracts"
     },
     {
-      "path": "./apps/web-e2e"
-    },
-    {
-      "path": "./apps/web"
-    },
-    {
       "path": "./apps/auth-service"
     },
     {
@@ -55,6 +49,15 @@
     },
     {
       "path": "./apps/api-gateway"
+    },
+    {
+      "path": "./apps/web-store"
+    },
+    {
+      "path": "./packages/ui"
+    },
+    {
+      "path": "./apps/web-admin"
     }
   ]
 }

@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -15,10 +12,13 @@
       "default": "./dist/index.js"
     }
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "dependencies": {
-    "tslib": "catalog:",
-    "@bufbuild/protobuf": "catalog:",
-    "@grpc/grpc-js": "catalog:"
+    "@bufbuild/protobuf": "catalog:back",
+    "@grpc/grpc-js": "catalog:back",
+    "tslib": "catalog:"
   },
   "nx": {
     "targets": {

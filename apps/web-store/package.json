@@ -1,0 +1,38 @@
+{
+  "name": "@org/web-store",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 4200",
+    "start": "next start -p 4200"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "catalog:web",
+    "@org/access-control": "workspace:*",
+    "@org/contracts": "workspace:*",
+    "@org/errors": "workspace:*",
+    "@org/http": "workspace:*",
+    "@org/localization": "workspace:*",
+    "@org/shared": "workspace:*",
+    "@org/ui": "workspace:*",
+    "@tailwindcss/postcss": "catalog:web",
+    "clsx": "catalog:web",
+    "i18next": "catalog:web",
+    "i18next-browser-languagedetector": "catalog:web",
+    "jwt-decode": "catalog:",
+    "next": "catalog:react",
+    "next-i18next": "catalog:react",
+    "postcss": "catalog:web",
+    "react": "catalog:react",
+    "react-dom": "catalog:react",
+    "react-hook-form": "catalog:react",
+    "react-i18next": "catalog:react",
+    "tailwind-merge": "catalog:web",
+    "tailwindcss": "catalog:web",
+    "zod": "catalog:",
+    "zustand": "catalog:web"
+  },
+  "nx": {
+    "name": "web-store"
+  }
+}

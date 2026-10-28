@@ -1,0 +1,39 @@
+name: Book Store Local
+version: 1.0.0
+schema: v1
+
+models:
+- name: Qwen3 Coder 30B
+  provider: ollama
+  model: qwen3-coder:30b
+  apiBase: http://localhost:11434
+  roles:
+  - chat
+  - edit
+  - apply
+  capabilities:
+  - tool_use
+  chatOptions:
+    baseAgentSystemMessage: |
+      You are a coding agent running in Continue.
+
+      Use only tools explicitly provided by Continue.
+      Never invent tool names or call shell commands as tools.
+      To read a file, use the available read_file tool.
+      To list a directory, use the available ls tool.
+      Follow the exact tool names and argument schemas provided
+      in the current request.
+  defaultCompletionOptions:
+    contextLength: 32768
+    temperature: 0.2
+    maxTokens: 4096
+
+- name: Qwen2.5 Coder 1.5B Autocomplete
+  provider: ollama
+  model: qwen2.5-coder:1.5b-base
+  roles:
+  - autocomplete
+
+rules:
+- name: Book Store Project Rules
+  rule: Follow the project instructions in .continue/rules/project.md. Inspect the repository before making changes, follow existing conventions, and do not invent architecture.

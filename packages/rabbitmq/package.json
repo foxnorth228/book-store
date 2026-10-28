@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "tslib": "catalog:",
-    "amqplib": "catalog:"
+    "amqplib": "catalog:back"
   }
 }
