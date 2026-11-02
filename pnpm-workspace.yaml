@@ -90,6 +90,12 @@ catalogs:
     react-hook-form: "^7.82.0"
     next: "~16.4.3"
     next-i18next: ^16.4.3
+    '@tanstack/react-router': ^1.170.46
+    '@tanstack/react-table': ^9.3.1
+    '@tanstack/react-query': ^5.105.0
+    '@tanstack/react-router-devtools': ^1.167.2
+    '@tanstack/router-plugin': ^1.168.48
+    '@tanstack/react-form': ^1.33.5
   notification-service:
     nodemailer: "^9.0.5"
     handlebars: "^4.7.9"

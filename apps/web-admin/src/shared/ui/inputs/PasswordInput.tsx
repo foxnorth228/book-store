@@ -1,5 +1,4 @@
-import { Button } from "@org/ui";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { Button, EyeIcon, EyeOffIcon } from "@org/ui";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
