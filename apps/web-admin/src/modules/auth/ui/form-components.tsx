@@ -3,20 +3,6 @@ import { BaseComponentProps } from "@shared/types";
 import { Link } from "@shared/ui";
 import { ComponentProps, FC } from "react";
 
-export const Form: FC<BaseComponentProps> = ({ children, className, ...props }) => {
-  return (
-    <form
-      className={cn(
-        "w-full max-w-105 rounded-xl bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)]",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </form>
-  );
-};
-
 export const Title: FC<BaseComponentProps> = ({ children }) => {
   return <h1 className="text-[28px] leading-[1.2] font-semibold">{children}</h1>;
 };
