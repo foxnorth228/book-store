@@ -17,16 +17,13 @@ export default [
     "**/vitest.config.*.timestamp*",
     "**/libs/prisma/**",
   ]),
-
   ...nx.configs["flat/base"],
   ...nx.configs["flat/typescript"],
   ...nx.configs["flat/javascript"],
   js.configs.recommended,
   ...tseslint.configs.recommended,
-
   {
     files: ["**/*.{js,ts}"],
-
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -34,12 +31,10 @@ export default [
         sourceType: "module",
       },
     },
-
     plugins: {
       "simple-import-sort": importSort,
       prettier,
     },
-
     rules: {
       "@nx/enforce-module-boundaries": [
         "error",
@@ -54,11 +49,9 @@ export default [
           ],
         },
       ],
-
       "simple-import-sort/imports": "warn",
       "simple-import-sort/exports": "warn",
       "no-duplicate-imports": "error",
-
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -67,14 +60,15 @@ export default [
           caughtErrorsIgnorePattern: "^_",
         },
       ],
-
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/no-empty-function": "off",
-
       "prettier/prettier": "error",
     },
+  },
+  {
+    ignores: ["**/vitest.config.*.timestamp*"],
   },
 ];

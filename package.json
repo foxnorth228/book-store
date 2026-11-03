@@ -100,7 +100,9 @@
     "@tailwindcss/vite": "catalog:web",
     "@tanstack/router-plugin": "catalog:react",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/jest-dom": "catalog:web-test",
+    "@testing-library/react": "catalog:web-test",
+    "@testing-library/user-event": "catalog:web-test",
     "@types/ms": "^2.1.0",
     "@types/node": "22.19.0",
     "@types/pg": "catalog:back",
@@ -124,7 +126,7 @@
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "husky": "^9.1.7",
     "jiti": "2.4.2",
-    "jsdom": "~22.1.0",
+    "jsdom": "catalog:web-test",
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "23.1.1",
     "postcss": "catalog:web",
@@ -146,6 +148,7 @@
     "vite-plugin-dts": "catalog:web",
     "vite-plugin-static-copy": "catalog:web",
     "vite-plugin-svgr": "catalog:web",
-    "vitest": "catalog:web"
+    "vitest": "catalog:web-test",
+    "vitest-axe": "catalog:web-test"
   }
 }

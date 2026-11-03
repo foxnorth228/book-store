@@ -1,4 +1,5 @@
-/// <reference types='vitest' />
+/// <reference types="vitest" />
+
 import { defineConfig, esmExternalRequirePlugin } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
@@ -8,6 +9,7 @@ import * as path from "path";
 export default defineConfig(() => ({
   root: import.meta.dirname,
   cacheDir: "../../node_modules/.vite/packages/ui",
+
   plugins: [
     react(),
     tailwindcss(),
@@ -17,20 +19,24 @@ export default defineConfig(() => ({
       pathsToAliases: false,
     }),
   ],
+
   resolve: {
     alias: {
       "#lib": path.resolve(__dirname, "./src/lib"),
       "#components": path.resolve(__dirname, "./src/components"),
     },
   },
+
   build: {
     outDir: "dist",
     emptyOutDir: true,
     reportCompressedSize: true,
     cssCodeSplit: true,
+
     commonjsOptions: {
       transformMixedEsModules: true,
     },
+
     lib: {
       entry: {
         index: "src/index.ts",
@@ -39,9 +45,12 @@ export default defineConfig(() => ({
       name: "ui",
       formats: ["es" as const],
     },
+
     rolldownOptions: {
       plugins: [
-        esmExternalRequirePlugin({ external: ["react", "react-dom", "react/jsx-runtime"] }),
+        esmExternalRequirePlugin({
+          external: ["react", "react-dom", "react/jsx-runtime"],
+        }),
       ],
       output: {
         preserveModules: true,
@@ -50,6 +59,7 @@ export default defineConfig(() => ({
       },
     },
   },
+
   test: {
     name: "ui",
     watch: false,
@@ -58,7 +68,7 @@ export default defineConfig(() => ({
     include: ["{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     reporters: ["default"],
     coverage: {
-      reportsDirectory: "dist/coverage",
+      reportsDirectory: "../../coverage/packages/ui",
       provider: "v8" as const,
     },
   },

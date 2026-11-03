@@ -1,4 +1,4 @@
-@import "../../public/styles/libs.css";
+@import "./libs.css";
 
 @custom-variant dark (&:is(.dark *));
 
