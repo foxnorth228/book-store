@@ -3,7 +3,7 @@
 import { authContractConfig, AuthErrorCodes } from "@org/contracts";
 import { handleError, isHttpAppError } from "@shared/lib";
 import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 import { toast } from "@org/ui";
 
 import { AuthApi } from "../../../api/auth.api";
@@ -14,7 +14,7 @@ interface RequestOtpButtonProps {
 }
 
 export function RequestOtpButton({ email }: RequestOtpButtonProps) {
-  const { t } = useTranslation();
+  const { t } = useT();
 
   const requestedEmail = useRef("");
 
