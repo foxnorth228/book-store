@@ -19,7 +19,7 @@ export const authContracts = {
     refresh: {
       method: "POST",
       path: authRoutes.session.refresh,
-      response: authSchemas.login.response,
+      response: authSchemas.session.refresh.response,
     },
     logout: {
       method: "DELETE",
@@ -45,6 +45,24 @@ export const authContracts = {
       path: authRoutes.passwordReset.updatePassword,
       body: authSchemas.passwordReset.updatePassword.body,
       response: authSchemas.passwordReset.updatePassword.response,
+    },
+  },
+  admin: {
+    prefix: authRoutes.admin.$prefix,
+    login: {
+      method: "POST",
+      path: authRoutes.admin.login,
+      body: authSchemas.login.body,
+      response: authSchemas.login.response,
+    },
+    session: {
+      prefix: authRoutes.admin.session.$prefix,
+      refresh: {
+        method: "POST",
+        path: authRoutes.admin.session.refresh,
+        response: authSchemas.admin.session.refresh.response,
+      },
+      logout: { method: "DELETE", path: authRoutes.admin.session.logout },
     },
   },
 };

@@ -1,12 +1,22 @@
-import { authContracts, AuthLoginReq, AuthRegisterReq, zodToJsonSchema } from "@org/contracts";
+import {
+  authContracts,
+  AuthLoginAdminReq,
+  AuthLoginReq,
+  AuthRegisterReq,
+  zodToJsonSchema,
+} from "@org/contracts";
 import { BadRequestError, errorBodySchema } from "@org/errors";
 import { FastifyInstance, FastifyRequest } from "fastify";
 
 import { accountConfig } from "./account.config";
 import { AccountController } from "./account.controller";
+import { AccountAdminController } from "./admin.controller";
 
 export async function accountRoutes(module: FastifyInstance) {
   const accountController = module.getDecorator<AccountController>(accountConfig.controllerName);
+  const accountAdminController = module.getDecorator<AccountAdminController>(
+    accountConfig.controllerAdminName,
+  );
 
   module.route({
     method: authContracts.login.method,
@@ -54,7 +64,7 @@ export async function accountRoutes(module: FastifyInstance) {
     schema: {
       tags: [accountConfig.tags.account],
       response: {
-        200: module.getSchema(accountConfig.schemas.loginRes),
+        200: module.getSchema(accountConfig.schemas.sessionRefreshRes),
       },
     },
     handler: async (request, reply) => {
@@ -72,6 +82,47 @@ export async function accountRoutes(module: FastifyInstance) {
     },
     handler: async (request, reply) => {
       return accountController.logout(request, reply);
+    },
+  });
+  module.route({
+    method: authContracts.admin.login.method,
+    url: `${authContracts.admin.prefix}${authContracts.admin.login.path}`,
+    schema: {
+      tags: [accountConfig.tags.admin],
+      body: module.getSchema(accountConfig.schemas.loginAdminReq),
+      response: {
+        200: module.getSchema(accountConfig.schemas.loginAdminRes),
+        400: zodToJsonSchema(errorBodySchema),
+      },
+    },
+    handler: async (request: FastifyRequest<{ Body: AuthLoginAdminReq }>, reply) => {
+      return accountController.login(request, reply);
+    },
+  });
+  module.route({
+    method: authContracts.admin.session.refresh.method,
+    url: `${authContracts.admin.prefix}${authContracts.admin.session.prefix}${authContracts.admin.session.refresh.path}`,
+    schema: {
+      tags: [accountConfig.tags.admin],
+      response: {
+        200: module.getSchema(accountConfig.schemas.sessionRefreshAdminRes),
+      },
+    },
+    handler: async (request: FastifyRequest, reply) => {
+      return accountAdminController.refreshSession(request, reply);
+    },
+  });
+  module.route({
+    method: authContracts.admin.session.logout.method,
+    url: `${authContracts.admin.prefix}${authContracts.admin.session.prefix}${authContracts.admin.session.logout.path}`,
+    schema: {
+      tags: [accountConfig.tags.admin],
+      response: {
+        204: {},
+      },
+    },
+    handler: async (request: FastifyRequest, reply) => {
+      return accountAdminController.logout(request, reply);
     },
   });
 }

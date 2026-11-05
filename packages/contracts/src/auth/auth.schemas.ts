@@ -7,17 +7,19 @@ import { AuthRole } from "./roles.js";
 
 export const emailSchema = z.string().trim().min(1).pipe(z.email());
 export const passwordSchema = z.string().trim().min(1).min(6);
+export const loginSchemaBody = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+});
+export const loginSchemaResponse = z.object({
+  id: z.uuid(),
+  accessToken: z.string(),
+});
 
 export const authSchemas = {
   login: {
-    body: z.object({
-      email: emailSchema,
-      password: passwordSchema,
-    }),
-    response: z.object({
-      id: z.uuid(),
-      accessToken: z.string(),
-    }),
+    body: loginSchemaBody,
+    response: loginSchemaResponse,
   },
   register: {
     body: z
@@ -38,6 +40,7 @@ export const authSchemas = {
       email: z.email(),
     }),
   },
+  session: { refresh: { response: loginSchemaResponse } },
   passwordReset: {
     requestOtpCode: {
       body: z.object({ email: emailSchema }),
@@ -69,6 +72,17 @@ export const authSchemas = {
       }),
     },
   },
+  admin: {
+    login: {
+      body: loginSchemaBody,
+      response: loginSchemaResponse,
+    },
+    session: {
+      refresh: {
+        response: loginSchemaResponse,
+      },
+    },
+  },
 };
 
 export const authAccountRegisteredSchema = z.object({
@@ -79,4 +93,5 @@ export const authAccountRegisteredSchema = z.object({
 export const authJwtPayloadSchema = z.object({
   sub: z.string(),
   roles: z.array(z.enum(AuthRole)),
+  aud: z.string(),
 });

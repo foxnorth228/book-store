@@ -6,6 +6,9 @@ import { authAccountRegisteredSchema, authJwtPayloadSchema } from "./auth.schema
 export type AuthLoginReq = z.infer<typeof authContracts.login.body>;
 export type AuthLoginRes = z.infer<typeof authContracts.login.response>;
 
+export type AuthLoginAdminReq = z.infer<typeof authContracts.admin.login.body>;
+export type AuthLoginAdminRes = z.infer<typeof authContracts.admin.login.response>;
+
 export type AuthRegisterReq = z.infer<typeof authContracts.register.body>;
 export type AuthRegisterRes = z.infer<typeof authContracts.register.response>;
 

@@ -33,7 +33,7 @@ export class AccountController extends BaseController<AccountService> {
       throw new UnauthorizedError("No session");
     }
 
-    const data = await this.service.refreshTokens(refreshToken);
+    const data = await this.service.refreshTokens(refreshToken, "user");
     await this.setRefreshTokenCookie(reply, data.refreshToken);
 
     return { id: data.id, accessToken: data.accessToken };
@@ -46,7 +46,7 @@ export class AccountController extends BaseController<AccountService> {
       throw new UnauthorizedError("No session");
     }
 
-    await this.service.removeSession(refreshToken);
+    await this.service.removeSession(refreshToken, "user");
     this.clearRefreshTokenCookie(reply);
 
     return;

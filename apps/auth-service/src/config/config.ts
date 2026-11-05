@@ -25,6 +25,19 @@ export const authServiceEnvSchema = z.object({
       message: "Invalid duration",
     })
     .transform((v) => Math.floor(ms(v as StringValue)! / 1000)),
+
+  JWT_ADMIN_ACCESS_TOKEN_EXPIRES_IN: z
+    .string()
+    .refine((v) => ms(v as StringValue) !== undefined, {
+      message: "Invalid duration",
+    })
+    .transform((v) => Math.floor(ms(v as StringValue)! / 1000)),
+  JWT_ADMIN_REFRESH_TOKEN_EXPIRES_IN: z
+    .string()
+    .refine((v) => ms(v as StringValue) !== undefined, {
+      message: "Invalid duration",
+    })
+    .transform((v) => Math.floor(ms(v as StringValue)! / 1000)),
 });
 
 export type AuthServiceEnvSchema = typeof authServiceEnvSchema;

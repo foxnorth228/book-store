@@ -1,20 +1,28 @@
-import { AuthEvents } from "@org/contracts";
-import { UnauthorizedError } from "@org/errors";
+import { AuthEvents, AuthRole } from "@org/contracts";
+import { Prisma, Role } from "../../libs/prisma/client";
 import { BaseService } from "@org/fastify";
 import { Languages } from "@org/localization";
 import { hashPassword, verifyPassword } from "@org/shared";
-import crypto from "crypto";
+import { FastifyInstance } from "fastify";
 
-import { Prisma, Role } from "../../libs/prisma/client";
 import { mapPrismaRoleToAuthRole } from "../../libs/utils/to-auth-role";
 import { accountConfig } from "./account.config";
 import { InvalidCredentialsError, UserAlreadyExistError } from "./account.errors";
 import { AccountRepository } from "./account.repository";
+import { SessionService } from "./session.service";
+import { SessionPurpose } from "./session.type";
 
 export class AccountService extends BaseService<AccountRepository> {
   protected readonly repositoryKey = accountConfig.repositoryName;
 
-  async login(email: string, password: string) {
+  constructor(
+    app: FastifyInstance,
+    private readonly sessionService = new SessionService(app),
+  ) {
+    super(app);
+  }
+
+  async validateCredentials(email: string, password: string) {
     const account = await this.repository.findByEmail(email);
 
     if (!account) {
@@ -27,12 +35,25 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new InvalidCredentialsError("Invalid email or password");
     }
 
-    const tokens = await this.generateTokens(account.id, account.roles);
+    return account;
+  }
 
-    return {
-      id: account.id,
-      ...tokens,
-    };
+  async login(email: string, password: string) {
+    const account = await this.validateCredentials(email, password);
+
+    return this.createSession(account.id, account.roles);
+  }
+
+  async loginAdmin(email: string, password: string) {
+    const account = await this.validateCredentials(email, password);
+
+    const isAdmin = account.roles.some(({ role }) => role === AuthRole.ADMIN);
+
+    if (!isAdmin) {
+      throw new InvalidCredentialsError("Invalid email or password");
+    }
+
+    return this.createSession(account.id, account.roles, "admin");
   }
 
   async register(email: string, password: string, language: Languages) {
@@ -43,58 +64,40 @@ export class AccountService extends BaseService<AccountRepository> {
 
       await this.app.rabbitmq.publish(AuthEvents.exchange, AuthEvents.Registered, {
         accountId: account.id,
-        language: language,
+        language,
       });
 
       return { id: account.id, email: account.email };
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2002") {
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
         throw new UserAlreadyExistError("User already exist");
       }
 
-      this.app.log.error(e);
-      throw e;
+      this.app.log.error(error);
+      throw error;
     }
   }
 
-  async refreshTokens(refreshToken: string) {
-    const userIdFromRedis = await this.app.redis.get(this.getRedisRefreshToken(refreshToken));
-    if (!userIdFromRedis) {
-      throw new UnauthorizedError("No session");
-    }
-
-    const user = await this.repository.findById(userIdFromRedis);
-
-    if (!user) {
-      throw new UnauthorizedError("No session");
-    }
-
-    await this.removeSession(refreshToken);
-    const tokens = await this.generateTokens(userIdFromRedis, user.roles);
-
-    return { id: userIdFromRedis, ...tokens };
+  async refreshTokens(refreshToken: string, purpose: SessionPurpose) {
+    return this.sessionService.refreshTokens(refreshToken, purpose);
   }
 
-  async removeSession(refreshToken: string) {
-    await this.app.redis.del(this.getRedisRefreshToken(refreshToken));
+  async removeSession(refreshToken: string, purpose: SessionPurpose) {
+    return this.sessionService.removeSession(refreshToken, purpose);
   }
 
-  async generateTokens(id: string, roles: Role[]) {
-    const authRoles = roles.map((role) => mapPrismaRoleToAuthRole(role));
-    const accessToken = this.app.jwt.sign({
-      sub: id,
-      roles: authRoles,
-    });
+  private async createSession(
+    accountId: string,
+    roles: { role: Role }[],
+    purpose: "user" | "admin" = "user",
+  ) {
+    const accountRoles = roles.map(({ role }) => mapPrismaRoleToAuthRole(role));
 
-    const refreshToken = crypto.randomBytes(64).toString("hex");
-    await this.app.redis.set(this.getRedisRefreshToken(refreshToken), id, {
-      EX: this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN ?? 0,
-    });
+    const tokens = await this.sessionService.createSession(accountId, accountRoles, purpose);
 
-    return { accessToken, refreshToken };
-  }
-
-  private getRedisRefreshToken(refreshToken: string) {
-    return `refresh:${refreshToken}`;
+    return {
+      id: accountId,
+      ...tokens,
+    };
   }
 }

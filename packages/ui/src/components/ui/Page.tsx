@@ -1,6 +1,5 @@
 import { cn } from "#lib/utils";
-import { FC } from "react";
-import { PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from "react";
 
 export interface WithClassName {
   className?: string;
@@ -35,6 +34,12 @@ export const PageMain: FC<BaseComponentProps> = ({ children, className }) => {
   return <main className={cn("flex w-full flex-1", className)}>{children}</main>;
 };
 
+export const PageSidebar: FC<BaseComponentProps> = ({ children, className }) => {
+  return (
+    <aside className={cn("border-border w-64 shrink-0 border-r", className)}>{children}</aside>
+  );
+};
+
 export const PageFooter: FC<BaseComponentProps> = ({ children, className }) => {
   return (
     <footer className={cn("bg-primary-900 w-full text-neutral-50", className)}>{children}</footer>
@@ -49,6 +54,7 @@ export const Page: FC<BaseComponentProps> & {
   Header: typeof PageHeader;
   HeaderContent: typeof PageHeaderContent;
   Main: typeof PageMain;
+  Sidebar: typeof PageSidebar;
   Content: typeof PageContent;
   Footer: typeof PageFooter;
 } = Object.assign(
@@ -61,6 +67,7 @@ export const Page: FC<BaseComponentProps> & {
     Header: PageHeader,
     HeaderContent: PageHeaderContent,
     Main: PageMain,
+    Sidebar: PageSidebar,
     Content: PageContent,
     Footer: PageFooter,
   },

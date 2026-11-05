@@ -12,4 +12,13 @@ export const authRoutes = {
     verifyOtpCode: "/verify",
     updatePassword: "/password-update",
   },
+  admin: {
+    $prefix: "/admin",
+    login: "/login",
+    session: {
+      $prefix: "/session",
+      refresh: "/refresh",
+      logout: "/logout",
+    },
+  },
 };
