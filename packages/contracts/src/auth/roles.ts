@@ -5,5 +5,7 @@ export enum AuthRole {
 }
 
 export enum AuthAction {
-  VIEW_PROFILE = "user.view_profile",
+  VIEW_USERS = "user.view_users",
+  UPDATE_USERS = "user.update_users",
+  DELETE_USERS = "user.delete_users",
 }

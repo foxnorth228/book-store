@@ -176,6 +176,13 @@
           "cwd": "{workspaceRoot}",
           "command": "prisma migrate reset --schema=apps/auth-service/prisma/schema.prisma --config=apps/auth-service/prisma.config.ts --force"
         }
+      },
+      "global:prisma:seed": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "pnpm exec prisma db seed --schema=apps/auth-service/prisma/schema.prisma --config=apps/auth-service/prisma.config.ts"
+        }
       }
     }
   }

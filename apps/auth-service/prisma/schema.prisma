@@ -17,15 +17,47 @@ enum Role {
   admin
 }
 
+enum PermissionEffect {
+  allow
+  deny
+}
+
 model Account {
   id           String   @id @default(uuid())
 
   email        String   @unique
   passwordHash String
-  roles        Role[]   @default([user])
-
   emailVerifiedAt   DateTime?
-  
+
+  roles       AccountRole[]
+  permissions AccountPermission[]
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model AccountRole {
+  accountId String
+  role      Role
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@id([accountId, role])
+}
+
+model RolePermission {
+  role       Role
+  permission String
+
+  @@id([role, permission])
+}
+
+model AccountPermission {
+  accountId  String
+  permission String
+  effect     PermissionEffect
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@id([accountId, permission])
 }

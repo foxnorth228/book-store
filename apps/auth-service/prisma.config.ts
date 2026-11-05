@@ -7,6 +7,7 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
+    seed: "pnpm exec tsx apps/auth-service/prisma/seed.ts",
   },
   datasource: {
     url: getDBUrlByConfig(config),
