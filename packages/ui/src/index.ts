@@ -13,3 +13,4 @@ export { InputOtp } from "./components/ui/InputOtp";
 export { Toaster } from "./components/ui/Toaster";
 export { toast } from "sonner";
 export { Field } from "./components/ui/Field";
+export { Page } from "./components/ui/Page";

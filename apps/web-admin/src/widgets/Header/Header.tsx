@@ -1,4 +1,4 @@
-import { Page } from "@shared/ui";
+import { Page } from "@org/ui";
 
 import { HeaderAccount } from "./HeaderAccount";
 import { HeaderSettings } from "./HeaderSettings";

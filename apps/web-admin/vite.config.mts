@@ -38,6 +38,7 @@ export default defineConfig(() => {
         "@modules": path.resolve(__dirname, "./src/modules"),
         "@routes": path.resolve(__dirname, "./src/routes"),
         "@shared": path.resolve(__dirname, "./src/shared"),
+        "@widgets": path.resolve(__dirname, "./src/widgets"),
       },
     },
     build: {

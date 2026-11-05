@@ -1,6 +1,12 @@
-import { cn } from "@org/ui";
-import { BaseComponentProps } from "@shared/types";
+import { cn } from "#lib/utils";
 import { FC } from "react";
+import { PropsWithChildren } from "react";
+
+export interface WithClassName {
+  className?: string;
+}
+
+export type BaseComponentProps = PropsWithChildren<WithClassName>;
 
 export const PageHeader: FC<BaseComponentProps> = ({ children, className }) => {
   return (
@@ -47,7 +53,9 @@ export const Page: FC<BaseComponentProps> & {
   Footer: typeof PageFooter;
 } = Object.assign(
   ({ children, className }: BaseComponentProps) => {
-    return <div className={cn("flex min-h-screen flex-col", className)}>{children}</div>;
+    return (
+      <div className={cn("bg-background flex min-h-screen flex-col", className)}>{children}</div>
+    );
   },
   {
     Header: PageHeader,

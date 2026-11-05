@@ -1,25 +1,25 @@
 import { useForm } from "@tanstack/react-form";
 import { authContracts, AuthErrorCodes, AuthLoginReq } from "@org/contracts";
-import { createZodErrorMap, handleError, isHttpAppError } from "@shared/lib";
+import { createZodErrorMap, handleError, isHttpAppError, TanStackFormField } from "@shared/lib";
 import { PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { signIn } from "../model/sign-in";
-import { Description, FormError, SubmitButton } from "./form-components";
-import { Input } from "@org/ui";
+import { Description, FormError, SubmitButton, Title } from "./form-components";
+import { cn, Input } from "@org/ui";
+import { BaseComponentProps } from "@shared/types";
 
-interface LoginFormProps {
-  onFinish: () => void;
+interface LoginFormProps extends BaseComponentProps {
+  onFinish?: () => void;
 }
 
-export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
-  const { t } = useTranslation(["auth"]);
-  const { t: tc } = useTranslation();
+export const LoginForm: FC<LoginFormProps> = ({ onFinish, className }) => {
+  const { t } = useTranslation();
 
   const [formError, setFormError] = useState<string | null>(null);
 
-  const errorMap = createZodErrorMap<AuthLoginReq>(tc, {
+  const errorMap = createZodErrorMap<AuthLoginReq>(t, {
     email: {
       too_small: (issue, t) => {
         if (issue.minimum === 1) {
@@ -93,13 +93,13 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
       try {
         await signIn(value);
 
-        onFinish();
+        onFinish?.();
       } catch (e) {
         if (
           isHttpAppError<AuthErrorCodes>(e) &&
           e.data.code === AuthErrorCodes.INVALID_CREDENTIALS
         ) {
-          setFormError(t((w) => w.loginModal.errors.invalidCredentials));
+          setFormError(t((w) => w.loginModal.errors.invalidCredentials, { ns: "auth" }));
           return;
         }
 
@@ -110,9 +110,10 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 
   return (
     <form
-      className={
-        "flex w-full max-w-105 flex-col gap-4 rounded-xl bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)]"
-      }
+      className={cn(
+        "border-border bg-card flex w-full max-w-105 flex-col gap-4 rounded-xl border p-8 shadow-(--shadow-card)",
+        className,
+      )}
       onSubmit={(event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -120,48 +121,61 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
         void form.handleSubmit();
       }}
     >
-      <Description>{t((w) => w.loginModal.description)}</Description>
+      <Title>{t((w) => w.loginModal.title, { ns: "auth" })}</Title>
+      <Description>{t((w) => w.loginModal.description, { ns: "auth" })}</Description>
 
       {formError && <FormError>{formError}</FormError>}
 
       <form.Field name="email">
         {(field) => (
-          <Input
-            name={field.name}
-            value={field.state.value}
-            onChange={(event) => {
-              field.handleChange(event.target.value);
-              setFormError(null);
-            }}
-            onBlur={field.handleBlur}
-            type="email"
-            autoComplete="email"
-            placeholder={t((w) => w.loginModal.fields.email.placeholder)}
+          <TanStackFormField
+            field={field}
+            label={t((w) => w.loginModal.fields.email.label, { ns: "auth" })}
+            render={() => (
+              <Input
+                name={field.name}
+                value={field.state.value}
+                onChange={(event) => {
+                  field.handleChange(event.target.value);
+                  setFormError(null);
+                }}
+                onBlur={field.handleBlur}
+                type="email"
+                autoComplete="email"
+                placeholder={t((w) => w.loginModal.fields.email.placeholder, { ns: "auth" })}
+              />
+            )}
           />
         )}
       </form.Field>
 
       <form.Field name="password">
         {(field) => (
-          <PasswordInput
-            name={field.name}
-            value={field.state.value}
-            onChange={(event) => {
-              field.handleChange(event.target.value);
-              setFormError(null);
-            }}
-            onBlur={field.handleBlur}
-            type="password"
-            autoComplete="current-password"
-            placeholder={t((w) => w.loginModal.fields.password.placeholder)}
+          <TanStackFormField
+            field={field}
+            label={t((w) => w.loginModal.fields.password.label, { ns: "auth" })}
+            render={() => (
+              <PasswordInput
+                name={field.name}
+                value={field.state.value}
+                onChange={(event) => {
+                  field.handleChange(event.target.value);
+                  setFormError(null);
+                }}
+                onBlur={field.handleBlur}
+                type="password"
+                autoComplete="current-password"
+                placeholder={t((w) => w.loginModal.fields.password.placeholder, { ns: "auth" })}
+              />
+            )}
           />
         )}
       </form.Field>
 
       <form.Subscribe selector={(state) => state.isSubmitting}>
         {(isSubmitting) => (
-          <SubmitButton variant="default" type="submit" disabled={isSubmitting}>
-            {t((w) => w.loginModal.submit)}
+          <SubmitButton variant="default" type="submit" isPending={isSubmitting}>
+            {t((w) => w.loginModal.submit, { ns: "auth" })}
           </SubmitButton>
         )}
       </form.Subscribe>

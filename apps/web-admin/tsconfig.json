@@ -4,7 +4,8 @@
       "@app/*": ["./src/app/*"],
       "@modules/*": ["./src/modules/*"],
       "@routes/*": ["./src/routes/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@shared/*": ["./src/shared/*"],
+      "@widgets/*": ["./src/widgets/*"]
     }
   },
   "files": [],

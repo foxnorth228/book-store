@@ -1,10 +1,9 @@
 import { Languages, languageSchema } from "@org/localization";
-import { Button, DropdownMenu } from "@org/ui";
-import { Settings } from "lucide-react";
+import { Button, DropdownMenu, SettingsIcon } from "@org/ui";
 import { useTranslation } from "react-i18next";
 
-import { Themes, themeSchema } from "../../config/theme";
-import { useAppStore } from "../../storage/use-app-store";
+import { Themes, themeSchema } from "../../app/config/theme";
+import { useAppStore } from "../../app/storage/use-app-store";
 
 export const HeaderSettings = () => {
   const { t } = useTranslation();
@@ -22,7 +21,7 @@ export const HeaderSettings = () => {
         className="bg-header text-header-foreground hover:text-header-foreground/80"
         aria-label={t((w) => w.settings, { ns: "common" })}
       >
-        <Settings />
+        <SettingsIcon />
       </Button>
       <DropdownMenu>
         <DropdownMenu.Sub>
