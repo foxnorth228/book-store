@@ -10,7 +10,7 @@ import {
 import { handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
 import { InputOtp } from "@org/ui";
 import { FC, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 import { Navigate, useNavigate } from "react-router";
 
 import { useResetPasswordStore } from "../../../model/use-reset-password-store";
@@ -29,7 +29,7 @@ import { getFormErrorMessage, getVerifyOtpFieldErrorMap } from "./utils";
 interface VerifyPasswordOtpFormProps {}
 
 export const VerifyPasswordOtpForm: FC<VerifyPasswordOtpFormProps> = () => {
-  const { t } = useTranslation();
+  const { t } = useT();
   const navigate = useNavigate();
 
   const [formError, setFormError] = useState<AuthErrorCodes | null>(null);

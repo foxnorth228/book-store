@@ -1,6 +1,6 @@
 import { cn } from "@org/ui";
 import type { AnchorHTMLAttributes, FC, PropsWithChildren } from "react";
-import { Link as RouterLink } from "react-router";
+import NextLink from "next/link";
 
 export interface LinkProps
   extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href">, PropsWithChildren {
@@ -42,8 +42,8 @@ export const Link: FC<LinkProps> = ({ to, children, target, rel, className, ...p
   }
 
   return (
-    <RouterLink to={to} className={classes} {...props}>
+    <NextLink href={to} className={classes} {...props}>
       {children}
-    </RouterLink>
+    </NextLink>
   );
 };

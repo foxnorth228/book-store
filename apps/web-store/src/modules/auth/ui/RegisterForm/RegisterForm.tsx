@@ -5,7 +5,7 @@ import { Languages } from "@org/localization";
 import { handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
 import { PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 
 import { AuthApi } from "../../api/auth.api";
 import { Description, Footer, FooterButtonLink, FormError, SubmitButton } from "../form-components";
@@ -18,8 +18,8 @@ interface RegisterFormProps {
 }
 
 export const RegisterForm: FC<RegisterFormProps> = ({ onLogin, onFinish }) => {
-  const { t } = useTranslation(["auth"]);
-  const { t: tc } = useTranslation();
+  const { t } = useT(["auth"]);
+  const { t: tc } = useT();
 
   const [formError, setFormError] = useState<string | null>(null);
 

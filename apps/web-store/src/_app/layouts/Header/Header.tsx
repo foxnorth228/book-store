@@ -1,3 +1,5 @@
+"use client";
+
 import { Page } from "@shared/ui";
 
 import { HeaderAccount } from "./HeaderAccount";

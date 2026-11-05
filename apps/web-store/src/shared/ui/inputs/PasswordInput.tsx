@@ -2,10 +2,10 @@
 
 import { Input, Button, EyeIcon, EyeOffIcon } from "@org/ui";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 
 export function PasswordInput({ ...props }: React.ComponentProps<typeof Input>) {
-  const { t } = useTranslation();
+  const { t } = useT();
   const [visible, setVisible] = useState(false);
 
   return (

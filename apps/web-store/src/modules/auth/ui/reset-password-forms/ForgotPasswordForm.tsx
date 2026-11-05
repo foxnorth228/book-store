@@ -4,13 +4,13 @@ import { useResetPasswordStore } from "@modules/auth/model/use-reset-password-st
 import { authContracts, VerificationRequestOtpCodeReq } from "@org/contracts";
 import { createZodErrorMap, handleError, RHFForm, RHFFormField } from "@shared/lib";
 import { Input } from "@org/ui";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 import { useNavigate } from "react-router";
 
 import { Description, SubmitButton, Title } from "../form-components";
 
 export function ForgotPasswordForm() {
-  const { t } = useTranslation();
+  const { t } = useT();
   const navigate = useNavigate();
 
   const setStoreData = useResetPasswordStore((s) => s.setData);

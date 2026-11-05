@@ -7,6 +7,7 @@ import { Toaster } from "@org/ui";
 import { SettingsProvider } from "@app/providers/settings-provider";
 
 import { generateI18nStaticParams, getResources, getT } from "@/i18n.server";
+import { SessionProvider } from "@app/providers/session-provider";
 
 export const metadata = {
   title: "Welcome to web-store",
@@ -26,7 +27,9 @@ export default async function MainLayout(props: LayoutProps<"/[lang]">) {
     <html lang={locale}>
       <I18nProvider language={locale} resources={resources}>
         <body>
-          <DefaultLayout>{props.children}</DefaultLayout>
+          <DefaultLayout>
+            <SessionProvider>{props.children}</SessionProvider>
+          </DefaultLayout>
           <Toaster position={"top-center"} />
           <SettingsProvider />
         </body>

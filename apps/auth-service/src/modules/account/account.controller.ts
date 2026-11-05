@@ -58,7 +58,7 @@ export class AccountController extends BaseController<AccountService> {
       secure: this.app.config.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN,
-      path: `/${this.app.config.env.PATH_PREFIX}${authContracts.session.prefix}`,
+      path: `${this.app.config.env.PATH_PREFIX}${authContracts.session.prefix}`,
     });
   }
 
@@ -67,7 +67,7 @@ export class AccountController extends BaseController<AccountService> {
       httpOnly: true,
       secure: this.app.config.env.NODE_ENV === "production",
       sameSite: "lax",
-      path: `/${this.app.config.env.PATH_PREFIX}${authContracts.session.prefix}`,
+      path: `${this.app.config.env.PATH_PREFIX}${authContracts.session.prefix}`,
     });
   }
 }

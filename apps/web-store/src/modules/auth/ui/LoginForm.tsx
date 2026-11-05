@@ -5,7 +5,7 @@ import { authContracts, AuthErrorCodes, AuthLoginReq } from "@org/contracts";
 import { createZodErrorMap, handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
 import { PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 
 import { signIn } from "../model/sign-in";
 import {
@@ -24,8 +24,8 @@ interface LoginFormProps {
 }
 
 export const LoginForm: FC<LoginFormProps> = ({ onRegister, onFinish }) => {
-  const { t } = useTranslation(["auth"]);
-  const { t: tc } = useTranslation();
+  const { t } = useT(["auth"]);
+  const { t: tc } = useT();
 
   const [formError, setFormError] = useState<string | null>(null);
 

@@ -5,7 +5,7 @@ import { authContracts, AuthErrorCodes, VerificationUpdatePasswordReq } from "@o
 import { handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
 import { PasswordInput } from "@shared/ui";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 import { Navigate, useNavigate } from "react-router";
 import { toast } from "@org/ui";
 
@@ -14,7 +14,7 @@ import { BackButton, Description, SubmitButton, Title } from "../../form-compone
 import { getResetPasswordFormFieldErrorMap } from "./utils";
 
 export function ResetPasswordForm() {
-  const { t } = useTranslation();
+  const { t } = useT();
   const navigate = useNavigate();
 
   const [isCompleted, setIsCompleted] = useState(false);

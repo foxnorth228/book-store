@@ -3,14 +3,14 @@
 import { cn, Button } from "@org/ui";
 import { BaseComponentProps } from "@shared/types";
 import type { FC } from "react";
-import { useTranslation } from "react-i18next";
+import { useT } from "next-i18next/client";
 
 interface LoginButtonProps extends BaseComponentProps {
   onClick: () => void;
 }
 
 export const LoginButton: FC<LoginButtonProps> = ({ onClick, className }) => {
-  const { t } = useTranslation();
+  const { t } = useT();
 
   return (
     <Button
