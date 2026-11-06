@@ -18,13 +18,21 @@ export class SessionService extends BaseService<AccountRepository> {
         roles,
         aud: purpose,
       },
-      { expiresIn: 1 },
+      {
+        expiresIn:
+          purpose === "admin"
+            ? this.app.config.env.JWT_ADMIN_ACCESS_TOKEN_EXPIRES_IN
+            : this.app.config.env.JWT_ACCESS_TOKEN_EXPIRES_IN,
+      },
     );
 
     const refreshToken = crypto.randomBytes(64).toString("hex");
 
     await this.app.redis.set(this.getRedisRefreshToken(refreshToken, purpose), accountId, {
-      EX: this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN ?? 0,
+      EX:
+        purpose === "admin"
+          ? this.app.config.env.JWT_ADMIN_REFRESH_TOKEN_EXPIRES_IN
+          : (this.app.config.env.JWT_REFRESH_TOKEN_EXPIRES_IN ?? 0),
     });
 
     return { accessToken, refreshToken };

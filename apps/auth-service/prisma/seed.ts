@@ -1,18 +1,19 @@
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/libs/prisma/client";
-import { getDBUrlByConfig, loadServerEnv } from "@org/shared";
+import { getDBUrlByConfig, hashPassword } from "@org/shared";
 import { AuthRole } from "@org/contracts";
 import { rolePermissions } from "./default-data";
+import { serviceEnvConfig } from "../src/config/config";
 
-const config = loadServerEnv(undefined, "apps/auth-service", { sources: ["postgres"] });
+const config = serviceEnvConfig;
 
 const connectionString = getDBUrlByConfig(config);
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-async function main() {
+async function applyPermissions() {
   for (const [role, permissions] of Object.entries(rolePermissions)) {
     for (const permission of permissions) {
       await prisma.rolePermission.upsert({
@@ -34,10 +35,61 @@ async function main() {
   console.log("Role permissions seeded successfully");
 }
 
+async function applyInitialAdmin() {
+  const email = config.INITIAL_ADMIN_EMAIL;
+  const password = config.INITIAL_ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    console.error("Initial admin email or password not provided");
+    return;
+  }
+
+  const existingAccount = await prisma.account.findUnique({
+    where: { email },
+  });
+
+  const passwordHash = existingAccount ? undefined : await hashPassword(password);
+
+  const account = await prisma.account.upsert({
+    where: { email },
+    create: {
+      email,
+      passwordHash: passwordHash!,
+      roles: {
+        create: {
+          role: "admin",
+        },
+      },
+    },
+    update: {},
+  });
+
+  await prisma.accountRole.upsert({
+    where: {
+      accountId_role: {
+        accountId: account.id,
+        role: "admin",
+      },
+    },
+    create: {
+      accountId: account.id,
+      role: "admin",
+    },
+    update: {},
+  });
+
+  console.log(`Initial admin ensured: ${email}`);
+}
+
+async function main() {
+  await applyPermissions();
+  await applyInitialAdmin();
+}
+
 main()
   .catch((error) => {
     console.error("Failed to seed role permissions:", error);
-    process.exitCode = 1;
+    process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();

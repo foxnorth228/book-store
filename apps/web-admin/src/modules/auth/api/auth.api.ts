@@ -1,9 +1,9 @@
 import { SERVICES_ROUTES } from "@app/routing";
 import {
   authContracts,
-  AuthLoginReq,
+  AuthLoginAdminReq,
+  AuthLoginAdminRes,
   AuthLoginRes,
-  AuthRegisterReq,
   VerificationRequestOtpCodeReq,
   VerificationRequestOtpCodeRes,
   VerificationUpdatePasswordReq,
@@ -15,17 +15,17 @@ import { HttpClient } from "@org/http";
 
 export const AuthApi = {
   httpClient: new HttpClient({ baseUrl: SERVICES_ROUTES.AUTH }),
-  login(data: AuthLoginReq) {
-    return this.httpClient.post<AuthLoginRes>(authContracts.login.path, data);
-  },
-  register(data: AuthRegisterReq) {
-    return this.httpClient.post(authContracts.register.path, data);
+  login(data: AuthLoginAdminReq) {
+    return this.httpClient.post<AuthLoginAdminRes>(
+      `${authContracts.admin.prefix}${authContracts.admin.login.path}`,
+      data,
+    );
   },
   refreshSession() {
     return this.httpClient.request<AuthLoginRes>(
-      `${authContracts.session.prefix}${authContracts.session.refresh.path}`,
+      `${authContracts.admin.prefix}${authContracts.admin.session.prefix}${authContracts.admin.session.refresh.path}`,
       {
-        method: authContracts.session.refresh.method,
+        method: authContracts.admin.session.refresh.method,
         headers: {
           "Content-Type": "text/plain",
         },
@@ -34,7 +34,7 @@ export const AuthApi = {
   },
   logout() {
     return this.httpClient.request(
-      `${authContracts.session.prefix}${authContracts.session.logout.path}`,
+      `${authContracts.admin.prefix}${authContracts.admin.session.prefix}${authContracts.admin.session.logout.path}`,
       {
         method: authContracts.session.logout.method,
       },

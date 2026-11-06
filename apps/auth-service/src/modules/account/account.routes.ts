@@ -96,7 +96,7 @@ export async function accountRoutes(module: FastifyInstance) {
       },
     },
     handler: async (request: FastifyRequest<{ Body: AuthLoginAdminReq }>, reply) => {
-      return accountController.login(request, reply);
+      return accountAdminController.login(request, reply);
     },
   });
   module.route({

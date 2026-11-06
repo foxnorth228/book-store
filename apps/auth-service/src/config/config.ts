@@ -38,6 +38,8 @@ export const authServiceEnvSchema = z.object({
       message: "Invalid duration",
     })
     .transform((v) => Math.floor(ms(v as StringValue)! / 1000)),
+  INITIAL_ADMIN_EMAIL: z.string().optional(),
+  INITIAL_ADMIN_PASSWORD: z.string().optional(),
 });
 
 export type AuthServiceEnvSchema = typeof authServiceEnvSchema;
