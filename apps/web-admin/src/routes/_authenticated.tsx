@@ -2,6 +2,9 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 
 import { useSessionStore } from "@modules/auth";
 import { AuthRole } from "@org/contracts";
+import { Header } from "@widgets/Header";
+import { Sidebar } from "@widgets/Sidebar";
+import { Page, Sidebar as SidebarUI } from "@org/ui";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: async ({ location }) => {
@@ -16,5 +19,17 @@ export const Route = createFileRoute("/_authenticated")({
       });
     }
   },
-  component: () => <Outlet />,
+  component: () => (
+    <Page>
+      <Header />
+      <Page.Main>
+        <SidebarUI.Provider>
+          <Sidebar />
+        </SidebarUI.Provider>
+        <Page.Content className="flex items-center justify-center">
+          <Outlet />
+        </Page.Content>
+      </Page.Main>
+    </Page>
+  ),
 });

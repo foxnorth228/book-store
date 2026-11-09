@@ -24,6 +24,7 @@
     "@tailwindcss/vite": "catalog:web",
     "class-variance-authority": "catalog:shadcn",
     "clsx": "catalog:web",
+    "cn": "^0.5.2",
     "input-otp": "catalog:shadcn",
     "lucide-react": "catalog:react",
     "next-themes": "catalog:shadcn",

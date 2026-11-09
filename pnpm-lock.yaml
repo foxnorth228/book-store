@@ -1296,6 +1296,9 @@ importers:
       clsx:
         specifier: catalog:web
         version: 2.1.1
+      cn:
+        specifier: ^0.5.2
+        version: 0.5.2
       input-otp:
         specifier: catalog:shadcn
         version: 1.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -6443,6 +6446,11 @@ packages:
   cluster-key-slot@1.1.2:
     resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
     engines: {node: '>=0.10.0'}
+
+  cn@0.5.2:
+    resolution: {integrity: sha512-wm10E6iuJ37rALOw3D+3cfaXXZSLNMh2uxpQn3dNICqfJM59yXqgbA9/9Iiz155j5kYNLdK6WreNdW3NQtx3OQ==}
+    engines: {node: '>=22'}
+    hasBin: true
 
   co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
@@ -12402,7 +12410,7 @@ snapshots:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.7
       '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
+      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/helpers': 7.29.7
       '@babel/parser': 7.29.7
       '@babel/template': 7.29.7
@@ -12458,13 +12466,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-create-class-features-plugin@7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)':
+  '@babel/helper-create-class-features-plugin@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@babel/core': 7.29.7(supports-color@7.2.0)
+      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-annotate-as-pure': 7.29.7
       '@babel/helper-member-expression-to-functions': 7.29.7(supports-color@8.1.1)
       '@babel/helper-optimise-call-expression': 7.29.7
-      '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
+      '@babel/helper-replace-supers': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/helper-skip-transparent-expression-wrappers': 7.29.7(supports-color@8.1.1)
       '@babel/traverse': 7.29.7(supports-color@8.1.1)
       semver: 6.3.1
@@ -12528,9 +12536,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-transforms@7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)':
+  '@babel/helper-module-transforms@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@babel/core': 7.29.7(supports-color@7.2.0)
+      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-module-imports': 7.29.7(supports-color@8.1.1)
       '@babel/helper-validator-identifier': 7.29.7
       '@babel/traverse': 7.29.7(supports-color@8.1.1)
@@ -12561,9 +12569,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-replace-supers@7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)':
+  '@babel/helper-replace-supers@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@babel/core': 7.29.7(supports-color@7.2.0)
+      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-member-expression-to-functions': 7.29.7(supports-color@8.1.1)
       '@babel/helper-optimise-call-expression': 7.29.7
       '@babel/traverse': 7.29.7(supports-color@8.1.1)
@@ -12717,6 +12725,11 @@ snapshots:
       '@babel/core': 7.29.7(supports-color@7.2.0)
       '@babel/helper-plugin-utils': 7.29.7
 
+  '@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
+    dependencies:
+      '@babel/core': 7.29.7(supports-color@8.1.1)
+      '@babel/helper-plugin-utils': 7.29.7
+
   '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.29.7(supports-color@7.2.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
@@ -12760,6 +12773,11 @@ snapshots:
   '@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7(supports-color@7.2.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
+      '@babel/helper-plugin-utils': 7.29.7
+
+  '@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))':
+    dependencies:
+      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
 
   '@babel/plugin-syntax-unicode-sets-regex@7.18.6(@babel/core@7.29.7(supports-color@7.2.0))':
@@ -12936,10 +12954,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-modules-commonjs@7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)':
+  '@babel/plugin-transform-modules-commonjs@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@babel/core': 7.29.7(supports-color@7.2.0)
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
+      '@babel/core': 7.29.7(supports-color@8.1.1)
+      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
     transitivePeerDependencies:
       - supports-color
@@ -13143,14 +13161,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-typescript@7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)':
+  '@babel/plugin-transform-typescript@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@babel/core': 7.29.7(supports-color@7.2.0)
+      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-annotate-as-pure': 7.29.7
-      '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
+      '@babel/helper-create-class-features-plugin': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-skip-transparent-expression-wrappers': 7.29.7(supports-color@8.1.1)
-      '@babel/plugin-syntax-typescript': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))
+      '@babel/plugin-syntax-typescript': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -13284,14 +13302,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/preset-typescript@7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)':
+  '@babel/preset-typescript@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@babel/core': 7.29.7(supports-color@7.2.0)
+      '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.29.7
       '@babel/helper-validator-option': 7.29.7
-      '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))
-      '@babel/plugin-transform-modules-commonjs': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
-      '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
+      '@babel/plugin-syntax-jsx': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
+      '@babel/plugin-transform-modules-commonjs': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
+      '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -14307,7 +14325,7 @@ snapshots:
       eventsource: 3.0.7
       eventsource-parser: 3.1.1
       express: 5.2.1(supports-color@8.1.1)
-      express-rate-limit: 8.6.2(express@5.2.1(supports-color@7.2.0))(supports-color@8.1.1)
+      express-rate-limit: 8.6.2(express@5.2.1(supports-color@8.1.1))(supports-color@8.1.1)
       hono: 4.12.23
       jose: 6.2.8
       json-schema-typed: 8.0.2
@@ -18308,6 +18326,8 @@ snapshots:
 
   cluster-key-slot@1.1.2: {}
 
+  cn@0.5.2: {}
+
   co@4.6.0: {}
 
   code-block-writer@13.0.3: {}
@@ -19661,10 +19681,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  express-rate-limit@8.6.2(express@5.2.1(supports-color@7.2.0))(supports-color@8.1.1):
+  express-rate-limit@8.6.2(express@5.2.1(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
-      express: 5.2.1(supports-color@7.2.0)
+      express: 5.2.1(supports-color@8.1.1)
       ip-address: 10.5.0
     transitivePeerDependencies:
       - supports-color
@@ -24152,8 +24172,8 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/parser': 7.29.8
-      '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
-      '@babel/preset-typescript': 7.29.7(@babel/core@7.29.7(supports-color@7.2.0))(supports-color@8.1.1)
+      '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
+      '@babel/preset-typescript': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
       '@dotenvx/dotenvx': 1.75.1
       '@modelcontextprotocol/sdk': 1.30.0(supports-color@8.1.1)(zod@3.25.76)
       '@types/validate-npm-package-name': 4.0.2

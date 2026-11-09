@@ -14,3 +14,5 @@ export { Toaster } from "./components/ui/Toaster";
 export { toast } from "sonner";
 export { Field } from "./components/ui/Field";
 export { Page } from "./components/ui/Page";
+export { Collapsible } from "./components/ui/Collapsible";
+export { Sidebar } from "./components/ui/Sidebar";
