@@ -2,7 +2,7 @@ import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 
 import { LoginForm, useSessionStore } from "@modules/auth";
 import { Page } from "@org/ui";
-import { Header } from "@widgets/Header";
+import { Header } from "../widgets/AppHeader";
 
 const LoginPage = () => {
   const navigate = useNavigate();

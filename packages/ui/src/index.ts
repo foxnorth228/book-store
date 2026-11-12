@@ -16,3 +16,5 @@ export { Field } from "./components/ui/Field";
 export { Page } from "./components/ui/Page";
 export { Collapsible } from "./components/ui/Collapsible";
 export { Sidebar } from "./components/ui/Sidebar";
+export { Typography } from "./components/ui/Typography";
+export { RouterProvider as ReactAriaRouterProvider } from "react-aria-components";

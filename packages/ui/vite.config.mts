@@ -57,6 +57,14 @@ export default defineConfig(() => ({
         preserveModulesRoot: "src",
         entryFileNames: "[name].js",
       },
+      external: [
+        /^react-aria(-components)?(\/.*)?$/,
+        /^react-stately(\/.*)?$/,
+        /^@react-aria\/.*/,
+        /^@react-stately\/.*/,
+        /^@react-types\/.*/,
+        /^@internationalized\/.*/,
+      ],
     },
   },
 

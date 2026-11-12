@@ -11,6 +11,7 @@ export async function restoreSession() {
 
     const accessTokenData = jwtDecode<AuthJwtPayloadUserDto>(response.data.accessToken);
 
+    console.log(accessTokenData);
     useSessionStore.getState().setData({
       accessToken: response.data.accessToken,
       isAuthenticated: true,

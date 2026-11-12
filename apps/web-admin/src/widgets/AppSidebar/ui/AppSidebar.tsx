@@ -1,6 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
 import { useSessionStore } from "@modules/auth";
-import { Sidebar } from "@org/ui";
+import { Sidebar, Typography } from "@org/ui";
 import { useMemo } from "react";
 
 import { sidebarConfig } from "../config/sidebar.config";
@@ -19,11 +19,14 @@ export function AppSidebar() {
           ),
         }))
         .filter((group) => group.items.length > 0),
-    [],
+    [permissions],
   );
 
   return (
     <Sidebar>
+      <Sidebar.Header>
+        <Typography variant="large">Book Store</Typography>
+      </Sidebar.Header>
       <Sidebar.Content>
         {groups.map((group, index) => (
           <Sidebar.Group key={group.title ?? index}>

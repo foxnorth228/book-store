@@ -8,4 +8,8 @@ export enum AuthAction {
   VIEW_USERS = "user.view_users",
   UPDATE_USERS = "user.update_users",
   DELETE_USERS = "user.delete_users",
+  VIEW_ROLES = "role.view",
+  MANAGE_ROLES = "role.manage",
+  VIEW_PERMISSIONS = "permission.view",
+  MANAGE_PERMISSIONS = "permission.manage",
 }

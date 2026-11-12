@@ -48,31 +48,37 @@ async function applyInitialAdmin() {
     where: { email },
   });
 
-  const passwordHash = existingAccount ? undefined : await hashPassword(password);
+  let accountId: string;
 
-  const account = await prisma.account.upsert({
-    where: { email },
-    create: {
-      email,
-      passwordHash: passwordHash!,
-      roles: {
-        create: {
-          role: "admin",
+  if (existingAccount) {
+    accountId = existingAccount.id;
+  } else {
+    const passwordHash = await hashPassword(password);
+
+    const account = await prisma.account.create({
+      data: {
+        email,
+        passwordHash,
+        roles: {
+          create: {
+            role: "admin",
+          },
         },
       },
-    },
-    update: {},
-  });
+    });
+
+    accountId = account.id;
+  }
 
   await prisma.accountRole.upsert({
     where: {
       accountId_role: {
-        accountId: account.id,
+        accountId: accountId,
         role: "admin",
       },
     },
     create: {
-      accountId: account.id,
+      accountId: accountId,
       role: "admin",
     },
     update: {},

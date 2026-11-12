@@ -3,7 +3,7 @@ import { Page } from "@org/ui";
 import { HeaderAccount } from "./HeaderAccount";
 import { HeaderSettings } from "./HeaderSettings";
 
-export const Header = () => {
+export const AppHeader = () => {
   return (
     <Page.Header>
       <Page.HeaderContent>
