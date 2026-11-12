@@ -5,13 +5,14 @@ import { Languages } from "@org/localization";
 import { hashPassword, verifyPassword } from "@org/shared";
 import { FastifyInstance } from "fastify";
 
-import { mapPrismaRoleToAuthRole } from "../../libs/utils/to-auth-role";
+import { mapPrismaRoleToAuthRole } from "../../libs/prisma-utils/to-auth-role";
 import { accountConfig } from "./account.config";
 import { InvalidCredentialsError, UserAlreadyExistError } from "./account.errors";
 import { AccountRepository } from "./account.repository";
 import { SessionService } from "./session.service";
 import { SessionPurpose } from "./session.type";
-import { mapAccountPermissionsToActions } from "../../libs/utils/to-auth-action";
+import { mapAccountPermissionsToActions } from "../../libs/prisma-utils/to-auth-action";
+import { resolveRolesAndAccountPermissions } from "../../libs/prisma-utils/resolve-permissions";
 
 export class AccountService extends BaseService<AccountRepository> {
   protected readonly repositoryKey = accountConfig.repositoryName;
@@ -36,17 +37,21 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new InvalidCredentialsError("Invalid email or password");
     }
 
-    return account;
+    const roles = account.roles.map(({ role }) => role);
+    const rolePermissions = await this.repository.findRolePermissions(roles);
+    const permissions = resolveRolesAndAccountPermissions(rolePermissions, account.permissions);
+
+    return { account, permissions };
   }
 
   async login(email: string, password: string) {
-    const account = await this.validateCredentials(email, password);
+    const { account, permissions } = await this.validateCredentials(email, password);
 
-    return this.createSession(account.id, account.roles, account.permissions);
+    return this.createSession(account.id, account.roles, permissions);
   }
 
   async loginAdmin(email: string, password: string) {
-    const account = await this.validateCredentials(email, password);
+    const { account, permissions } = await this.validateCredentials(email, password);
 
     const isAdmin = account.roles.some(({ role }) => role === AuthRole.ADMIN);
 
@@ -54,7 +59,7 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new InvalidCredentialsError("Invalid email or password");
     }
 
-    return this.createSession(account.id, account.roles, account.permissions, "admin");
+    return this.createSession(account.id, account.roles, permissions, "admin");
   }
 
   async register(email: string, password: string, language: Languages) {

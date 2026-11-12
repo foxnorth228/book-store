@@ -1,7 +1,7 @@
 import { BaseRepository } from "@org/fastify";
 
 import { DATABASE_PATH_NAME } from "../../config/config";
-import { PrismaClient } from "../../libs/prisma/client";
+import { PrismaClient, Role } from "../../libs/prisma/client";
 
 export class AccountRepository extends BaseRepository<PrismaClient> {
   protected readonly databaseKey = DATABASE_PATH_NAME;
@@ -25,6 +25,20 @@ export class AccountRepository extends BaseRepository<PrismaClient> {
       data: {
         email,
         passwordHash,
+      },
+    });
+  }
+
+  public findRolePermissions(roles: Role[]) {
+    return this.db.rolePermission.findMany({
+      where: {
+        role: {
+          in: roles,
+        },
+      },
+      select: {
+        role: true,
+        permission: true,
       },
     });
   }

@@ -4,7 +4,7 @@ export interface SidebarItem {
   title: string;
   url: string;
   icon?: React.ElementType;
-  permission?: AuthAction;
+  permission?: AuthAction | null;
 }
 
 export interface SidebarGroup {

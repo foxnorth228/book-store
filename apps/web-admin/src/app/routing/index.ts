@@ -1,2 +1,2 @@
-export { SERVICES_ROUTES } from "./config";
+export { SERVICES_ROUTES, routeConfig } from "./config";
 export { router } from "./router";

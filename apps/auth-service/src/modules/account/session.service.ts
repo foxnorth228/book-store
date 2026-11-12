@@ -3,11 +3,12 @@ import { UnauthorizedError } from "@org/errors";
 import { BaseService } from "@org/fastify";
 import crypto from "crypto";
 
-import { mapPrismaRoleToAuthRole } from "../../libs/utils/to-auth-role";
+import { mapPrismaRoleToAuthRole } from "../../libs/prisma-utils/to-auth-role";
 import { accountConfig } from "./account.config";
 import { AccountRepository } from "./account.repository";
 import { SessionPurpose } from "./session.type";
-import { mapAccountPermissionsToActions } from "../../libs/utils/to-auth-action";
+import { mapAccountPermissionsToActions } from "../../libs/prisma-utils/to-auth-action";
+import { resolveRolesAndAccountPermissions } from "../../libs/prisma-utils/resolve-permissions";
 
 export class SessionService extends BaseService<AccountRepository> {
   protected readonly repositoryKey = accountConfig.repositoryName;
@@ -65,12 +66,17 @@ export class SessionService extends BaseService<AccountRepository> {
       throw new UnauthorizedError("No session");
     }
 
-    const roles = account.roles.map(({ role }) => mapPrismaRoleToAuthRole(role));
-    const permissions = mapAccountPermissionsToActions(account.permissions);
-
     await this.app.redis.del(redisKey);
 
-    const tokens = await this.createSession(accountId, roles, permissions, purpose);
+    const roles = account.roles.map(({ role }) => role);
+    const rolePermissions = await this.repository.findRolePermissions(roles);
+    const permissions = mapAccountPermissionsToActions(
+      resolveRolesAndAccountPermissions(rolePermissions, account.permissions),
+    );
+
+    const contractRoles = roles.map((role) => mapPrismaRoleToAuthRole(role));
+
+    const tokens = await this.createSession(accountId, contractRoles, permissions, purpose);
 
     return {
       id: accountId,
