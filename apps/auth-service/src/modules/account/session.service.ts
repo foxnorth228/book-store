@@ -7,6 +7,7 @@ import { mapPrismaRoleToAuthRole } from "../../libs/utils/to-auth-role";
 import { accountConfig } from "./account.config";
 import { AccountRepository } from "./account.repository";
 import { SessionPurpose } from "./session.type";
+import { mapAccountPermissionsToActions } from "../../libs/utils/to-auth-action";
 
 export class SessionService extends BaseService<AccountRepository> {
   protected readonly repositoryKey = accountConfig.repositoryName;
@@ -65,10 +66,11 @@ export class SessionService extends BaseService<AccountRepository> {
     }
 
     const roles = account.roles.map(({ role }) => mapPrismaRoleToAuthRole(role));
+    const permissions = mapAccountPermissionsToActions(account.permissions);
 
     await this.app.redis.del(redisKey);
 
-    const tokens = await this.createSession(accountId, roles, purpose);
+    const tokens = await this.createSession(accountId, roles, permissions, purpose);
 
     return {
       id: accountId,

@@ -96,6 +96,7 @@
   --destructive: var(--color-error-text);
   --border: var(--color-neutral-200);
   --input: var(--color-neutral-200);
+  --input-autofill: var(--color-neutral-50);
   --ring: var(--color-primary-400);
   --chart-1: var(--color-primary-300);
   --chart-2: var(--color-primary-500);
@@ -138,6 +139,7 @@
   --destructive: #f87171;
   --border: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
   --input: color-mix(in oklab, var(--color-neutral-50) 15%, transparent);
+  --input-autofill: var(--color-neutral-800);
   --ring: var(--color-primary-500);
   --chart-1: var(--color-primary-300);
   --chart-2: var(--color-primary-500);
@@ -215,6 +217,7 @@
   --color-toast-foreground: var(--toast-foreground);
   --color-toast-description: var(--toast-description);
   --color-link-text: var(--link-text);
+  --color-input-autofill: var(--input-autofill);
 }
 
 @layer base {
