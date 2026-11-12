@@ -9,14 +9,14 @@ export class AccountRepository extends BaseRepository<PrismaClient> {
   public findById(id: string) {
     return this.db.account.findUnique({
       where: { id },
-      select: { id: true, email: true, passwordHash: true, roles: true },
+      select: { id: true, email: true, passwordHash: true, roles: true, permissions: true },
     });
   }
 
   public findByEmail(email: string) {
     return this.db.account.findUnique({
       where: { email },
-      select: { id: true, email: true, passwordHash: true, roles: true },
+      select: { id: true, email: true, passwordHash: true, roles: true, permissions: true },
     });
   }
 

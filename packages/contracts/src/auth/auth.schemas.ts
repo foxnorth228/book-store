@@ -3,7 +3,7 @@ import z from "zod";
 
 import { ZodCustomErrorCode } from "../utils/zod-custom-error-code.js";
 import { authContractConfig } from "./auth.config.js";
-import { AuthRole } from "./roles.js";
+import { AuthAction, AuthRole } from "./roles.js";
 
 export const emailSchema = z.string().trim().min(1).pipe(z.email());
 export const passwordSchema = z.string().trim().min(1).min(6);
@@ -93,5 +93,6 @@ export const authAccountRegisteredSchema = z.object({
 export const authJwtPayloadSchema = z.object({
   sub: z.string(),
   roles: z.array(z.enum(AuthRole)),
+  permissions: z.array(z.enum(AuthAction)),
   aud: z.string(),
 });

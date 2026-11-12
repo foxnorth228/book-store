@@ -1,6 +1,6 @@
 import { AuthRole } from "@org/contracts";
 
-import { Role } from "../../libs/prisma/client";
+import { Role } from "../prisma/client";
 
 export const mapPrismaRoleToAuthRole = (role: Role): AuthRole => {
   const authRoles = Object.values(AuthRole);

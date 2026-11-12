@@ -1,5 +1,5 @@
 import { AuthEvents, AuthRole } from "@org/contracts";
-import { Prisma, Role } from "../../libs/prisma/client";
+import { AccountPermission, Prisma, Role } from "../../libs/prisma/client";
 import { BaseService } from "@org/fastify";
 import { Languages } from "@org/localization";
 import { hashPassword, verifyPassword } from "@org/shared";
@@ -11,6 +11,7 @@ import { InvalidCredentialsError, UserAlreadyExistError } from "./account.errors
 import { AccountRepository } from "./account.repository";
 import { SessionService } from "./session.service";
 import { SessionPurpose } from "./session.type";
+import { mapAccountPermissionsToActions } from "../../libs/utils/to-auth-action";
 
 export class AccountService extends BaseService<AccountRepository> {
   protected readonly repositoryKey = accountConfig.repositoryName;
@@ -41,7 +42,7 @@ export class AccountService extends BaseService<AccountRepository> {
   async login(email: string, password: string) {
     const account = await this.validateCredentials(email, password);
 
-    return this.createSession(account.id, account.roles);
+    return this.createSession(account.id, account.roles, account.permissions);
   }
 
   async loginAdmin(email: string, password: string) {
@@ -53,7 +54,7 @@ export class AccountService extends BaseService<AccountRepository> {
       throw new InvalidCredentialsError("Invalid email or password");
     }
 
-    return this.createSession(account.id, account.roles, "admin");
+    return this.createSession(account.id, account.roles, account.permissions, "admin");
   }
 
   async register(email: string, password: string, language: Languages) {
@@ -89,11 +90,18 @@ export class AccountService extends BaseService<AccountRepository> {
   private async createSession(
     accountId: string,
     roles: { role: Role }[],
+    permissions: AccountPermission[],
     purpose: "user" | "admin" = "user",
   ) {
     const accountRoles = roles.map(({ role }) => mapPrismaRoleToAuthRole(role));
+    const accountPermissions = mapAccountPermissionsToActions(permissions);
 
-    const tokens = await this.sessionService.createSession(accountId, accountRoles, purpose);
+    const tokens = await this.sessionService.createSession(
+      accountId,
+      accountRoles,
+      accountPermissions,
+      purpose,
+    );
 
     return {
       id: accountId,

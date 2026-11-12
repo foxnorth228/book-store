@@ -12,6 +12,10 @@ export async function signIn(data: AuthLoginReq) {
   useSessionStore.getState().setData({
     accessToken: loginRes.data.accessToken,
     isAuthenticated: true,
-    user: { id: accessTokenData.sub, roles: accessTokenData.roles },
+    user: {
+      id: accessTokenData.sub,
+      roles: accessTokenData.roles,
+      permissions: accessTokenData.permissions,
+    },
   });
 }

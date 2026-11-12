@@ -1,4 +1,4 @@
-import { AuthRole } from "@org/contracts";
+import { AuthAction, AuthRole } from "@org/contracts";
 import { UnauthorizedError } from "@org/errors";
 import { BaseService } from "@org/fastify";
 import crypto from "crypto";
@@ -11,11 +11,17 @@ import { SessionPurpose } from "./session.type";
 export class SessionService extends BaseService<AccountRepository> {
   protected readonly repositoryKey = accountConfig.repositoryName;
 
-  async createSession(accountId: string, roles: AuthRole[], purpose: SessionPurpose = "user") {
+  async createSession(
+    accountId: string,
+    roles: AuthRole[],
+    permissions: AuthAction[],
+    purpose: SessionPurpose = "user",
+  ) {
     const accessToken = this.app.jwt.sign(
       {
         sub: accountId,
         roles,
+        permissions,
         aud: purpose,
       },
       {

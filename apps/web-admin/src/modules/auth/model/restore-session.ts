@@ -14,7 +14,11 @@ export async function restoreSession() {
     useSessionStore.getState().setData({
       accessToken: response.data.accessToken,
       isAuthenticated: true,
-      user: { id: accessTokenData.sub, roles: accessTokenData.roles },
+      user: {
+        id: accessTokenData.sub,
+        roles: accessTokenData.roles,
+        permissions: accessTokenData.permissions,
+      },
     });
   } catch (e) {
     if (e instanceof AppError && e.code !== 401) {

@@ -1,4 +1,4 @@
-import { AuthRole } from "@org/contracts";
+import { AuthAction, AuthRole } from "@org/contracts";
 import { create } from "zustand";
 
 interface SessionState {
@@ -6,6 +6,7 @@ interface SessionState {
     | {
         id: string;
         roles: AuthRole[];
+        permissions: AuthAction[];
       }
     | undefined;
   accessToken: string | undefined;
