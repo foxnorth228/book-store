@@ -22,7 +22,6 @@
   "dependencies": {
     "@fontsource-variable/figtree": "catalog:shadcn",
     "@tailwindcss/vite": "catalog:web",
-    "@tanstack/react-table": "catalog:react",
     "class-variance-authority": "catalog:shadcn",
     "clsx": "catalog:web",
     "cn": "^0.5.2",

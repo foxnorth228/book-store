@@ -64,7 +64,6 @@ export default defineConfig(() => ({
         /^@react-stately\/.*/,
         /^@react-types\/.*/,
         /^@internationalized\/.*/,
-        /^@tanstack\/.*/,
       ],
     },
   },

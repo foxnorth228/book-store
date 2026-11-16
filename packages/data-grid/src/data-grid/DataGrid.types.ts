@@ -4,6 +4,7 @@ export type DataGridProcessState = "client" | "server";
 export type DataGridColumnDef<TData extends RowData> = ColumnDef<TableFeatures, TData>;
 
 export interface DataGridSortingProps {
+  enabled: boolean;
   mode: DataGridProcessState;
 }
 
@@ -12,6 +13,6 @@ export interface DataGridOptionProps {
 }
 
 export interface DataGridProps<TData extends RowData> extends DataGridOptionProps {
-  data: TData[];
+  dataSource: TData[];
   columns: DataGridColumnDef<TData>[];
 }

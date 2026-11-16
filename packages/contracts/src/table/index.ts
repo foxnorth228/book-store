@@ -1,4 +1,4 @@
-export { SortOrder, FilterOperation } from "./table.types.js";
+export { SortOrder, FilterOperation, type TableResponseData } from "./table.types.js";
 export {
   SortOrderSchema,
   FilterOperationSchema,

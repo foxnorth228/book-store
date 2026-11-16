@@ -18,3 +18,4 @@ export { Collapsible } from "./components/ui/Collapsible";
 export { Sidebar } from "./components/ui/Sidebar";
 export { Typography } from "./components/ui/Typography";
 export { RouterProvider as ReactAriaRouterProvider } from "react-aria-components";
+export { Table } from "./components/ui/Table";

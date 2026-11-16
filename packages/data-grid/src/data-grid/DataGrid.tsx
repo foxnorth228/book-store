@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { flexRender, type RowData } from "@tanstack/react-table";
 
-import { Table } from "#components/ui/Table.js";
+import { Table } from "@org/ui";
 
 import { useDataGridTable } from "./useDataGridTable";
 import type { DataGridProps } from "./DataGrid.types";

@@ -18,3 +18,13 @@ export enum FilterOperation {
   IS_NULL = "isNull",
   IS_NOT_NULL = "isNotNull",
 }
+
+export type TableResponseData<T> = {
+  items: T;
+  pagination: {
+    page: number;
+    pageSize: number;
+    total: number;
+    totalPages: number;
+  };
+};

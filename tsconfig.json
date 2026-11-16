@@ -58,6 +58,9 @@
     },
     {
       "path": "./apps/web-admin"
+    },
+    {
+      "path": "./packages/data-grid"
     }
   ]
 }

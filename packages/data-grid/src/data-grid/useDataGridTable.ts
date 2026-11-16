@@ -9,7 +9,8 @@ export function useDataGridTable<TData extends RowData>(props: DataGridProps<TDa
 
   return useTable({
     features,
-    data: props.data,
+    data: props.dataSource,
     columns: props.columns,
+    enableSorting: props.sorting.enabled,
   });
 }

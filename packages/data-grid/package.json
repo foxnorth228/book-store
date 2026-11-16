@@ -1,0 +1,22 @@
+{
+  "name": "@org/data-grid",
+  "version": "0.0.1",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  },
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "dependencies": {
+    "@org/contracts": "workspace:*",
+    "@org/ui": "workspace:*",
+    "@tanstack/react-query": "catalog:react",
+    "@tanstack/react-table": "catalog:react",
+    "react": "catalog:react"
+  },
+  "devDependencies": {
+    "vite": "catalog:web"
+  }
+}
