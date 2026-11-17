@@ -12,8 +12,9 @@
   "dependencies": {
     "@org/contracts": "workspace:*",
     "@org/ui": "workspace:*",
-    "@tanstack/react-query": "catalog:react",
-    "@tanstack/react-table": "catalog:react",
+    "@tanstack/react-query": "catalog:tanstack",
+    "@tanstack/react-store": "catalog:tanstack",
+    "@tanstack/react-table": "catalog:tanstack",
     "react": "catalog:react"
   },
   "devDependencies": {
