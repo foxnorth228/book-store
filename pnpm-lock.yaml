@@ -648,6 +648,54 @@ importers:
         specifier: catalog:web-test
         version: 0.1.0(vitest@4.1.7)
 
+  apps/admin-service:
+    dependencies:
+      '@fastify/autoload':
+        specifier: catalog:fastify
+        version: 6.0.3
+      '@fastify/cookie':
+        specifier: catalog:fastify
+        version: 11.0.2
+      '@fastify/jwt':
+        specifier: catalog:fastify
+        version: 10.1.0
+      '@fastify/sensible':
+        specifier: catalog:fastify
+        version: 6.0.4
+      '@fastify/swagger':
+        specifier: catalog:fastify
+        version: 9.7.0(supports-color@8.1.1)
+      '@fastify/swagger-ui':
+        specifier: catalog:fastify
+        version: 5.2.6
+      '@org/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@org/errors':
+        specifier: workspace:*
+        version: link:../../packages/errors
+      '@org/fastify':
+        specifier: workspace:*
+        version: link:../../packages/fastify
+      '@org/fastify-plugins':
+        specifier: workspace:*
+        version: link:../../packages/fastify-plugins
+      '@org/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      fastify:
+        specifier: catalog:fastify
+        version: 5.8.5
+      fastify-plugin:
+        specifier: catalog:fastify
+        version: 6.0.0
+      pino:
+        specifier: catalog:fastify
+        version: 10.3.1
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
+
   apps/api-gateway:
     dependencies:
       '@fastify/autoload':

@@ -1,0 +1,126 @@
+{
+  "name": "@org/admin-service",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@fastify/autoload": "catalog:fastify",
+    "@fastify/cookie": "catalog:fastify",
+    "@fastify/jwt": "catalog:fastify",
+    "@fastify/sensible": "catalog:fastify",
+    "@fastify/swagger": "catalog:fastify",
+    "@fastify/swagger-ui": "catalog:fastify",
+    "@org/contracts": "workspace:*",
+    "@org/errors": "workspace:*",
+    "@org/fastify": "workspace:*",
+    "@org/fastify-plugins": "workspace:*",
+    "@org/shared": "workspace:*",
+    "fastify": "catalog:fastify",
+    "fastify-plugin": "catalog:fastify",
+    "pino": "catalog:fastify",
+    "zod": "catalog:"
+  },
+  "nx": {
+    "name": "admin-service",
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "dist/apps/admin-service",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "apps/admin-service/src/server.ts",
+          "tsConfig": "apps/admin-service/tsconfig.app.json",
+          "assets": [
+            "apps/admin-service/src/assets"
+          ],
+          "generatePackageJson": true,
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "generateLockfile": true,
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "prune-lockfile": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "executor": "@nx/js:prune-lockfile",
+        "outputs": [
+          "{workspaceRoot}/dist/apps/admin-service/package.json",
+          "{workspaceRoot}/dist/apps/admin-service/pnpm-lock.yaml"
+        ],
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "copy-workspace-modules": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "outputs": [
+          "{workspaceRoot}/dist/apps/admin-service/workspace_modules"
+        ],
+        "executor": "@nx/js:copy-workspace-modules",
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules"
+        ],
+        "executor": "nx:noop"
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "admin-service:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "admin-service:build:development"
+          },
+          "production": {
+            "buildTarget": "admin-service:build:production"
+          }
+        }
+      },
+      "docker:build": {
+        "dependsOn": [
+          "build",
+          "prune"
+        ]
+      }
+    }
+  }
+}
