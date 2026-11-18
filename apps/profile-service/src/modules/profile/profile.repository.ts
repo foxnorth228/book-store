@@ -1,5 +1,4 @@
 import { BaseRepository } from "@org/fastify";
-import { Languages } from "@org/localization";
 
 import { PrismaClient } from "../../libs/prisma/client";
 
@@ -18,12 +17,11 @@ export class ProfileRepository extends BaseRepository<PrismaClient> {
     });
   }
 
-  create(accountId: string, language: Languages) {
+  create(accountId: string, nickname: string) {
     return this.db.profile.create({
       data: {
         accountId,
-        nickname: "",
-        language,
+        nickname,
       },
     });
   }

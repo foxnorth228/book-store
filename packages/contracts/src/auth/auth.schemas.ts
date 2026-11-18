@@ -1,4 +1,3 @@
-import { languageSchema } from "@org/localization";
 import z from "zod";
 
 import { ZodCustomErrorCode } from "../utils/zod-custom-error-code.js";
@@ -27,7 +26,7 @@ export const authSchemas = {
         email: emailSchema,
         password: passwordSchema,
         confirmPassword: passwordSchema,
-        language: languageSchema,
+        nickname: z.string().trim().min(1),
       })
       .refine((data) => data.password === data.confirmPassword, {
         path: ["confirmPassword"],
@@ -87,7 +86,7 @@ export const authSchemas = {
 
 export const authAccountRegisteredSchema = z.object({
   accountId: z.uuid(),
-  language: languageSchema,
+  nickname: z.string().trim().min(1),
 });
 
 export const authJwtPayloadSchema = z.object({

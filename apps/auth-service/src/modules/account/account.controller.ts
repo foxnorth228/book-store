@@ -22,9 +22,9 @@ export class AccountController extends BaseController<AccountService> {
   }
 
   async register(request: FastifyRequest<{ Body: AuthRegisterReq }>) {
-    const { email, password, language } = request.body;
+    const { email, password, nickname } = request.body;
 
-    return this.service.register(email, password, language);
+    return this.service.register(email, password, nickname);
   }
 
   async refreshSession(request: FastifyRequest, reply: FastifyReply): Promise<AuthLoginRes> {

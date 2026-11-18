@@ -1,7 +1,6 @@
 import { AuthEvents, AuthRole } from "@org/contracts";
 import { AccountPermission, Prisma, Role } from "../../libs/prisma/client";
 import { BaseService } from "@org/fastify";
-import { Languages } from "@org/localization";
 import { hashPassword, verifyPassword } from "@org/shared";
 import { FastifyInstance } from "fastify";
 
@@ -62,7 +61,7 @@ export class AccountService extends BaseService<AccountRepository> {
     return this.createSession(account.id, account.roles, permissions, "admin");
   }
 
-  async register(email: string, password: string, language: Languages) {
+  async register(email: string, password: string, nickname: string) {
     const passwordHash = await hashPassword(password);
 
     try {
@@ -70,7 +69,7 @@ export class AccountService extends BaseService<AccountRepository> {
 
       await this.app.rabbitmq.publish(AuthEvents.exchange, AuthEvents.Registered, {
         accountId: account.id,
-        language,
+        nickname,
       });
 
       return { id: account.id, email: account.email };

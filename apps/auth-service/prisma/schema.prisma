@@ -61,3 +61,16 @@ model AccountPermission {
 
   @@id([accountId, permission])
 }
+
+model OutboxEvent {
+  id            String   @id @default(uuid())
+  aggregateId   String
+  aggregateType String
+  eventType     String
+  payload       Json
+
+  createdAt     DateTime @default(now())
+  publishedAt   DateTime?
+
+  @@index([publishedAt, createdAt])
+}

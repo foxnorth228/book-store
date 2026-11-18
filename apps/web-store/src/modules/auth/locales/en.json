@@ -62,9 +62,9 @@
           "mismatch": "Passwords does not match"
         }
       },
-      "language": {
-        "label": "Language",
-        "placeholder": "Choose your preferred language"
+      "nickname": {
+        "label": "Nickname",
+        "placeholder": "Input your nickname"
       }
     },
     "errors": {

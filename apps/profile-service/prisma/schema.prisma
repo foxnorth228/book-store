@@ -11,11 +11,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Language {
-  ru
-  en
-}
-
 model Profile {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -24,9 +19,6 @@ model Profile {
   accountId String   @unique
 
   firstName  String?
-  lastName   String?
-  middleName String?
+  surname    String?
   nickname   String
-
-  language  Language @default(en)
 }

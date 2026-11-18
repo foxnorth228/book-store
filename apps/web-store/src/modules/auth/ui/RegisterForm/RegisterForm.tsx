@@ -1,7 +1,5 @@
-import { localeOptions } from "@app/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authContracts, AuthErrorCodes, AuthRegisterReq } from "@org/contracts";
-import { Languages } from "@org/localization";
 import { handleError, isHttpAppError, RHFForm, RHFFormField } from "@shared/lib";
 import { PasswordInput } from "@shared/ui";
 import { FC, useState } from "react";
@@ -10,7 +8,7 @@ import { useT } from "next-i18next/client";
 import { AuthApi } from "../../api/auth.api";
 import { Description, Footer, FooterButtonLink, FormError, SubmitButton } from "../form-components";
 import { createRegisterFormZodErrorsMapper } from "./utils";
-import { Input, Select } from "@org/ui";
+import { Input } from "@org/ui";
 
 interface RegisterFormProps {
   onLogin: () => void;
@@ -50,7 +48,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ onLogin, onFinish }) => {
         email: "",
         password: "",
         confirmPassword: "",
-        language: Languages.En,
+        nickname: "",
       }}
     >
       <Description>{t((w) => w.registerModal.description)}</Description>
@@ -101,27 +99,16 @@ export const RegisterForm: FC<RegisterFormProps> = ({ onLogin, onFinish }) => {
       />
 
       <RHFFormField<AuthRegisterReq>
-        name="language"
-        label={t((w) => w.registerModal.fields.language.label)}
+        name="nickname"
+        label={t((w) => w.registerModal.fields.nickname.label)}
         render={({ field, additionalProps }) => (
-          <Select
-            placeholder={t((w) => w.registerModal.fields.language.placeholder)}
-            value={field.value}
-            onChange={field.onChange}
+          <Input
+            {...field}
             {...additionalProps}
-          >
-            <Select.Trigger>
-              <Select.Value />
-            </Select.Trigger>
-
-            <Select.Content>
-              {localeOptions(tc).map((option) => (
-                <Select.Item key={option.value} id={option.value}>
-                  {option.label}
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select>
+            type="email"
+            autoComplete="email"
+            placeholder={t((w) => w.registerModal.fields.nickname.placeholder)}
+          />
         )}
       />
 
