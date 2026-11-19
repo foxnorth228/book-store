@@ -18,11 +18,10 @@ export class ProfileRepository extends BaseRepository<PrismaClient> {
   }
 
   create(accountId: string, nickname: string) {
-    return this.db.profile.create({
-      data: {
-        accountId,
-        nickname,
-      },
+    return this.db.profile.upsert({
+      where: { accountId: accountId },
+      update: {},
+      create: { accountId: accountId, nickname: nickname },
     });
   }
 }

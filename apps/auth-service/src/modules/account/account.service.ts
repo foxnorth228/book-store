@@ -1,4 +1,4 @@
-import { AuthEvents, AuthRole } from "@org/contracts";
+import { AuthRole } from "@org/contracts";
 import { AccountPermission, Prisma, Role } from "../../libs/prisma/client";
 import { BaseService } from "@org/fastify";
 import { hashPassword, verifyPassword } from "@org/shared";
@@ -65,12 +65,7 @@ export class AccountService extends BaseService<AccountRepository> {
     const passwordHash = await hashPassword(password);
 
     try {
-      const account = await this.repository.create(email, passwordHash);
-
-      await this.app.rabbitmq.publish(AuthEvents.exchange, AuthEvents.Registered, {
-        accountId: account.id,
-        nickname,
-      });
+      const account = await this.repository.create(email, passwordHash, nickname);
 
       return { id: account.id, email: account.email };
     } catch (error) {

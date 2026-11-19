@@ -16,6 +16,9 @@
   ],
   "references": [
     {
+      "path": "../rabbitmq/tsconfig.lib.json"
+    },
+    {
       "path": "../errors/tsconfig.lib.json"
     },
     {

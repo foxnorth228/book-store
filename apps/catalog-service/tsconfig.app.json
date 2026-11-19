@@ -22,9 +22,6 @@
       "path": "../../packages/grpc/tsconfig.lib.json"
     },
     {
-      "path": "../../packages/fastify-plugins/tsconfig.lib.json"
-    },
-    {
       "path": "../../packages/fastify/tsconfig.lib.json"
     },
     {

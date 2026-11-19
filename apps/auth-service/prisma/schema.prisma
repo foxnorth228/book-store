@@ -63,14 +63,20 @@ model AccountPermission {
 }
 
 model OutboxEvent {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   aggregateId   String
   aggregateType String
   eventType     String
   payload       Json
 
-  createdAt     DateTime @default(now())
+  createdAt     DateTime  @default(now())
   publishedAt   DateTime?
 
-  @@index([publishedAt, createdAt])
+  attempts      Int       @default(0)
+  nextAttemptAt DateTime  @default(now())
+  lockedAt      DateTime?
+  lastError     String?
+  deadAt        DateTime?
+
+  @@index([publishedAt, nextAttemptAt])
 }

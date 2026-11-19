@@ -1295,6 +1295,9 @@ importers:
       '@org/errors':
         specifier: workspace:*
         version: link:../errors
+      '@org/rabbitmq':
+        specifier: workspace:*
+        version: link:../rabbitmq
       fastify:
         specifier: catalog:fastify
         version: 5.8.5

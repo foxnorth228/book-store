@@ -2,12 +2,18 @@ import { RabbitMQClient } from "@org/rabbitmq";
 import { getRabbitmqUrlByConfig } from "@org/shared";
 import fp from "fastify-plugin";
 
-const rabbitmqPlugin = fp(async (app) => {
-  const rabbitmqUrl = getRabbitmqUrlByConfig(app.config.env);
-  const rabbitmqClient = new RabbitMQClient({ url: rabbitmqUrl });
-  await rabbitmqClient.connect();
-  app.decorate("rabbitmq", rabbitmqClient);
-});
+const rabbitmqPlugin = fp(
+  async (app) => {
+    const client = new RabbitMQClient({
+      url: getRabbitmqUrlByConfig(app.config.env),
+      onError: (err) => app.log.error({ err }, "rabbitmq error"),
+    });
+    await client.connect();
+    app.decorate("rabbitmq", client);
+    app.addHook("onClose", async () => client.close());
+  },
+  { name: "rabbitmq" },
+);
 
 declare module "fastify" {
   interface FastifyInstance {

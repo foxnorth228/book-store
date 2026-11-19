@@ -1,5 +1,6 @@
 export const ProfileEvents = {
-  Registered: {
-    queue: "profile.auth.queue",
+  dlqKey: "profile-service.events-dlq",
+  registered: {
+    queue: "profile-service.auth-service.queue",
   },
 };

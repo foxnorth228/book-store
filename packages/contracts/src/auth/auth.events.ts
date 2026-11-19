@@ -1,4 +1,7 @@
 export const AuthEvents = {
-  exchange: "rift-hub.events",
-  Registered: "auth.registered",
+  dlxKey: "auth-service.events-dlx",
+  exchangeKey: "auth-service.events",
+  registered: {
+    route: "auth-service.registered",
+  },
 } as const;

@@ -19,6 +19,7 @@
     "@fastify/jwt": "catalog:fastify",
     "@org/contracts": "workspace:*",
     "@org/errors": "workspace:*",
+    "@org/rabbitmq": "workspace:*",
     "fastify": "catalog:fastify",
     "fastify-plugin": "catalog:fastify",
     "redis": "catalog:back",
