@@ -1234,9 +1234,6 @@ importers:
 
   packages/contracts:
     dependencies:
-      '@org/localization':
-        specifier: workspace:*
-        version: link:../localization
       tslib:
         specifier: 'catalog:'
         version: 2.8.1

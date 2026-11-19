@@ -94,7 +94,13 @@ export const authNotificationSendOtpCodeEventSchema = z.object({
   code: z.string().trim().min(1).max(6),
 });
 
-export const authAdminUserCreatedSchema = z.object({});
+export const authAdminUserUpdatedSchema = z.object({
+  accountId: z.uuid(),
+  email: emailSchema,
+  emailVerifiedAt: z.coerce.date().nullable(),
+  accountCreatedAt: z.coerce.date(),
+  accountUpdatedAt: z.coerce.date(),
+});
 
 export const authJwtPayloadSchema = z.object({
   sub: z.string(),

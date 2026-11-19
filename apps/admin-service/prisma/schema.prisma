@@ -10,3 +10,24 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model AdminUser {
+  accountId String @id
+
+  // Account (auth-service)
+  email            String?
+  emailVerifiedAt  DateTime?
+  accountCreatedAt DateTime?
+  accountUpdatedAt DateTime?
+
+  // Profile (profile-service)
+  firstName        String?
+  surname          String?
+  nickname         String?
+  profileUpdatedAt DateTime?
+
+  syncedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([nickname])
+}

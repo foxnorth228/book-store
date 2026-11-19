@@ -2,7 +2,7 @@ import { BaseRepository } from "@org/fastify";
 
 import { DATABASE_PATH_NAME } from "../../config/config";
 import { PrismaClient, Role } from "../../libs/prisma/client";
-import { AuthAccountRegisteredEventDto, AuthAdminUserCreatedDto, AuthEvents } from "@org/contracts";
+import { AuthAccountRegisteredEventDto, AuthAdminUserUpdatedDto, AuthEvents } from "@org/contracts";
 
 export class AccountRepository extends BaseRepository<PrismaClient> {
   protected readonly databaseKey = DATABASE_PATH_NAME;
@@ -42,12 +42,20 @@ export class AccountRepository extends BaseRepository<PrismaClient> {
         },
       });
 
+      const adminUserPayload: AuthAdminUserUpdatedDto = {
+        accountId: account.id,
+        email: account.email,
+        emailVerifiedAt: account.emailVerifiedAt,
+        accountCreatedAt: account.createdAt,
+        accountUpdatedAt: account.updatedAt,
+      };
+
       await tx.outboxEvent.create({
         data: {
           aggregateId: account.id,
           aggregateType: "Account",
-          eventType: AuthEvents.userCreated.route,
-          payload: {} as AuthAdminUserCreatedDto,
+          eventType: AuthEvents.adminUserUpdated.route,
+          payload: adminUserPayload,
         },
       });
 
