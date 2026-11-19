@@ -1,6 +1,6 @@
 export const NotificationEvents = {
   dlqKey: "notification-service.events-dlq",
-  passwordResetOtpRequested: {
+  auth: {
     queue: "notification-service.auth-service.queue",
   },
 };

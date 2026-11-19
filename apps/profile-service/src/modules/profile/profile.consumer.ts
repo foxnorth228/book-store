@@ -12,16 +12,16 @@ export async function registerProfileConsumers(app: FastifyInstance) {
   await app.rabbitmq.bindQueue(ProfileEvents.dlqKey, AuthEvents.dlxKey, "");
 
   await app.rabbitmq.assertExchange(AuthEvents.exchangeKey, "direct");
-  await app.rabbitmq.assertQueue(ProfileEvents.registered.queue, {
+  await app.rabbitmq.assertQueue(ProfileEvents.auth.queue, {
     deadLetterExchange: AuthEvents.dlxKey,
   });
   await app.rabbitmq.bindQueue(
-    ProfileEvents.registered.queue,
+    ProfileEvents.auth.queue,
     AuthEvents.exchangeKey,
     AuthEvents.registered.route,
   );
 
-  await app.rabbitmq.subscribe(ProfileEvents.registered.queue, async (message) => {
+  await app.rabbitmq.subscribe(ProfileEvents.auth.queue, async (message) => {
     if (message.fields.routingKey !== AuthEvents.registered.route) {
       throw new Error(`Unexpected routing key: ${message.fields.routingKey}`);
     }

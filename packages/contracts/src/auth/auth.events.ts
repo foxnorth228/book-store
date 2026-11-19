@@ -4,6 +4,9 @@ export const AuthEvents = {
   registered: {
     route: "auth-service.registered",
   },
+  userCreated: {
+    route: "auth-service.user-created",
+  },
   passwordResetOtpRequested: {
     route: "auth-service.passwordResetOtpRequested",
   },

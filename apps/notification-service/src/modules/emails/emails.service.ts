@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-import { AuthNotificationSendOtpCodeEventDTO } from "@org/contracts";
+import { AuthNotificationSendOtpCodeEventDto } from "@org/contracts";
 import { BaseService } from "@org/fastify";
 import { FastifyInstance } from "fastify";
 import Handlebars from "handlebars";
@@ -28,7 +28,7 @@ export class EmailsService extends BaseService<EmailsRepository> {
     });
   }
 
-  async sendEmailPasswordResetOtp(body: AuthNotificationSendOtpCodeEventDTO) {
+  async sendEmailPasswordResetOtp(body: AuthNotificationSendOtpCodeEventDto) {
     const html = await this.renderTemplate<EmailTemplateResetPasswordOtpBody>(
       emailsConfig.templates.passwordResetOtp,
       {

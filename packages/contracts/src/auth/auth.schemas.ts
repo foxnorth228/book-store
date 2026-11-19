@@ -94,6 +94,8 @@ export const authNotificationSendOtpCodeEventSchema = z.object({
   code: z.string().trim().min(1).max(6),
 });
 
+export const authAdminUserCreatedSchema = z.object({});
+
 export const authJwtPayloadSchema = z.object({
   sub: z.string(),
   roles: z.array(z.enum(AuthRole)),

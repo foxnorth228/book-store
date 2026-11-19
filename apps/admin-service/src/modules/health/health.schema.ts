@@ -16,6 +16,8 @@ export const healthResSchema = {
   additionalProperties: false,
   properties: {
     app: { ...healthResFieldSchema },
+    database: { ...healthResFieldSchema },
+    rabbitmq: { ...healthResFieldSchema },
   },
 };
 

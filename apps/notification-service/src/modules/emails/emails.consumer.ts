@@ -16,27 +16,24 @@ export async function registerEmailsConsumers(app: FastifyInstance) {
   await app.rabbitmq.bindQueue(NotificationEvents.dlqKey, AuthEvents.dlxKey, "");
 
   await app.rabbitmq.assertExchange(AuthEvents.exchangeKey, "direct");
-  await app.rabbitmq.assertQueue(NotificationEvents.passwordResetOtpRequested.queue, {
+  await app.rabbitmq.assertQueue(NotificationEvents.auth.queue, {
     deadLetterExchange: AuthEvents.dlxKey,
   });
   await app.rabbitmq.bindQueue(
-    NotificationEvents.passwordResetOtpRequested.queue,
+    NotificationEvents.auth.queue,
     AuthEvents.exchangeKey,
     AuthEvents.passwordResetOtpRequested.route,
   );
 
-  await app.rabbitmq.subscribe(
-    NotificationEvents.passwordResetOtpRequested.queue,
-    async (message) => {
-      if (message.fields.routingKey !== AuthEvents.passwordResetOtpRequested.route) {
-        throw new Error(`Unexpected routing key: ${message.fields.routingKey}`);
-      }
+  await app.rabbitmq.subscribe(NotificationEvents.auth.queue, async (message) => {
+    if (message.fields.routingKey !== AuthEvents.passwordResetOtpRequested.route) {
+      throw new Error(`Unexpected routing key: ${message.fields.routingKey}`);
+    }
 
-      const content = await authNotificationSendOtpCodeEventSchema.parseAsync(
-        JSON.parse(message.content.toString()),
-      );
+    const content = await authNotificationSendOtpCodeEventSchema.parseAsync(
+      JSON.parse(message.content.toString()),
+    );
 
-      await service.sendEmailPasswordResetOtp(content);
-    },
-  );
+    await service.sendEmailPasswordResetOtp(content);
+  });
 }

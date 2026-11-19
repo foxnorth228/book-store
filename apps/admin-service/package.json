@@ -13,6 +13,7 @@
     "@org/errors": "workspace:*",
     "@org/fastify": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
+    "@org/rabbitmq": "workspace:*",
     "@org/shared": "workspace:*",
     "fastify": "catalog:fastify",
     "fastify-plugin": "catalog:fastify",
@@ -30,7 +31,7 @@
         "defaultConfiguration": "production",
         "options": {
           "platform": "node",
-          "outputPath": "dist/apps/admin-service",
+          "outputPath": "apps/admin-service/dist",
           "format": [
             "cjs"
           ],
@@ -68,8 +69,8 @@
         "cache": true,
         "executor": "@nx/js:prune-lockfile",
         "outputs": [
-          "{workspaceRoot}/dist/apps/admin-service/package.json",
-          "{workspaceRoot}/dist/apps/admin-service/pnpm-lock.yaml"
+          "{workspaceRoot}/apps/admin-service/dist/package.json",
+          "{workspaceRoot}/apps/admin-service/dist/pnpm-lock.yaml"
         ],
         "options": {
           "buildTarget": "build"
@@ -81,17 +82,28 @@
         ],
         "cache": true,
         "outputs": [
-          "{workspaceRoot}/dist/apps/admin-service/workspace_modules"
+          "{workspaceRoot}/apps/admin-service/dist/workspace_modules"
         ],
         "executor": "@nx/js:copy-workspace-modules",
         "options": {
           "buildTarget": "build"
         }
       },
-      "prune": {
+      "generate-pnpm-workspace": {
         "dependsOn": [
           "prune-lockfile",
           "copy-workspace-modules"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node infrastructure/scripts/generate-docker-pnpm-workspace.mjs apps/admin-service/dist"
+        }
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules",
+          "generate-pnpm-workspace"
         ],
         "executor": "nx:noop"
       },
@@ -116,10 +128,32 @@
         }
       },
       "docker:build": {
+        "command": "docker build apps/admin-service --tag apps-admin-service",
         "dependsOn": [
           "build",
-          "prune"
+          "prune",
+          "generate-pnpm-workspace"
         ]
+      },
+      "docker:run": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "docker run --name apps-admin-service -p 3005:3005 --env-file {projectRoot}/.env apps-admin-service"
+        }
+      },
+      "global:prisma:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma generate --schema=apps/admin-service/prisma/schema.prisma"
+        }
+      },
+      "global:prisma:migrate:dev": {
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "{workspaceRoot}",
+          "command": "prisma migrate dev --schema=apps/admin-service/prisma/schema.prisma --config=apps/admin-service/prisma.config.ts"
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 import {
   authContractConfig,
   AuthEvents,
-  AuthNotificationSendOtpCodeEventDTO,
+  AuthNotificationSendOtpCodeEventDto,
   VerificationOTPCodePurpose,
 } from "@org/contracts";
 import { NotFoundError } from "@org/errors";
@@ -51,7 +51,7 @@ export class VerificationService extends BaseService<VerificationRepository> {
         authContractConfig.passwordOtpCode.length,
       );
 
-      await this.app.rabbitmq.publish<AuthNotificationSendOtpCodeEventDTO>(
+      await this.app.rabbitmq.publish<AuthNotificationSendOtpCodeEventDto>(
         AuthEvents.exchangeKey,
         AuthEvents.passwordResetOtpRequested.route,
         {
