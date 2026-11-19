@@ -89,6 +89,11 @@ export const authAccountRegisteredSchema = z.object({
   nickname: z.string().trim().min(1),
 });
 
+export const authNotificationSendOtpCodeEventSchema = z.object({
+  email: z.email(),
+  code: z.string().trim().min(1).max(6),
+});
+
 export const authJwtPayloadSchema = z.object({
   sub: z.string(),
   roles: z.array(z.enum(AuthRole)),

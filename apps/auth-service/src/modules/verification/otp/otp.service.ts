@@ -10,7 +10,6 @@ export class OtpService {
 
   async createOTPCode(purpose: VerificationOTPCodePurpose, userId: string, length?: number) {
     const newOTPCode = this.generateOTPCode(length);
-
     const otpCodeKey = this.getOTPRedisKey(purpose, userId);
 
     await this.app.redis.hSet(otpCodeKey, {

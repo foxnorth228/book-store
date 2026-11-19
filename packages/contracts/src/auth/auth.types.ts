@@ -1,7 +1,11 @@
 import { z } from "zod";
 
 import { authContracts } from "./auth.contracts.js";
-import { authAccountRegisteredSchema, authJwtPayloadSchema } from "./auth.schemas.js";
+import {
+  authAccountRegisteredSchema,
+  authJwtPayloadSchema,
+  authNotificationSendOtpCodeEventSchema,
+} from "./auth.schemas.js";
 
 export type AuthLoginReq = z.infer<typeof authContracts.login.body>;
 export type AuthLoginRes = z.infer<typeof authContracts.login.response>;
@@ -36,6 +40,9 @@ export type VerificationUpdatePasswordRes = z.infer<
 >;
 
 export type AuthAccountRegisteredEventDto = z.infer<typeof authAccountRegisteredSchema>;
+export type AuthNotificationSendOtpCodeEventDTO = z.infer<
+  typeof authNotificationSendOtpCodeEventSchema
+>;
 
 export type AuthJwtPayloadUserDto = z.infer<typeof authJwtPayloadSchema>;
 

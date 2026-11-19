@@ -4,4 +4,7 @@ export const AuthEvents = {
   registered: {
     route: "auth-service.registered",
   },
+  passwordResetOtpRequested: {
+    route: "auth-service.passwordResetOtpRequested",
+  },
 } as const;

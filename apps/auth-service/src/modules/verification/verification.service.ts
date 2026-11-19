@@ -1,7 +1,7 @@
 import {
   authContractConfig,
-  NotificationAuthSendOtpCodeEventDTO,
-  NotificationEvents,
+  AuthEvents,
+  AuthNotificationSendOtpCodeEventDTO,
   VerificationOTPCodePurpose,
 } from "@org/contracts";
 import { NotFoundError } from "@org/errors";
@@ -14,6 +14,8 @@ import { OtpService } from "./otp/otp.service";
 import { ResetTokenService } from "./reset-token/reset-token.service";
 import { verificationConfig } from "./verification.config";
 import { VerificationRepository } from "./verification.repository";
+import { randomUUID } from "node:crypto";
+import { otpConfig } from "./otp/otp.config";
 
 export class VerificationService extends BaseService<VerificationRepository> {
   protected readonly repositoryKey = verificationConfig.repositoryName;
@@ -49,12 +51,17 @@ export class VerificationService extends BaseService<VerificationRepository> {
         authContractConfig.passwordOtpCode.length,
       );
 
-      await this.app.rabbitmq.publish<NotificationAuthSendOtpCodeEventDTO>(
-        NotificationEvents.exchange,
-        NotificationEvents.PasswordResetOtpRequested.routingKey,
+      await this.app.rabbitmq.publish<AuthNotificationSendOtpCodeEventDTO>(
+        AuthEvents.exchangeKey,
+        AuthEvents.passwordResetOtpRequested.route,
         {
           email: user.email,
           code: code,
+        },
+        {
+          messageId: randomUUID(),
+          expiration: String(otpConfig.codeTimeLimit * 1000),
+          persistent: false,
         },
       );
     } catch (e) {

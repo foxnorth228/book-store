@@ -26,7 +26,9 @@ export async function registerProfileConsumers(app: FastifyInstance) {
       throw new Error(`Unexpected routing key: ${message.fields.routingKey}`);
     }
 
-    const content = authAccountRegisteredSchema.parse(JSON.parse(message.content.toString()));
+    const content = await authAccountRegisteredSchema.parseAsync(
+      JSON.parse(message.content.toString()),
+    );
 
     await service.createProfile(content.accountId, content.nickname);
   });
