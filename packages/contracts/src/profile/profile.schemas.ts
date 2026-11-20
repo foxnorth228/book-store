@@ -11,8 +11,9 @@ export const profileSchemas = {
 };
 
 export const profileAdminUserUpdatedSchema = z.object({
-  firstName: z.string().optional(),
-  surname: z.string().optional(),
+  accountId: z.uuid(),
+  firstName: z.string().nullable(),
+  surname: z.string().nullable(),
   nickname: z.string(),
   profileUpdatedAt: z.coerce.date(),
 });

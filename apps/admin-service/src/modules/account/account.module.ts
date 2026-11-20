@@ -5,11 +5,16 @@ import { AccountController } from "./account.controller.js";
 import { accountRoutes } from "./account.routes.js";
 import { accountSchemas } from "./account.schema.js";
 import { AccountService } from "./account.service.js";
+import { AccountRepository } from "./account.repository.js";
+import { registerAuthConsumers, registerProfileConsumers } from "./account.consumer.js";
 
 async function AccountModule(app: FastifyInstance) {
   app.decorate(accountConfig.serviceName, new AccountService(app));
-
+  app.decorate(accountConfig.repositoryName, new AccountRepository(app));
   app.decorate(accountConfig.controllerName, new AccountController(app));
+
+  await registerAuthConsumers(app);
+  await registerProfileConsumers(app);
 
   for (const schema of accountSchemas) {
     app.addSchema(schema);

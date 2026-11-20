@@ -3,4 +3,7 @@ export const AdminEvents = {
   auth: {
     queue: "admin-service.auth-service.queue",
   },
+  profile: {
+    queue: "admin-service.profile-service.queue",
+  },
 } as const;

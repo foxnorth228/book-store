@@ -22,3 +22,22 @@ model Profile {
   surname    String?
   nickname   String
 }
+
+model OutboxEvent {
+  id            String    @id @default(uuid())
+  aggregateId   String
+  aggregateType String
+  eventType     String
+  payload       Json
+
+  createdAt     DateTime  @default(now())
+  publishedAt   DateTime?
+
+  attempts      Int       @default(0)
+  nextAttemptAt DateTime  @default(now())
+  lockedAt      DateTime?
+  lastError     String?
+  deadAt        DateTime?
+
+  @@index([publishedAt, nextAttemptAt])
+}

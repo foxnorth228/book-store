@@ -5,5 +5,7 @@ export const ProfileEvents = {
   auth: {
     queue: "profile-service.auth-service.queue",
   },
-  profileUpdated: {},
+  adminProfileUpdated: {
+    route: "profile.service.profile-updated",
+  },
 };

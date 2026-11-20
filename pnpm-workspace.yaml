@@ -95,7 +95,7 @@ catalogs:
     lucide-react: "^1.31.0"
     react-router: "^8.2.0"
     react-hook-form: "^7.82.0"
-    next: "~16.4.3"
+    next: "~16.4.6"
     next-i18next: ^16.4.3
   tanstack:
     '@tanstack/react-router': ^1.170.46
