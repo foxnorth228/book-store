@@ -10,6 +10,7 @@
   "dependencies": {
     "@org/access-control": "workspace:*",
     "@org/contracts": "workspace:*",
+    "@org/data-grid": "workspace:*",
     "@org/errors": "workspace:*",
     "@org/http": "workspace:*",
     "@org/localization": "workspace:*",

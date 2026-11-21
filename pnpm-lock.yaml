@@ -1041,6 +1041,9 @@ importers:
       '@org/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@org/data-grid':
+        specifier: workspace:*
+        version: link:../../packages/data-grid
       '@org/errors':
         specifier: workspace:*
         version: link:../../packages/errors

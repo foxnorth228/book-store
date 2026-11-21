@@ -3,11 +3,11 @@ import { flexRender, type RowData } from "@tanstack/react-table";
 
 import { Table } from "@org/ui";
 
-import { useDataGridTable } from "./useDataGridTable";
-import type { DataGridProps } from "./DataGrid.types";
+import { useDataGrid } from "../hooks/useDataGridTable";
+import type { DataGridProps } from "../types/data-grid-props";
 
 function DataGridComponent<TData extends RowData>(props: DataGridProps<TData>) {
-  const table = useDataGridTable(props);
+  const table = useDataGrid(props);
 
   return (
     <Table>

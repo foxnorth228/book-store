@@ -49,7 +49,7 @@ export default defineConfig(() => ({
     rolldownOptions: {
       plugins: [
         esmExternalRequirePlugin({
-          external: ["react", "react-dom", "react/jsx-runtime"],
+          external: ["react", "react-dom", "react/jsx-runtime", /^@tanstack\/.*/],
         }),
       ],
       output: {

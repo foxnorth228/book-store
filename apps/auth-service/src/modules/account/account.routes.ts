@@ -54,7 +54,6 @@ export async function accountRoutes(module: FastifyInstance) {
       return;
     },
     handler: async (request: FastifyRequest<{ Body: AuthRegisterReq }>) => {
-      console.log("register");
       return accountController.register(request);
     },
   });

@@ -3,17 +3,19 @@ import { useMemo, useState } from "react";
 import { TablePagination, TableQuery, TableResponseData, TableSort } from "@org/contracts";
 import { useQuery, UseQueryOptions, type QueryKey } from "@tanstack/react-query";
 
-export interface DataGridSourceProps<TData extends RowData> {
+export interface DataGridSourceStateProps<TData extends RowData> {
   queryKey: QueryKey;
   queryFn: (
     params: TableQuery & {
-      signal: AbortSignal;
+      signal?: AbortSignal;
     },
   ) => Promise<TableResponseData<TData>>;
-  options: Omit<UseQueryOptions<TableResponseData<TData>, Error>, "queryKey" | "queryFn">;
+  options?: Omit<UseQueryOptions<TableResponseData<TData>, Error>, "queryKey" | "queryFn">;
 }
 
-export function useDataGridSource<TData extends RowData>(props: DataGridSourceProps<TData>) {
+export function useDataGridSourceState<TData extends RowData>(
+  props: DataGridSourceStateProps<TData>,
+) {
   const [sorting, setSorting] = useState<TableSort[]>([]);
   const [pagination, setPagination] = useState<TablePagination>({
     page: 1,
@@ -35,10 +37,10 @@ export function useDataGridSource<TData extends RowData>(props: DataGridSourcePr
         ...params,
         signal,
       }),
-    ...props.options,
+    ...(props.options ?? {}),
   });
 
-  return { ...query, sorting, setSorting, pagination, setPagination };
+  return { data: query.data, sorting, setSorting, pagination, setPagination };
 }
 
-export type DataGridSource = ReturnType<typeof useDataGridSource>;
+export type DataGridSourceState = ReturnType<typeof useDataGridSourceState>;

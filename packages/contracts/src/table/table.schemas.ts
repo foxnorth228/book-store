@@ -34,10 +34,10 @@ export const TableResponseSchema = <T extends z.ZodType>(itemSchema: T) =>
     items: z.array(itemSchema),
 
     pagination: z.object({
-      page: z.number().int(),
-      pageSize: z.number().int(),
-      total: z.number().int(),
-      totalPages: z.number().int(),
+      page: z.number().int().min(1).meta({ example: 1 }),
+      pageSize: z.number().int().min(1).max(100).meta({ example: 20 }),
+      total: z.number().int().min(0).meta({ example: 134 }),
+      totalPages: z.number().int().min(0).meta({ example: 7 }),
     }),
   });
 

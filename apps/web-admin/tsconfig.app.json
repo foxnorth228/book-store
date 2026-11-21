@@ -59,6 +59,9 @@
       "path": "../../packages/errors/tsconfig.lib.json"
     },
     {
+      "path": "../../packages/data-grid/tsconfig.lib.json"
+    },
+    {
       "path": "../../packages/contracts/tsconfig.lib.json"
     },
     {

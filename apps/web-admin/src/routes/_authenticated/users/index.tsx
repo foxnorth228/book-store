@@ -1,5 +1,6 @@
 import { routeConfig } from "@app/routing";
 import { checkRequiredRoutePermission } from "@modules/auth";
+import { UsersTable } from "@modules/users";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_authenticated/users/")({
@@ -10,5 +11,5 @@ export const Route = createFileRoute("/_authenticated/users/")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/_authenticated/users/"!</div>;
+  return <UsersTable />;
 }

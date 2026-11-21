@@ -2,7 +2,11 @@ import { BaseService } from "@org/fastify";
 
 import { accountConfig } from "./account.config";
 import { AccountRepository } from "./account.repository";
-import { AuthAdminUserUpdatedDto, ProfileAdminUserUpdatedDto } from "@org/contracts";
+import {
+  AdminUsersListQuery,
+  AuthAdminUserUpdatedDto,
+  ProfileAdminUserUpdatedDto,
+} from "@org/contracts";
 
 export class AccountService extends BaseService<AccountRepository> {
   protected readonly repositoryKey = accountConfig.repositoryName;
@@ -13,5 +17,9 @@ export class AccountService extends BaseService<AccountRepository> {
 
   async applyProfileSnapshots(data: ProfileAdminUserUpdatedDto[]) {
     return await this.repository.applyProfileSnapshots(data);
+  }
+
+  async getUsersList(params: AdminUsersListQuery) {
+    return await this.repository.getUsersList(params);
   }
 }
