@@ -40,9 +40,6 @@
   "exclude": ["node_modules", "jest.config.ts", "jest.config.cts", "**/*.spec.ts", "**/*.test.ts"],
   "references": [
     {
-      "path": "../../packages/ui"
-    },
-    {
       "path": "../../packages/shared"
     },
     {
@@ -58,7 +55,7 @@
       "path": "../../packages/contracts"
     },
     {
-      "path": "../../packages/access-control"
+      "path": "../../packages/ui"
     }
   ]
 }

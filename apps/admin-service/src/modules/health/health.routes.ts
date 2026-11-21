@@ -7,6 +7,9 @@ export async function healthRoutes(module: FastifyInstance) {
   const healthController = module.getDecorator<HealthController>(healthConfig.controllerName);
 
   module.route({
+    config: {
+      access: { public: true },
+    },
     method: "GET",
     url: healthConfig.urls.health,
     schema: {

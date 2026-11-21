@@ -21,31 +21,34 @@ import {
 
 export const protobufPackage = "auth";
 
-export interface ValidateTokenRequest {
-  token: string;
+export interface CheckPermissionRequest {
+  accountId: string;
+  permission: string;
 }
 
-export interface ValidateTokenResponse {
-  valid: boolean;
-  userId: string;
+export interface CheckPermissionResponse {
+  allowed: boolean;
 }
 
-function createBaseValidateTokenRequest(): ValidateTokenRequest {
-  return { token: "" };
+function createBaseCheckPermissionRequest(): CheckPermissionRequest {
+  return { accountId: "", permission: "" };
 }
 
-export const ValidateTokenRequest: MessageFns<ValidateTokenRequest> = {
-  encode(message: ValidateTokenRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.token !== "") {
-      writer.uint32(10).string(message.token);
+export const CheckPermissionRequest: MessageFns<CheckPermissionRequest> = {
+  encode(message: CheckPermissionRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.accountId !== "") {
+      writer.uint32(10).string(message.accountId);
+    }
+    if (message.permission !== "") {
+      writer.uint32(18).string(message.permission);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): ValidateTokenRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): CheckPermissionRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     const end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseValidateTokenRequest();
+    const message = createBaseCheckPermissionRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -54,7 +57,15 @@ export const ValidateTokenRequest: MessageFns<ValidateTokenRequest> = {
             break;
           }
 
-          message.token = reader.string();
+          message.accountId = reader.string();
+          continue;
+        }
+        case 2: {
+          if (tag !== 18) {
+            break;
+          }
+
+          message.permission = reader.string();
           continue;
         }
       }
@@ -66,47 +77,55 @@ export const ValidateTokenRequest: MessageFns<ValidateTokenRequest> = {
     return message;
   },
 
-  fromJSON(object: any): ValidateTokenRequest {
-    return { token: isSet(object.token) ? globalThis.String(object.token) : "" };
+  fromJSON(object: any): CheckPermissionRequest {
+    return {
+      accountId: isSet(object.accountId)
+        ? globalThis.String(object.accountId)
+        : isSet(object.account_id)
+        ? globalThis.String(object.account_id)
+        : "",
+      permission: isSet(object.permission) ? globalThis.String(object.permission) : "",
+    };
   },
 
-  toJSON(message: ValidateTokenRequest): unknown {
+  toJSON(message: CheckPermissionRequest): unknown {
     const obj: any = {};
-    if (message.token !== "") {
-      obj.token = message.token;
+    if (message.accountId !== "") {
+      obj.accountId = message.accountId;
+    }
+    if (message.permission !== "") {
+      obj.permission = message.permission;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<ValidateTokenRequest>, I>>(base?: I): ValidateTokenRequest {
-    return ValidateTokenRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CheckPermissionRequest>, I>>(base?: I): CheckPermissionRequest {
+    return CheckPermissionRequest.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<ValidateTokenRequest>, I>>(object: I): ValidateTokenRequest {
-    const message = createBaseValidateTokenRequest();
-    message.token = object.token ?? "";
+  fromPartial<I extends Exact<DeepPartial<CheckPermissionRequest>, I>>(object: I): CheckPermissionRequest {
+    const message = createBaseCheckPermissionRequest();
+    message.accountId = object.accountId ?? "";
+    message.permission = object.permission ?? "";
     return message;
   },
 };
 
-function createBaseValidateTokenResponse(): ValidateTokenResponse {
-  return { valid: false, userId: "" };
+function createBaseCheckPermissionResponse(): CheckPermissionResponse {
+  return { allowed: false };
 }
 
-export const ValidateTokenResponse: MessageFns<ValidateTokenResponse> = {
-  encode(message: ValidateTokenResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.valid !== false) {
-      writer.uint32(8).bool(message.valid);
-    }
-    if (message.userId !== "") {
-      writer.uint32(18).string(message.userId);
+export const CheckPermissionResponse: MessageFns<CheckPermissionResponse> = {
+  encode(message: CheckPermissionResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.allowed !== false) {
+      writer.uint32(8).bool(message.allowed);
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): ValidateTokenResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): CheckPermissionResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     const end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseValidateTokenResponse();
+    const message = createBaseCheckPermissionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -115,15 +134,7 @@ export const ValidateTokenResponse: MessageFns<ValidateTokenResponse> = {
             break;
           }
 
-          message.valid = reader.bool();
-          continue;
-        }
-        case 2: {
-          if (tag !== 18) {
-            break;
-          }
-
-          message.userId = reader.string();
+          message.allowed = reader.bool();
           continue;
         }
       }
@@ -135,68 +146,62 @@ export const ValidateTokenResponse: MessageFns<ValidateTokenResponse> = {
     return message;
   },
 
-  fromJSON(object: any): ValidateTokenResponse {
-    return {
-      valid: isSet(object.valid) ? globalThis.Boolean(object.valid) : false,
-      userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
-    };
+  fromJSON(object: any): CheckPermissionResponse {
+    return { allowed: isSet(object.allowed) ? globalThis.Boolean(object.allowed) : false };
   },
 
-  toJSON(message: ValidateTokenResponse): unknown {
+  toJSON(message: CheckPermissionResponse): unknown {
     const obj: any = {};
-    if (message.valid !== false) {
-      obj.valid = message.valid;
-    }
-    if (message.userId !== "") {
-      obj.userId = message.userId;
+    if (message.allowed !== false) {
+      obj.allowed = message.allowed;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<ValidateTokenResponse>, I>>(base?: I): ValidateTokenResponse {
-    return ValidateTokenResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<CheckPermissionResponse>, I>>(base?: I): CheckPermissionResponse {
+    return CheckPermissionResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<ValidateTokenResponse>, I>>(object: I): ValidateTokenResponse {
-    const message = createBaseValidateTokenResponse();
-    message.valid = object.valid ?? false;
-    message.userId = object.userId ?? "";
+  fromPartial<I extends Exact<DeepPartial<CheckPermissionResponse>, I>>(object: I): CheckPermissionResponse {
+    const message = createBaseCheckPermissionResponse();
+    message.allowed = object.allowed ?? false;
     return message;
   },
 };
 
 export type AuthServiceService = typeof AuthServiceService;
 export const AuthServiceService = {
-  validateToken: {
-    path: "/auth.AuthService/ValidateToken" as const,
+  checkPermission: {
+    path: "/auth.AuthService/CheckPermission" as const,
     requestStream: false as const,
     responseStream: false as const,
-    requestSerialize: (value: ValidateTokenRequest): Buffer => Buffer.from(ValidateTokenRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer): ValidateTokenRequest => ValidateTokenRequest.decode(value),
-    responseSerialize: (value: ValidateTokenResponse): Buffer =>
-      Buffer.from(ValidateTokenResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer): ValidateTokenResponse => ValidateTokenResponse.decode(value),
+    requestSerialize: (value: CheckPermissionRequest): Buffer =>
+      Buffer.from(CheckPermissionRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): CheckPermissionRequest => CheckPermissionRequest.decode(value),
+    responseSerialize: (value: CheckPermissionResponse): Buffer =>
+      Buffer.from(CheckPermissionResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): CheckPermissionResponse => CheckPermissionResponse.decode(value),
   },
 } as const;
 
 export interface AuthServiceServer extends UntypedServiceImplementation {
-  validateToken: handleUnaryCall<ValidateTokenRequest, ValidateTokenResponse>;
+  checkPermission: handleUnaryCall<CheckPermissionRequest, CheckPermissionResponse>;
 }
 
 export interface AuthServiceClient extends Client {
-  validateToken(
-    request: ValidateTokenRequest,
-    callback: (error: ServiceError | null, response: ValidateTokenResponse) => void,
+  checkPermission(
+    request: CheckPermissionRequest,
+    callback: (error: ServiceError | null, response: CheckPermissionResponse) => void,
   ): ClientUnaryCall;
-  validateToken(
-    request: ValidateTokenRequest,
+  checkPermission(
+    request: CheckPermissionRequest,
     metadata: Metadata,
-    callback: (error: ServiceError | null, response: ValidateTokenResponse) => void,
+    callback: (error: ServiceError | null, response: CheckPermissionResponse) => void,
   ): ClientUnaryCall;
-  validateToken(
-    request: ValidateTokenRequest,
+  checkPermission(
+    request: CheckPermissionRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: ValidateTokenResponse) => void,
+    callback: (error: ServiceError | null, response: CheckPermissionResponse) => void,
   ): ClientUnaryCall;
 }
 

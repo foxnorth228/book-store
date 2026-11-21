@@ -13,6 +13,7 @@
     "@org/errors": "workspace:*",
     "@org/fastify": "workspace:*",
     "@org/fastify-plugins": "workspace:*",
+    "@org/grpc": "workspace:*",
     "@org/rabbitmq": "workspace:*",
     "@org/shared": "workspace:*",
     "fastify": "catalog:fastify",

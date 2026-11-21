@@ -4,7 +4,10 @@ import { z } from "zod";
 export const PATH_TO_PROJECT = "apps/admin-service";
 export const DATABASE_PATH_NAME = "prisma";
 
-export const adminServiceEnvSchema = z.object({});
+export const adminServiceEnvSchema = z.object({
+  GRPC_AUTH_HOST: z.coerce.string(),
+  GRPC_AUTH_PORT: z.coerce.number(),
+});
 
 export type AdminServiceEnvSchema = typeof adminServiceEnvSchema;
 export type AdminServiceEnvConfig = z.infer<AdminServiceEnvSchema>;

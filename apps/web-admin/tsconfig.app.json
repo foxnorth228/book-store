@@ -63,9 +63,6 @@
     },
     {
       "path": "../../packages/contracts/tsconfig.lib.json"
-    },
-    {
-      "path": "../../packages/access-control/tsconfig.lib.json"
     }
   ]
 }

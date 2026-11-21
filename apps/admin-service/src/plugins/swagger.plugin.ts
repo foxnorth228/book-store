@@ -3,18 +3,33 @@ import swaggerUi from "@fastify/swagger-ui";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 
-export default fp(async function (fastify: FastifyInstance) {
-  await fastify.register(swagger, {
-    openapi: {
-      info: {
-        title: "Authorization Service API",
-        description: "Rifthub authorization service",
-        version: "1.0.0",
+export default fp(
+  async function (fastify: FastifyInstance) {
+    await fastify.register(swagger, {
+      openapi: {
+        info: {
+          title: "Authorization Service API",
+          description: "Rifthub authorization service",
+          version: "1.0.0",
+        },
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              type: "http",
+              scheme: "bearer",
+              bearerFormat: "JWT",
+            },
+          },
+        },
       },
-    },
-  });
+    });
 
-  await fastify.register(swaggerUi, {
-    routePrefix: `/docs`,
-  });
-});
+    await fastify.register(swaggerUi, {
+      routePrefix: `/docs`,
+      uiConfig: {
+        persistAuthorization: true,
+      },
+    });
+  },
+  { name: "swagger" },
+);

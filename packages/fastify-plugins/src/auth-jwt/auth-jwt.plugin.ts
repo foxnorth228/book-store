@@ -1,5 +1,6 @@
 import jwt, { FastifyJWTOptions } from "@fastify/jwt";
 import { authJwtPayloadSchema, AuthJwtPayloadUserDto } from "@org/contracts";
+import { UnauthorizedError } from "@org/errors";
 import { FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
 
@@ -10,9 +11,13 @@ export const createJwtPlugin = (options: FastifyJWTOptions) => {
     });
 
     app.decorate("authenticate", async function (request: FastifyRequest) {
-      await request.jwtVerify();
-
-      authJwtPayloadSchema.parse(request.user);
+      try {
+        await request.jwtVerify();
+        authJwtPayloadSchema.parse(request.user);
+      } catch (err) {
+        request.log.debug({ err }, "authentication failed");
+        throw new UnauthorizedError("Unauthorized");
+      }
     });
   });
 };

@@ -42,9 +42,6 @@
       "path": "./apps/catalog-service"
     },
     {
-      "path": "./packages/access-control"
-    },
-    {
       "path": "./infrastructure/custom-generators"
     },
     {

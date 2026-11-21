@@ -680,6 +680,9 @@ importers:
       '@org/fastify-plugins':
         specifier: workspace:*
         version: link:../../packages/fastify-plugins
+      '@org/grpc':
+        specifier: workspace:*
+        version: link:../../packages/grpc
       '@org/rabbitmq':
         specifier: workspace:*
         version: link:../../packages/rabbitmq
@@ -1035,9 +1038,6 @@ importers:
 
   apps/web-admin:
     dependencies:
-      '@org/access-control':
-        specifier: workspace:*
-        version: link:../../packages/access-control
       '@org/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
@@ -1147,9 +1147,6 @@ importers:
       '@hookform/resolvers':
         specifier: catalog:web
         version: 5.4.0(react-hook-form@7.82.0(react@19.2.6))
-      '@org/access-control':
-        specifier: workspace:*
-        version: link:../../packages/access-control
       '@org/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
@@ -1224,15 +1221,6 @@ importers:
         version: 23.1.1(nx@23.1.1(@swc-node/register@1.11.1(@swc/core@1.15.8(@swc/helpers@0.5.18))(@swc/types@0.1.26)(supports-color@8.1.1)(typescript@5.9.3))(@swc/core@1.15.8(@swc/helpers@0.5.18)))
       tslib:
         specifier: ^2.3.0
-        version: 2.8.1
-
-  packages/access-control:
-    dependencies:
-      '@org/contracts':
-        specifier: workspace:*
-        version: link:../contracts
-      tslib:
-        specifier: 'catalog:'
         version: 2.8.1
 
   packages/contracts:

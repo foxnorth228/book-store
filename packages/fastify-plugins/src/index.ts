@@ -4,3 +4,4 @@ export * from "./error-handler/error-handler.plugin.js";
 export * from "./prisma/prisma.plugin.js";
 export * from "./redis/redis.plugin.js";
 export * from "./outbox/index.js";
+export * from "./access-control/access-control.plugin.js";
